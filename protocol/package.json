@@ -1,5 +1,5 @@
 {
-  "name": "@beanstalk/protocol",
+  "name": "protocol",
   "version": "2.7.1",
   "description": "Beanstalk is a permissionless fiat stablecoin protocol built on Ethereum.",
   "repository": {
