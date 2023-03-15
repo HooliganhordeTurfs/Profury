@@ -2,8 +2,7 @@ import React from 'react';
 import { Stack, Typography, StackProps } from '@mui/material';
 
 import { FC } from '~/types';
-import { BeanstalkPalette } from '~/components/App/muiTheme';
-import { hexToRgba } from '~/util/UI';
+import { hexToRgba, BeanstalkPalette } from '~/components/App/muiTheme';
 
 const BlurComponent : FC<StackProps & { blur?: number; opacity?: number }> = ({ children, opacity = 0.4, blur = 8, sx }) => (
   <Stack

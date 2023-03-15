@@ -2,6 +2,7 @@ import { Stack } from '@mui/material';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import PlotInputField from '~/components/Common/Form/PlotInputField';
 import TransactionToast from '~/components/Common/TxnToast';
@@ -17,7 +18,7 @@ import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import useChainConstant from '~/hooks/chain/useChainConstant';
 import { useSigner } from '~/hooks/ledger/useSigner';
-import { PlotMap } from '~/util';
+import { parseError, PlotMap } from '~/util';
 import { FarmToMode } from '~/lib/Beanstalk/Farm';
 import { BEAN, PODS } from '~/constants/tokens';
 import { ZERO_BN } from '~/constants';
@@ -70,6 +71,7 @@ const FillOrderV2Form: FC<
     numEligiblePlots > 0
     && plot.index
     && plot.amount?.gt(0)
+    && values.destination
   );
 
   return (
@@ -116,7 +118,7 @@ const FillOrderV2Form: FC<
         )}
         <SmartSubmitButton
           loading={isSubmitting}
-          disabled={!(isReady && values.destination)}
+          disabled={!isReady}
           type="submit"
           variant="contained"
           color="primary"
@@ -229,12 +231,7 @@ const FillOrderForm: FC<{ podOrder: PodOrder }> = ({ podOrder }) => {
       // Return to market index, open Your Orders
       navigate('/market/sell');
     } catch (err) {
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast?.error(err) || toast.error(parseError(err));
     } finally {
       formActions.setSubmitting(false);
     }

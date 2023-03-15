@@ -1,11 +1,10 @@
 import React from 'react';
-import { Token } from '@beanstalk/sdk';
-import TokenOld from '~/classes/Token';
+import Token from '~/classes/Token';
 
 import { FC } from '~/types';
 
-const TokenIcon: FC<{
-  token: Token | TokenOld;
+const TokenIcon : FC<{
+  token: Token;
   logoOverride?: string;
   css?: any;
 }> = ({ token, logoOverride, ...props }) => (
@@ -14,7 +13,7 @@ const TokenIcon: FC<{
     alt={token.symbol}
     css={{
       height: '1em',
-      width: 'auto',
+      width: 'auto'
     }}
     {...props}
   />

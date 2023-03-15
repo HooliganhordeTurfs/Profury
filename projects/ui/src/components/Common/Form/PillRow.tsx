@@ -7,8 +7,7 @@ import Row from '~/components/Common/Row';
 import { FC } from '~/types';
 
 const PillRow : FC<{
-  label: string | JSX.Element;
-  infoLabel?: string | JSX.Element;
+  label: string;
   tooltip?: string;
   isOpen?: boolean;
   onClick: () => void;
@@ -16,7 +15,6 @@ const PillRow : FC<{
   labelProps?: Omit<TypographyProps, 'color'>;
 } & StackProps> = ({
   label,
-  infoLabel,
   tooltip = '',
   onClick,
   children,
@@ -36,14 +34,9 @@ const PillRow : FC<{
     {...props}
   >
     <Tooltip title={tooltip}>
-      {(typeof label === 'string' || typeof infoLabel === 'string') 
-        ? (
-          <Typography color="text.secondary" {...props.labelProps}>
-            {infoLabel || label}
-          </Typography>
-        ) : (
-          infoLabel || label
-        )} 
+      <Typography color="text.secondary" {...props.labelProps}>
+        {label}
+      </Typography>
     </Tooltip>
     <Button
       variant="outlined-secondary"

@@ -60,7 +60,6 @@ const LinkButton: FC<{ to: string; title: string, tag?: string }> = ({ to, title
             display: 'inline-block',
             textDecorationThickness: '2px',
           }}
-          data-cy={`Navbar-${title}`}
         >
           {title}
         </Typography>

@@ -1,27 +1,23 @@
-import { Axis, Orientation, TickFormatter } from '@visx/axis';
-import ChartPropProvider, {
-  BaseDataPoint,
-  ProviderChartProps,
-} from './ChartPropProvider';
-import { Line, LinePath } from '@visx/shape';
-import { NumberLike, scaleLinear } from '@visx/scale';
 import React, { useCallback, useMemo } from 'react';
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
+import { LinePath, Line } from '@visx/shape';
+import { Group } from '@visx/group';
+import { scaleLinear, NumberLike } from '@visx/scale';
+import { useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import {
-  curveBasis,
   curveLinear,
-  curveMonotoneX,
-  curveNatural,
   curveStep,
   curveStepAfter,
   curveStepBefore,
+  curveNatural,
+  curveBasis,
+  curveMonotoneX,
 } from '@visx/curve';
-import { useTooltip, useTooltipInPortal } from '@visx/tooltip';
-
-import { BeanstalkPalette } from '~/components/App/muiTheme';
+import { Axis, Orientation, TickFormatter } from '@visx/axis';
 import { CurveFactory } from 'd3-shape';
-import { Group } from '@visx/group';
 import { NumberValue } from 'd3-scale';
-import ParentSize from '@visx/responsive/lib/components/ParentSize';
+import { BeanstalkPalette } from '~/components/App/muiTheme';
+import ChartPropProvider, { BaseDataPoint, ProviderChartProps } from './ChartPropProvider';
 
 // ------------------------
 //       Line Chart
@@ -59,14 +55,12 @@ export type LineChartProps = {
     }
   ) => React.ReactElement | null;
   yTickFormat?: TickFormatter<NumberLike>;
-  horizontalLineNumber?: number;
 };
 
 type GraphProps = {
   width: number;
   height: number;
-} & LineChartProps &
-  ProviderChartProps;
+} & LineChartProps & ProviderChartProps
 
 // ------------------------
 //           Data
@@ -107,33 +101,21 @@ const Graph: React.FC<GraphProps> = (props) => {
     curve: _curve = 'linear',
     children,
     yTickFormat,
-    common,
+    common, 
     accessors,
-    utils,
+    utils
   } = props;
-  const {
-    margin,
-    chartPadding,
-    axisHeight,
-    axisColor,
-    yAxisWidth,
-    xTickLabelProps,
-    yTickLabelProps,
-  } = common;
+  const { margin, axisHeight, axisColor, yAxisWidth, xTickLabelProps, yTickLabelProps } = common;
   const { getX, getY } = accessors;
   const { generateScale, getCurve, getPointerValue } = utils;
 
-  const series = useMemo(
-    () => _series as unknown as BaseDataPoint[][],
-    [_series]
-  );
+  const series = useMemo(() => _series as unknown as BaseDataPoint[][], [_series]);
   const curve = getCurve(_curve);
 
   // tooltip
-  const { containerBounds, containerRef } = useTooltipInPortal({
-    scroll: true,
-    detectBounds: true,
-  });
+  const { containerBounds, containerRef } = useTooltipInPortal(
+    { scroll: true, detectBounds: true }
+  );
 
   const {
     showTooltip,
@@ -143,9 +125,8 @@ const Graph: React.FC<GraphProps> = (props) => {
   } = useTooltip<BaseDataPoint[] | undefined>();
 
   const scales = useMemo(
-    () => generateScale(series, height, width, ['value'], false, isTWAP),
-    [height, isTWAP, series, generateScale, width]
-  );
+    () => generateScale(series, height, width, ['value'], false, isTWAP), 
+  [height, isTWAP, series, generateScale, width]);
 
   // Handlers
   const handleMouseLeave = useCallback(() => {
@@ -157,7 +138,6 @@ const Graph: React.FC<GraphProps> = (props) => {
     (
       event: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>
     ) => {
-      if (series[0].length === 0) return;
       const { left, top } = containerBounds;
       const containerX = ('clientX' in event ? event.clientX : 0) - left;
       const containerY = ('clientY' in event ? event.clientY : 0) - top;
@@ -174,13 +154,10 @@ const Graph: React.FC<GraphProps> = (props) => {
 
   // const yTickNum = height > 180 ? undefined : 5;
   const xTickNum = width > 700 ? undefined : Math.floor(width / 70);
-  const xTickFormat = useCallback(
-    (v: NumberValue) => {
-      const d = scales[0].dScale.invert(v);
-      return `${d.getMonth() + 1}/${d.getDate()}`;
-    },
-    [scales]
-  );
+  const xTickFormat = useCallback((v: NumberValue) => {
+    const d = scales[0].dScale.invert(v);
+    return `${d.getMonth() + 1}/${d.getDate()}`;
+  }, [scales]);
 
   // Empty state
   if (!series || series.length === 0) return null;
@@ -199,7 +176,7 @@ const Graph: React.FC<GraphProps> = (props) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div
+      <div 
         style={{
           position: 'absolute',
           bottom: dataRegion.yTop,
@@ -256,7 +233,7 @@ const Graph: React.FC<GraphProps> = (props) => {
             numTicks={xTickNum}
           />
         </g>
-        <g transform={`translate(${width - chartPadding.right}, 1)`}>
+        <g transform={`translate(${width - 17}, 1)`}>
           <Axis
             key="axis"
             orientation={Orientation.right}
@@ -309,17 +286,13 @@ const LineChart: React.FC<LineChartProps> = (props) => (
     {({ ...providerProps }) => (
       <ParentSize debounceTime={50}>
         {({ width: visWidth, height: visHeight }) => (
-          <Graph
-            width={visWidth}
-            height={visHeight}
-            {...providerProps}
-            {...props}
-          >
+          <Graph width={visWidth} height={visHeight} {...providerProps} {...props}>
             {props.children}
           </Graph>
         )}
       </ParentSize>
     )}
+
   </ChartPropProvider>
 );
 

@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Alert, Box, Divider, Link, Stack, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import toast from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { useProvider } from 'wagmi';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
@@ -29,7 +30,7 @@ import useFarmerBalances from '~/hooks/farmer/useFarmerBalances';
 import usePreferredToken, { PreferredToken } from '~/hooks/farmer/usePreferredToken';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import Farm, { FarmFromMode, FarmToMode } from '~/lib/Beanstalk/Farm';
-import { displayFullBN, toStringBaseUnitBN, toTokenUnitsBN, getChainConstant } from '~/util';
+import { displayFullBN, toStringBaseUnitBN, toTokenUnitsBN, parseError, getChainConstant } from '~/util';
 import { useFetchFarmerAllowances } from '~/state/farmer/allowances/updater';
 import { useFetchFarmerBalances } from '~/state/farmer/balances/updater';
 import { useFetchFarmerBarn } from '~/state/farmer/barn/updater';
@@ -415,12 +416,8 @@ const Buy : FC<{}> = () => {
       txToast.success(receipt);
       formActions.resetForm();
     } catch (err) {
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      // this sucks
+      txToast ? txToast.error(err) : toast.error(parseError(err));
       console.error(err);
     }
   }, [beanstalk, account, Usdc, farm.contracts.curve.zap.callStatic, farm.contracts.curve.pools.beanCrv3.address, refetchFertilizer, refetchBalances, refetchAllowances, fertContract.address, Bean, Eth, middleware]);

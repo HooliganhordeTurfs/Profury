@@ -22,7 +22,7 @@ type Props = {
 //      Graph (Inner)
 // ------------------------
 
-const MultiLineChartInner: React.FC<Props> = (props) => {
+const Graph: React.FC<Props> = (props) => {
   const {
     // Chart sizing
     stylesConfig,
@@ -53,16 +53,17 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
     [generateScale, height, isTWAP, series, width, keys]
   );
 
-  // Tooltip
-  const { containerBounds, containerRef } = useTooltipInPortal({
-    scroll: true,
-    detectBounds: true,
-  });
+  // tooltip
+  const { containerBounds, containerRef } = useTooltipInPortal(
+    { scroll: true, detectBounds: true }
+  );
 
   const {
     showTooltip,
     hideTooltip,
     tooltipData,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    tooltipTop = 0,
     tooltipLeft = 0,
   } = useTooltip<BaseDataPoint[] | undefined>();
 
@@ -76,7 +77,6 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
     (
       event: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>
     ) => {
-      if (series[0].length === 0) return;
       const { left, top } = containerBounds;
       const containerX = ('clientX' in event ? event.clientX : 0) - left;
       const containerY = ('clientY' in event ? event.clientY : 0) - top;
@@ -102,25 +102,12 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
 
   // const yTickNum = height > 180 ? undefined : 5;
   const xTickNum = width > 700 ? undefined : Math.floor(width / 70);
-
-  const [tickSeasons, tickDates] = useMemo(() => {
-    const interval = Math.ceil(series[0].length / 12);
-    const shift = Math.ceil(interval / 3); // slight shift on tick labels
-    return series[0].reduce<[number[], string[]]>(
-      (prev, curr, i) => {
-        if (i % interval === shift) {
-          prev[0].push(curr.season);
-          prev[1].push(`${curr.date.getMonth() + 1}/${curr.date.getDate()}`);
-        }
-        return prev;
-      },
-      [[], []]
-    );
-  }, [series]);
-
   const xTickFormat = useCallback(
-    (_: any, i: number) => tickDates[i],
-    [tickDates]
+    (v: any) => {
+      const d = scales[0].dScale.invert(v);
+      return `${d.getMonth() + 1}/${d.getDate()}`;
+    },
+    [scales]
   );
 
   const { getStyle } = useMemo(
@@ -163,13 +150,12 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
       />
       <svg width={width} height={height}>
         {/**
-          * Lines
-          */}
+         * Lines
+         */}
         <Group
           width={width - common.yAxisWidth}
           height={dataRegion.yBottom - dataRegion.yTop}
         >
-          {/** Add TWAP line */}
           {isTWAP && (
             <Line
               from={{ x: 0, y: scales[0].yScale(1) }}
@@ -178,9 +164,7 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
               strokeWidth={0.5}
             />
           )}
-          {/* Apply children */}
           {children && children({ scales, dataRegion, ...props })}
-          {/* Apply lines */}
           {series.map((_data, index) => (
             <LinePath
               key={index}
@@ -194,8 +178,8 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
           ))}
         </Group>
         {/**
-          * Axis
-          */}
+         * Axis
+         */}
         <g transform={`translate(0, ${dataRegion.yBottom})`}>
           <Axis
             key="axis"
@@ -206,7 +190,6 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
             tickStroke={common.axisColor}
             tickLabelProps={common.xTickLabelProps}
             numTicks={xTickNum}
-            tickValues={tickSeasons}
           />
         </g>
         <g transform={`translate(${width - 17}, 1)`}>
@@ -223,8 +206,8 @@ const MultiLineChartInner: React.FC<Props> = (props) => {
           />
         </g>
         {/**
-          * Cursor
-          */}
+         * Cursor
+         */}
         {tooltipData && (
           <>
             <Line
@@ -263,31 +246,14 @@ const MultiLineChart: React.FC<BaseChartProps> = (props) => (
     {({ ...providerProps }) => (
       <ParentSize debounceTime={50}>
         {({ width: visWidth, height: visHeight }) => (
-          <MultiLineChartInner
+          <Graph
             width={visWidth}
             height={visHeight}
             {...providerProps}
             {...props}
           >
-            {(childProps) => (
-              <>
-                <ExploitLine {...childProps} />
-                {props.horizontalLineNumber !== undefined && (
-                  <Line
-                    from={{ x: 0, y: childProps.scales[0].yScale(props.horizontalLineNumber) as number }}
-                    to={{
-                      x: childProps.width - providerProps.common.yAxisWidth,
-                      y: childProps.scales[0].yScale(props.horizontalLineNumber) as number,
-                    }}
-                    stroke={BeanstalkPalette.logoGreen}
-                    strokeDasharray={4}
-                    strokeDashoffset={2}
-                    strokeWidth={1}
-                  />
-                )}
-              </>
-            )}
-          </MultiLineChartInner>
+            {(childProps) => <ExploitLine {...childProps} />}
+          </Graph>
         )}
       </ParentSize>
     )}

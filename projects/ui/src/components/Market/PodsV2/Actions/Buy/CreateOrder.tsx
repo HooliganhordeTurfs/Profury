@@ -5,6 +5,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ethers } from 'ethers';
 import { useProvider } from 'wagmi';
+import toast from 'react-hot-toast';
 import TransactionToast from '~/components/Common/TxnToast';
 import TxnAccordion from '~/components/Common/TxnAccordion';
 import { TokenSelectMode } from '~/components/Common/Form/TokenSelectDialog';
@@ -40,6 +41,7 @@ import {
   displayFullBN,
   toStringBaseUnitBN,
   toTokenUnitsBN,
+  parseError,
   displayTokenAmount,
   displayBN,
 } from '~/util';
@@ -71,6 +73,7 @@ const PlaceInLineInputProps = {
           sx={{
             opacity: '0.4',
             // HOTFIX: Small forms
+            mt: 0.2,
             mr: -0.2,
             fontSize: 17.6,
           }}>
@@ -266,21 +269,18 @@ const CreateOrderV2Form: FC<
             </Box>
           </>
         ) : null}
-        <Box sx={{ position: 'sticky', bottom: 6.5, zIndex: 10 }}>
-          <SmartSubmitButton
-            loading={isSubmitting}
-            disabled={isSubmitting || !isReady}
-            type="submit"
-            variant="contained"
-            color="primary"
-            contract={contract}
-            tokens={values.tokens}
-            mode="auto"
-            sx={{ width: '100%', outline: '6.5px solid white' }}
-          >
-            Order
-          </SmartSubmitButton>
-        </Box>
+        <SmartSubmitButton
+          loading={isSubmitting}
+          disabled={isSubmitting || !isReady}
+          type="submit"
+          variant="contained"
+          color="primary"
+          contract={contract}
+          tokens={values.tokens}
+          mode="auto"
+        >
+          Order
+        </SmartSubmitButton>
       </Stack>
     </Form>
   );
@@ -469,12 +469,7 @@ const CreateOrder: FC<{}> = () => {
         txToast.success(receipt);
         formActions.resetForm();
       } catch (err) {
-        if (txToast) {
-          txToast.error(err);
-        } else {
-          const errorToast = new TransactionToast({});
-          errorToast.error(err);
-        }
+        txToast?.error(err) || toast.error(parseError(err));
         console.error(err);
       }
     },
@@ -498,23 +493,13 @@ const CreateOrder: FC<{}> = () => {
     >
       {(formikProps: FormikProps<CreateOrderFormValues>) => (
         <>
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              height: '100%',
-              zIndex: 10,
-            }}
-          >
-            <TxnSettings placement="condensed-form-top-right">
-              <SettingInput
-                name="settings.slippage"
-                label="Slippage Tolerance"
-                endAdornment="%"
-              />
-            </TxnSettings>
-          </Box>
+          <TxnSettings placement="condensed-form-top-right">
+            <SettingInput
+              name="settings.slippage"
+              label="Slippage Tolerance"
+              endAdornment="%"
+            />
+          </TxnSettings>
           <CreateOrderV2Form
             podLine={beanstalkField.podLine}
             handleQuote={handleQuote}

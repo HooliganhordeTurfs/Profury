@@ -48,6 +48,9 @@ type SeasonPlotFinalProps<T extends MinimumViableSnapshotQuery> =
      * Format the value from number -> string
      */
     formatValue?: (value: number) => string | JSX.Element;
+    /**
+     *
+     */
     dateKey?: 'timestamp' | 'createdAt';
     queryConfig?: Partial<QueryOptions>;
     StatProps: Omit<StatProps, 'amount' | 'subtitle'>;
@@ -55,7 +58,7 @@ type SeasonPlotFinalProps<T extends MinimumViableSnapshotQuery> =
   };
 
 /**
- * Wraps {BaseSeasonPlot} with data.
+ *
  */
 function SeasonPlot<T extends MinimumViableSnapshotQuery>({
   document,

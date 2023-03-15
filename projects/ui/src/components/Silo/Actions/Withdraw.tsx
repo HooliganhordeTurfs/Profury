@@ -3,6 +3,7 @@ import { Accordion, AccordionDetails, Alert, Box, Divider, Stack } from '@mui/ma
 import BigNumber from 'bignumber.js';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { Token } from '~/classes';
 import { SEEDS, STALK } from '~/constants/tokens';
@@ -20,7 +21,7 @@ import BeanstalkSDK from '~/lib/Beanstalk';
 import useSeason from '~/hooks/beanstalk/useSeason';
 import { FarmerSilo } from '~/state/farmer/silo';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
-import { displayFullBN, toStringBaseUnitBN } from '~/util';
+import { displayFullBN, parseError, toStringBaseUnitBN } from '~/util';
 import TransactionToast from '~/components/Common/TxnToast';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import { ERC20Token } from '~/classes/Token';
@@ -297,12 +298,34 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
       if (seasons.length === 0) {
         throw new Error('Malformatted crates.');
       } else if (seasons.length === 1) {
+        if (farmerSilo.beans.earned.gt(0)) {
+          console.debug('[silo/withdraw] strategy: plant + withdrawDeposit');
+          call = beanstalk.farm([
+            beanstalk.interface.encodeFunctionData('plant'),
+            beanstalk.interface.encodeFunctionData('withdrawDeposit', [
+              token.address,
+              seasons[0],
+              amounts[0],
+            ])
+          ]);
+        } else {
           console.debug('[silo/withdraw] strategy: withdrawDeposit');
           call = beanstalk.withdrawDeposit(
             token.address,
             seasons[0],
             amounts[0],
           );
+        }
+      } else if (farmerSilo.beans.earned.gt(0)) {
+        console.debug('[silo/withdraw] strategy: plant + withdrawDeposits');
+        call = beanstalk.farm([
+          beanstalk.interface.encodeFunctionData('plant'),
+          beanstalk.interface.encodeFunctionData('withdrawDeposits', [
+            token.address,
+            seasons,
+            amounts,
+          ])
+        ]);
       } else {
         console.debug('[silo/withdraw] strategy: withdrawDeposits');
         call = beanstalk.withdrawDeposits(
@@ -328,12 +351,7 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
       txToast.success(receipt);
       formActions.resetForm();
     } catch (err) {
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast ? txToast.error(err) : toast.error(parseError(err));
       formActions.setSubmitting(false);
     }
   }, [

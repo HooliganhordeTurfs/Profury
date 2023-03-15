@@ -1,36 +1,23 @@
+import React from 'react';
 import { Card, Tab, Tabs } from '@mui/material';
 
+import useTabs from '~/hooks/display/useTabs';
+import Price from './Price';
+import Supply from '~/components/Analytics/Bean/Supply';
+import MarketCap from '~/components/Analytics/Bean/MarketCap';
+import Volume from '~/components/Analytics/Bean/Volume';
+import Liquidity from '~/components/Analytics/Bean/Liquidity';
 import Crosses from '~/components/Analytics/Bean/Crosses';
 import DeltaB from '~/components/Analytics/Bean/DeltaB';
-import { FC } from '~/types';
-import Liquidity from '~/components/Analytics/Bean/Liquidity';
-import MarketCap from '~/components/Analytics/Bean/MarketCap';
-import Price from './Price';
-import React from 'react';
-import Supply from '~/components/Analytics/Bean/Supply';
-import VolumeChart from '~/components/Analytics/Bean/VolumeChart';
-import useTabs from '~/hooks/display/useTabs';
 
-const SLUGS = [
-  'price',
-  'volume',
-  'liquidity',
-  'mktcap',
-  'supply',
-  'crosses',
-  'delta_b',
-];
+// const SLUGS = ['price', 'volume', 'liquidity', 'mktcap', 'supply', 'crosses'];
+import { FC } from '~/types';
 
 const BeanAnalytics: FC<{}> = () => {
-  const [tab, handleChangeTab] = useTabs(SLUGS, 'bean');
-  const CHART_HEIGHT = 300;
+  const [tab, handleChangeTab] = useTabs();
   return (
     <Card>
-      <Tabs
-        value={tab}
-        onChange={handleChangeTab}
-        sx={{ px: 2, pt: 2, pb: 1.5 }}
-      >
+      <Tabs value={tab} onChange={handleChangeTab} sx={{ px: 2, pt: 2, pb: 1.5 }}>
         <Tab label="Bean Price" />
         <Tab label="Volume" />
         <Tab label="Liquidity" />
@@ -39,19 +26,13 @@ const BeanAnalytics: FC<{}> = () => {
         <Tab label="Crosses" />
         <Tab label="Delta B" />
       </Tabs>
-      {/* 
-        TODO: The height prop currently *only* reflects in the chart height. However, the full component
-          has other components that yield a larger height. All the components below should be refactored
-          to account for their additional parts, so when a height is put in then you would get that 
-          exact height. Alternatively, the existing height prop should be renamed to chartHeight.
-      */}
-      {tab === 0 && <Price height={CHART_HEIGHT} />}
-      {tab === 1 && <VolumeChart height={375} />}
-      {tab === 2 && <Liquidity height={CHART_HEIGHT} />}
-      {tab === 3 && <MarketCap height={CHART_HEIGHT} />}
-      {tab === 4 && <Supply height={CHART_HEIGHT} />}
-      {tab === 5 && <Crosses height={CHART_HEIGHT} />}
-      {tab === 6 && <DeltaB height={CHART_HEIGHT} />}
+      {tab === 0 && <Price height={300} />}
+      {tab === 1 && <Volume height={300} />}
+      {tab === 2 && <Liquidity height={300} />}
+      {tab === 3 && <MarketCap height={300} />}
+      {tab === 4 && <Supply height={300} />}
+      {tab === 5 && <Crosses height={300} />}
+      {tab === 6 && <DeltaB height={300} />}
     </Card>
   );
 };

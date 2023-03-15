@@ -3,7 +3,6 @@ import { ContractReceipt, ContractTransaction } from 'ethers';
 import toast from 'react-hot-toast';
 import { Box, IconButton, Link, Typography } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import useChainConstant from '~/hooks/chain/useChainConstant';
 import { parseError } from '~/util';
 import { CHAIN_INFO } from '~/constants';
@@ -16,11 +15,11 @@ function dismissErrors(id?: any) {
   }
 }
 
-export function ToastAlert({ desc, hash, msg, rawError, id }: { desc?: string, hash?: string, msg?: string, rawError?: string, id?: any }) {
+export function ToastAlert({ desc, hash, msg, id }: { desc?: string, hash?: string, msg?: string, id?: any }) {
   const handleClick = useCallback(() => (id !== null ? dismissErrors(id) : dismissErrors()), [id]);
   const chainInfo = useChainConstant(CHAIN_INFO);
   return (
-    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
       <Typography sx={{ pl: 1, pr: 2, flex: 1, textAlign: 'center' }}>
         <span>
           {desc}
@@ -36,31 +35,13 @@ export function ToastAlert({ desc, hash, msg, rawError, id }: { desc?: string, h
             display="inline"
             sx={{ 
               wordBreak: 'break-all',
-              'div:first-letter': { textTransform: 'capitalize' },
+              '&:first-letter': { textTransform: 'capitalize' },
             }}
           >
-            <div>{msg}</div>
+            {msg}
           </Box>
         )}
       </Typography>
-      {rawError && (
-        <IconButton
-          sx={{
-            backgroundColor: 'transparent',
-            mr: 1,
-            width: '20px',
-            height: '20px',
-            '& svg': {
-              width: '18px',
-              height: '18px',
-            }
-          }}
-          size="small"
-          onClick={() => { navigator.clipboard.writeText(rawError); }}
-        >
-          <ContentCopyIcon />
-        </IconButton>
-      )}
       {msg && (
         <IconButton
           sx={{
@@ -88,8 +69,8 @@ ToastAlert.defaultProps = {
 };
 
 type ToastMessages = {
-  loading?: string;
-  success?: string;
+  loading: string;
+  success: string;
   error?: string;
 }
 
@@ -159,13 +140,12 @@ export default class TransactionToast {
     toast.error(
       <ToastAlert
         desc={this.messages.error}
-        msg={msg.message}
-        rawError={msg.rawError}
+        msg={msg}
         id={this.toastId}
       />,
       {
         id: this.toastId,
-        duration: duration,
+        duration: duration
       }
     );
     return msg;

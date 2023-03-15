@@ -2,6 +2,7 @@ import { Alert, Box, InputAdornment, Stack, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import React, { useCallback, useMemo } from 'react';
+import toast from 'react-hot-toast';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import {
   PlotFragment,
@@ -25,6 +26,7 @@ import { ActionType } from '~/util/Actions';
 import {
   PlotMap,
   toStringBaseUnitBN,
+  parseError,
   displayTokenAmount,
   displayBN,
   displayFullBN
@@ -262,12 +264,7 @@ const CreateListingV2: FC<{}> = () => {
       txToast.success(receipt);
       formActions.resetForm();
     } catch (err) {
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast?.error(err) || toast.error(parseError(err));
       console.error(err);
     }
   }, [middleware, plots, harvestableIndex, beanstalk, refetchFarmerMarketItems, getChainToken]);

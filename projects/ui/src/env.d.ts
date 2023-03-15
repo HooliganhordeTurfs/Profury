@@ -22,11 +22,6 @@ interface ImportMetaEnv {
    * API key for decentralized network subgraph
    */
   readonly VITE_THEGRAPH_API_KEY: string;
-
-  /**
-   * If set, don't add CSP meta tag
-   */
-  readonly DISABLE_CSP?: any;
 }
 
 interface ImportMeta {

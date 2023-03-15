@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BEAN } from '~/constants/tokens';
 import { DepositCrate } from '~/state/farmer/silo';
-import { STALK_PER_SEED_PER_SEASON } from '~/util';
 import Beanstalk from '../index';
 
 type WResult = ReturnType<typeof Beanstalk.Silo.Withdraw.selectCratesToWithdraw>;
@@ -35,7 +34,7 @@ it('selects a single Deposit crate to Withdraw', () => {
   // Expected results
   const expectedBDVRemoved   = withdrawAmount;
   const expectedSeedsRemoved = new BigNumber(4);
-  const expectedStalkRemoved = new BigNumber(2).plus(expectedSeedsRemoved.times(100 - 77).times(STALK_PER_SEED_PER_SEASON));
+  const expectedStalkRemoved = new BigNumber(2).plus(expectedSeedsRemoved.times(100 - 77).times(0.00001));
   const result = Beanstalk.Silo.Withdraw.selectCratesToWithdraw(
     BEAN[1],
     withdrawAmount,
@@ -62,8 +61,8 @@ it('selects multiple Deposit Crates to Withdraw', () => {
   const withdrawAmount = new BigNumber(12);
   
   // Expected results
-  const expectedStalkRemoved77 = new BigNumber(5).plus(new BigNumber(10 * (100 - 77)).times(STALK_PER_SEED_PER_SEASON));
-  const expectedStalkRemoved24 = new BigNumber(7).plus(new BigNumber(14 * (100 - 24)).times(STALK_PER_SEED_PER_SEASON));
+  const expectedStalkRemoved77 = new BigNumber(5).plus(new BigNumber(10 * (100 - 77)).times(0.00001));
+  const expectedStalkRemoved24 = new BigNumber(7).plus(new BigNumber(14 * (100 - 24)).times(0.00001));
   const expectedStalkRemoved = expectedStalkRemoved77.plus(expectedStalkRemoved24);
   const result = Beanstalk.Silo.Withdraw.selectCratesToWithdraw(
     BEAN[1],

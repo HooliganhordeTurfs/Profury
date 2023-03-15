@@ -6,10 +6,11 @@ import snapshot from '@snapshot-labs/snapshot.js';
 import { Wallet } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 import { useVotesQuery } from '~/generated/graphql';
 import DescriptionButton from '~/components/Common/DescriptionButton';
 import { useSigner } from '~/hooks/ledger/useSigner';
-import { displayBN, displayFullBN } from '~/util';
+import { displayBN, displayFullBN, parseError } from '~/util';
 import TransactionToast from '~/components/Common/TxnToast';
 import { Proposal } from '~/util/Governance';
 import { AppState } from '~/state';
@@ -76,6 +77,7 @@ const VoteForm: FC<FormikProps<VoteFormValues> & {
   //     <CircularProgress variant="determinate" value={(quorumPctComplete.times(100)).toNumber()} size={12} thickness={8}  />
   //   </>
   // )}
+
   return (
     <Form autoComplete="off">
       <Stack gap={1}>
@@ -142,7 +144,7 @@ const VoteForm: FC<FormikProps<VoteFormValues> & {
                   {choice}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                  {displayFullBN(new BigNumber(proposal.scores[index] || 0), 0, 0)} STALK
+                  {displayFullBN(new BigNumber(proposal.scores[index]), 0, 0)} STALK
                   <Typography
                     display={proposal.scores_total > 0 ? 'inline' : 'none'}> · {((proposal.scores[index] / proposal.scores_total) * 100).toFixed(2)}%
                   </Typography>
@@ -294,12 +296,7 @@ const Vote: FC<{
         txToast.success();
       } catch (err) {
         console.error(err);
-        if (txToast) {
-          txToast.error(err);
-        } else {
-          const errorToast = new TransactionToast({});
-          errorToast.error(err);
-        }
+        txToast ? txToast.error(err) : toast.error(parseError(err));
         formActions.setSubmitting(false);
       }
     },

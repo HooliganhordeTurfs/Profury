@@ -71,19 +71,19 @@ const FillOrder: React.FC<{}> = () => {
           <StatHorizontal label="Pods Requested">
             <Row gap={0.25}>
               <TokenIcon token={PODS} />{' '}
-              {displayBN(podOrder.podAmountRemaining)}
+              {displayFullBN(podOrder.podAmountRemaining, 2, 0)}
             </Row>
           </StatHorizontal>
           <StatHorizontal label="Price per Pod">
             <Row gap={0.25}>
               <TokenIcon token={BEAN[1]} />{' '}
-              {displayFullBN(podOrder.pricePerPod)}
+              {displayFullBN(podOrder.pricePerPod, 4, 2)}
             </Row>
           </StatHorizontal>
           <StatHorizontal label="Beans Remaining">
             <Row gap={0.25}>
               <TokenIcon token={BEAN[1]} />{' '}
-              {displayBN(podOrder.podAmountRemaining.times(podOrder.pricePerPod))}
+              {displayFullBN(podOrder.podAmountRemaining.times(podOrder.pricePerPod), 2, 0)}
             </Row>
           </StatHorizontal>
         </Stack>

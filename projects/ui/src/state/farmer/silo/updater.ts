@@ -88,7 +88,6 @@ export const useFetchFarmerSilo = () => {
         seedBalance,
         rootBalance,
         earnedBeanBalance,
-        lastUpdate,
         allEvents = []
       ] = await Promise.all([
         // FIXME: multicall this section
@@ -98,7 +97,6 @@ export const useFetchFarmerSilo = () => {
         beanstalk.balanceOfSeeds(account).then(tokenResult(SEEDS)),
         beanstalk.balanceOfRoots(account).then(bigNumberResult),
         beanstalk.balanceOfEarnedBeans(account).then(tokenResult(BEAN)),
-        beanstalk.lastUpdate(account).then(bigNumberResult),
         fetchSiloEvents(),
       ] as const);
 
@@ -147,7 +145,6 @@ export const useFetchFarmerSilo = () => {
       dispatch(updateFarmerSiloBalances(
         Object.keys(whitelist).reduce<UpdateFarmerSiloBalancesPayload>((prev, addr) => {
           prev[addr] = {
-            lastUpdate: lastUpdate,
             deposited: {
               ...Object.keys(results.deposits[addr]).reduce((dep, s) => {
                 const crate = results.deposits[addr][s];

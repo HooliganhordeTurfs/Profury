@@ -72,7 +72,6 @@ const siloBalance: FarmerSiloBalance = {
       }
     ]
   },
-  lastUpdate: new BigNumber(new Date().getTime())
 };
 
 const Template: ComponentStory<typeof Deposits> = (args: any) => (

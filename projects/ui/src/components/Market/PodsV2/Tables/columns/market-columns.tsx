@@ -138,7 +138,6 @@ export const MarketColumns = {
         flex: flex,
         align: align || 'left',
         headerAlign: align || 'left',
-        type: 'number',
         renderCell: (params: GridRenderCellParams) => (
           params.value?.gt(0) ? (
             <Row gap={0.25}>
@@ -157,7 +156,6 @@ export const MarketColumns = {
         flex: flex,
         align: align || 'left',
         headerAlign: align || 'left',
-        type: 'number',
         renderCell: (params: GridRenderCellParams<any, FarmerMarketOrder>) => {
           if (!params.value || params.value.eq(0)) return <>-</>;
           if ((type || params.row.type) === 'listing') {
@@ -189,7 +187,7 @@ export const MarketColumns = {
         headerName: 'EXPIRES IN',
         flex: flex,
         align: align || 'left',
-        type: 'number',
+        type: 'string',
         headerAlign: align || 'left',
         renderCell: (params: GridRenderCellParams) => {
           const expiry = params.value as BigNumber;
@@ -277,7 +275,6 @@ export const MarketColumns = {
         flex: flex,
         align: align || 'left',
         headerAlign: align || 'left',
-        type: 'number',
         renderCell: (params: GridRenderCellParams) => (
           params.value ? (
             <Row gap={0.25}>
@@ -296,7 +293,6 @@ export const MarketColumns = {
         flex: flex,
         align: align || 'left',
         headerAlign: align || 'left',
-        type: 'number',
         renderCell: (params: GridRenderCellParams<any, FarmerMarketOrder>) => {
           const progress = MinBN(
             // round down so that we don't show 100% when it's not fully filled
@@ -352,7 +348,6 @@ export const MarketColumns = {
         flex: flex,
         align: align || 'left',
         headerAlign: align || 'left',
-        type: 'number',
         renderCell: (params: GridRenderCellParams) => (
           params.value ? (
             <Row gap={0.25}>

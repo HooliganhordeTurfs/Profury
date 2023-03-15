@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { ethers } from 'ethers';
 import { useProvider } from 'wagmi';
 import BigNumber from 'bignumber.js';
+import toast from 'react-hot-toast';
 import { TokenSelectMode } from '~/components/Common/Form/TokenSelectDialog';
 import TransactionToast from '~/components/Common/TxnToast';
 import {
@@ -27,7 +28,7 @@ import usePreferredToken, { PreferredToken } from '~/hooks/farmer/usePreferredTo
 import { useFetchFarmerField } from '~/state/farmer/field/updater';
 import { useFetchFarmerBalances } from '~/state/farmer/balances/updater';
 import Farm, { ChainableFunction, FarmFromMode, FarmToMode } from '~/lib/Beanstalk/Farm';
-import { displayBN, displayTokenAmount, MinBN, toStringBaseUnitBN, toTokenUnitsBN } from '~/util';
+import { displayBN, displayTokenAmount, MinBN, toStringBaseUnitBN, parseError, toTokenUnitsBN } from '~/util';
 import { AppState } from '~/state';
 import { BEAN, ETH, PODS, WETH } from '~/constants/tokens';
 import { ZERO_BN } from '~/constants';
@@ -438,12 +439,7 @@ const FillListingForm : FC<{
       formActions.resetForm();
     } catch (err) {
       console.error(err);
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast?.error(err) || toast.error(parseError(err));
     } finally {
       formActions.setSubmitting(false);
     }

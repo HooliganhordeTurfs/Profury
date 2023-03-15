@@ -4,6 +4,7 @@ import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 import { useProvider } from 'wagmi';
 import { ethers } from 'ethers';
+import toast from 'react-hot-toast';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import { Token } from '~/classes';
 import StyledAccordionSummary from '~/components/Common/Accordion/AccordionSummary';
@@ -25,7 +26,7 @@ import {
 } from '~/components/Common/Form';
 import Farm, { FarmFromMode, FarmToMode } from '~/lib/Beanstalk/Farm';
 import { ZERO_BN } from '~/constants';
-import { displayTokenAmount, toStringBaseUnitBN, toTokenUnitsBN } from '~/util';
+import { displayTokenAmount, toStringBaseUnitBN, toTokenUnitsBN, parseError } from '~/util';
 import FarmModeField from '~/components/Common/Form/FarmModeField';
 import TokenIcon from '~/components/Common/TokenIcon';
 import useToggle from '~/hooks/display/useToggle';
@@ -369,12 +370,7 @@ const Claim : FC<{
       txToast.success(receipt);
       formActions.resetForm();
     } catch (err) {
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast ? txToast.error(err) : toast.error(parseError(err));
       formActions.setSubmitting(false);
     }
   }, [
@@ -391,7 +387,7 @@ const Claim : FC<{
     <Formik initialValues={initialValues} onSubmit={onSubmit} enableReinitialize>
       {(formikProps) => (
         <>
-          <TxnSettings placement="inside-form-top-right">
+          <TxnSettings placement="form-top-right">
             <SettingInput name="settings.slippage" label="Slippage Tolerance" endAdornment="%" />
           </TxnSettings>
           <Stack spacing={1}>

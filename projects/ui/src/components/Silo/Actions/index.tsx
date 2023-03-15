@@ -27,8 +27,6 @@ import { FC } from '~/types';
 
 const SLUGS = ['deposit', 'convert', 'transfer', 'withdraw', 'claim'];
 
-const SILO_ACTIONS_MAX_WIDTH = '470px';
-
 const SiloActions : FC<{
   pool: Pool;
   token: ERC20Token;
@@ -38,7 +36,7 @@ const SiloActions : FC<{
   const hasClaimable = props.siloBalance?.claimable?.amount.gt(0);
   return (
     <>
-      <Module sx={{ maxWidth: { lg: SILO_ACTIONS_MAX_WIDTH } }}>
+      <Module>
         <ModuleTabs value={tab} onChange={handleChange}>
           <Tab label="Deposit" />
           <Tab label="Convert" />

@@ -14,27 +14,20 @@ import {
   SiloDepositAction,
   SiloRewardsAction,
   SiloTransitAction,
-  SwapAction,
-  TransferBalanceAction
+  SwapAction
 } from '~/util/Actions';
 import { SupportedChainId } from '~/constants/chains';
 import { BEAN, PODS, SEEDS, SPROUTS, STALK, USDC } from '~/constants/tokens';
-import { FarmFromMode, FarmToMode } from '~/lib/Beanstalk/Farm';
+import { FarmToMode } from '~/lib/Beanstalk/Farm';
 import AddressIcon from '~/components/Common/AddressIcon';
 import Row from '~/components/Common/Row';
 import { FC } from '~/types';
-import { BeanstalkPalette } from '../../App/muiTheme';
+import { BeanstalkPalette } from '~/components/App/muiTheme';
 
 // -----------------------------------------------------------------------
 
 const IconRow : FC<{ spacing?: number }> = ({ children, spacing = 0.75 }) => (
   <Row sx={{ height: '100%' }} spacing={spacing}>
-    {children}
-  </Row>
-);
-
-const AltIconRow : FC<{ gap?: number }> = ({ children, gap = 5 }) => (
-  <Row sx={{ height: '100%', display: 'inline-flex', alignItems: 'center', gap: `${gap}px` }}>
     {children}
   </Row>
 );
@@ -106,24 +99,10 @@ const TxnStep : FC<{
         <IconRow spacing={0.5}>
           {a.destination !== undefined ? (
             a.destination === FarmToMode.INTERNAL
-              ? <AltIconRow><ActionTokenImage key={a.token.address} token={a.token} />🚜</AltIconRow>
-              : <AltIconRow><ActionTokenImage key={a.token.address} token={a.token} /><AddressIcon address={a.to} size={23} /></AltIconRow>
+              ? <Typography>🚜</Typography>
+              : <AddressIcon />
           ) : null}
         </IconRow>
-      );
-      break;
-    }
-
-    case ActionType.TRANSFER_BALANCE: {
-      const a = actions[0] as TransferBalanceAction;
-      step = (
-        <Row spacing={0.5} sx={{ height: '100%', display: 'inline-flex', alignItems: 'center' }}>
-          {a.source !== undefined ? (
-            a.source === FarmFromMode.INTERNAL ? <AltIconRow><ActionTokenImage key={a.token.address} token={a.token} />🚜</AltIconRow>
-            : a.source === FarmFromMode.EXTERNAL ? <AltIconRow><ActionTokenImage key={a.token.address} token={a.token} /><AddressIcon size={23} /></AltIconRow>
-            : <AltIconRow><ActionTokenImage key={a.token.address} token={a.token} /><AddressIcon size={23} />🚜</AltIconRow>
-          ) : null}
-        </Row>
       );
       break;
     }

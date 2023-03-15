@@ -3,6 +3,7 @@ import { Accordion, AccordionDetails, Box, Stack } from '@mui/material';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
+import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { Token } from '~/classes';
 import { BEAN, CRV3, DAI, ETH, SEEDS, STALK, UNRIPE_BEAN, UNRIPE_BEAN_CRV3, USDC, USDT, WETH } from '~/constants/tokens';
@@ -33,6 +34,7 @@ import usePreferredToken from '~/hooks/farmer/usePreferredToken';
 import useTokenMap from '~/hooks/chain/useTokenMap';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import { useFetchFarmerSilo } from '~/state/farmer/silo/updater';
+import { parseError } from '~/util';
 import { useFetchFarmerBalances } from '~/state/farmer/balances/updater';
 import { AppState } from '~/state';
 import { useFetchPools } from '~/state/bean/pools/updater';
@@ -174,7 +176,7 @@ const DepositForm : FC<
         ) : null}
         <SmartSubmitButton
           loading={isSubmitting}
-          disabled={isSubmitting}
+          disabled={isSubmitting || amount.lte(0)}
           type="submit"
           variant="contained"
           color="primary"
@@ -521,12 +523,7 @@ const Deposit : FC<{
       txToast.success(receipt);
       formActions.resetForm();
     } catch (err) {
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast ? txToast.error(err) : toast.error(parseError(err));
       formActions.setSubmitting(false);
     }
   }, [
@@ -545,7 +542,7 @@ const Deposit : FC<{
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {(formikProps) => (
         <>
-          <TxnSettings placement="inside-form-top-right">
+          <TxnSettings placement="form-top-right">
             <SettingInput name="settings.slippage" label="Slippage Tolerance" endAdornment="%" />
           </TxnSettings>
           <DepositForm

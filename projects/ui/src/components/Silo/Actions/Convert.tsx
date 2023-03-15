@@ -4,6 +4,7 @@ import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { ethers } from 'ethers';
+import toast from 'react-hot-toast';
 import TokenOutputField from '~/components/Common/Form/TokenOutputField';
 import StyledAccordionSummary from '~/components/Common/Accordion/AccordionSummary';
 import { FormState, SettingInput, SmartSubmitButton, TxnSettings } from '~/components/Common/Form';
@@ -26,7 +27,7 @@ import useGetChainToken from '~/hooks/chain/useGetChainToken';
 import useToggle from '~/hooks/display/useToggle';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import { useFetchFarmerSilo } from '~/state/farmer/silo/updater';
-import { tokenResult } from '~/util';
+import { tokenResult, parseError } from '~/util';
 import { FarmerSilo } from '~/state/farmer/silo';
 import useSeason from '~/hooks/beanstalk/useSeason';
 import { convert, Encoder as ConvertEncoder } from '~/lib/Beanstalk/Silo/Convert';
@@ -511,6 +512,28 @@ const Convert : FC<{
       const crates  = conversion.deltaCrates.map((crate) => crate.season.toString());
       const amounts = conversion.deltaCrates.map((crate) => tokenIn.stringify(crate.amount.abs()));
 
+      /// HOTFIX:
+      /// If farmer has > 0 Earned beans, add a plant() call before
+      /// convert. Fixes edge case bug where converting all of your
+      /// silo assets causes loss of Earned Beans.
+      let call;
+      if (farmerSilo.beans.earned.gt(0)) {
+        call = beanstalk.farm([
+          beanstalk.interface.encodeFunctionData('plant'),
+          beanstalk.interface.encodeFunctionData('convert', [
+            convertData,
+            crates,
+            amounts
+          ])
+        ]);
+      } else {
+        call = beanstalk.convert(
+          convertData,
+          crates,
+          amounts
+        );
+      }
+      
       console.debug('[Convert] executing', {
         tokenIn,
         amountIn,
@@ -525,11 +548,8 @@ const Convert : FC<{
         amounts,
       });
 
-      const txn = await beanstalk.convert(
-        convertData,
-        crates,
-        amounts
-      );
+      ///
+      const txn = await call;
       txToast.confirming(txn);
 
       const receipt = await txn.wait();
@@ -546,12 +566,7 @@ const Convert : FC<{
       });
     } catch (err) {
       console.error(err);
-      if (txToast) {
-        txToast.error(err);
-      } else {
-        const errorToast = new TransactionToast({});
-        errorToast.error(err);
-      }
+      txToast ? txToast.error(err) : toast.error(parseError(err));
       formActions.setSubmitting(false);
     }
   }, [farmerSiloBalances, farmerSilo.beans.earned, season, urBean, urBeanCrv3, Bean, BeanCrv3, beanstalk, refetchFarmerSilo, refetchPools, initialValues, middleware]);
@@ -560,7 +575,7 @@ const Convert : FC<{
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {(formikProps) => (
         <>
-          <TxnSettings placement="inside-form-top-right">
+          <TxnSettings placement="form-top-right">
             <SettingInput name="settings.slippage" label="Slippage Tolerance" endAdornment="%" />
           </TxnSettings>
           <ConvertForm

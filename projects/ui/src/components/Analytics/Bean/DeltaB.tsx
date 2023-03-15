@@ -19,8 +19,7 @@ const statProps = {
   gap: 0.25,
 };
 const lineChartProps : Partial<LineChartProps> = {
-  yTickFormat: tickFormatLocale,
-  horizontalLineNumber: 0,
+  yTickFormat: tickFormatLocale
 };
 
 const DeltaB: FC<{ height?: SeasonPlotBaseProps['height'] }> = ({

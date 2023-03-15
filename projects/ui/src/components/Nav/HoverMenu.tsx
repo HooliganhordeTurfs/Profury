@@ -24,10 +24,7 @@ const HoverMenu: FC<{
     <Tooltip
       components={{ Tooltip: Card }}
       title={(
-        <MenuList 
-          sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }} 
-          data-cy="HoverMenu-MenuList"
-        >
+        <MenuList sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
           {items.map((item) => (
             <MenuItem key={item.path} item={item} onClick={hide} />
           ))}
@@ -67,7 +64,7 @@ const HoverMenu: FC<{
         }}
         className={open ? 'Mui-focusVisible' : ''}
       >
-        <Typography variant="subtitle1" data-cy="Navbar-More">
+        <Typography variant="subtitle1">
           {children}
         </Typography>
       </Button>

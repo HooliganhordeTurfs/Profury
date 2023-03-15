@@ -150,14 +150,11 @@ module.exports = {
     camelcase: 0,
     // disable because generated files aren't camel-cased
     'padded-blocks': 'warn',
-    'import/no-useless-path-segments': 'warn',
-    'import/no-unresolved': 'error'
+    'import/no-useless-path-segments': 'warn'
   },
   settings: {
     'import/resolver': {
-      typescript: {
-        project: ['projects/ui/tsconfig.json'],
-      },
+      typescript: {}
     }
   },
   overrides: [

@@ -200,6 +200,7 @@ const useGenerateChartSeries = <T extends MinimumViableSnapshotQuery>(
   // include param to choose which key to use
   dateKey: 'timestamp' | 'createdAt',
   stackedArea?: boolean,
+  
 ): ChartSeriesParams => {
   const loading = !!(params.find((p) => p.query.loading));
 

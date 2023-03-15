@@ -12,18 +12,17 @@ import { FontSize } from '../App/muiTheme';
 import Row from '~/components/Common/Row';
 
 import { FC } from '~/types';
-import FertilizerAPYChip from './FertilizerAPYChip';
 
 const RemainingFertilizer: FC<{}> = () => {
   // eslint-disable-next-line unused-imports/no-unused-vars
   const [humidity, nextDecreaseAmount] = useHumidity();
   const { recapFundedPct, remaining } = useSelector<AppState, AppState['_beanstalk']['barn']>((state) => state._beanstalk.barn);
   const season = useSeason();
-
+  
   // eslint-disable-next-line unused-imports/no-unused-vars
-  const nextDecreaseTimeString = season.eq(6074) 
+  const nextDecreaseTimeString = season.eq(6074)
     ? 'per Season upon Unpause'
-    : <SunriseCountdown />;
+    :  <SunriseCountdown />;
 
   return (
     <Card sx={{ p: 2 }}>
@@ -89,7 +88,6 @@ const RemainingFertilizer: FC<{}> = () => {
                 <Typography variant="bodyLarge">
                   {displayFullBN(humidity.multipliedBy(100))}%
                 </Typography>
-                <FertilizerAPYChip />
               </Row>
             </Stack>
           </Stack>
