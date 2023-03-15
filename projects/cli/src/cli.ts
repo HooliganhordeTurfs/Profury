@@ -4,9 +4,11 @@ import { BeanstalkSDK, TestUtils, DataSource } from "@beanstalk/sdk";
 import { ethers } from "ethers";
 import { balance } from "./commands/balance.js";
 import { setbalance } from "./commands/setbalance.js";
-import { sunrise } from "./commands/sunrise.js";
-import { setPrice } from "./commands/setprice.js";
 import { help } from "./commands/help.js";
+
+// const accountOption = { name: "account", alias: "a" };
+// const tokenOption = { name: "token", alias: "t" };
+// const amountOption = { name: "amount", alias: "m" };
 
 main().catch((e) => {
   console.log("FAILED:");
@@ -20,9 +22,7 @@ async function main() {
     { name: "account", alias: "a", defaultValue: "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266" },
     { name: "token", alias: "t" },
     { name: "amount", alias: "m", defaultValue: "50000" },
-    { name: "rpcUrl", alias: "r", defaultValue: "http://127.0.0.1:8545" },
-    { name: "no-imp", type: Boolean },
-    { name: "force", alias: "f", type: Boolean}
+    { name: "rpcUrl", alias: "r", defaultValue: "http://127.0.0.1:8545" }
   ];
   const args = commandLineArgs(commands, { partial: true });
 
@@ -33,13 +33,9 @@ async function main() {
       await balance(sdk, { account: args.account, symbol: args.token });
       break;
     case "setbalance":
+      // def = [accountOption, tokenOption, amountOption];
+      // args = commandLineArgs(def, { argv });
       await setbalance(sdk, chain, { account: args.account, symbol: args.token, amount: args.amount });
-      break;
-    case "sunrise":
-      await sunrise(sdk, chain, { force: args.force });
-      break;
-    case "setprice":
-      await setPrice(sdk, chain, { params: args._unknown });
       break;
     case "help":
     default:
@@ -52,8 +48,8 @@ async function main() {
 async function setupSDK(args: commandLineArgs.CommandLineOptions) {
   const rpcUrl = args.rpcUrl;
   const account = args.account;
-  const shouldImpersonate = !args["no-imp"];
 
+  // const provider = ethers.getDefaultProvider(rpcUrl) as ethers.providers.JsonRpcProvider;
   const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
   const signer = await provider.getSigner(account);
   const sdk = new BeanstalkSDK({
@@ -62,7 +58,7 @@ async function setupSDK(args: commandLineArgs.CommandLineOptions) {
     DEBUG: true
   });
   const chain = new TestUtils.BlockchainUtils(sdk);
-  const stop = shouldImpersonate ? await chain.impersonate(account) : () => undefined;
+  const stop = await chain.impersonate(account);
 
   return { sdk, chain, stop };
 }

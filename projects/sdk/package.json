@@ -1,11 +1,11 @@
 {
   "name": "@beanstalk/sdk",
-  "version": "0.1.0",
-  "description": "A JavaScript framework for interacting with the Beanstalk protocol and ecosystem",
+  "version": "0.1.0-beta.9",
+  "description": "Beanstalk protocol SDK",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BeanstalkFarms/Beanstalk.git",
+    "url": "https://github.com/BeanstalkFarms/Beanstalk-SDK.git",
     "directory": "projects/sdk"
   },
   "homepage": "https://bean.money",
@@ -29,16 +29,13 @@
     "node": ">=16"
   },
   "scripts": {
-    "generate": "echo '\nSDK Generate' && yarn generate:typechain && yarn generate:graphql",
-    "generate:typechain": "typechain --target=ethers-v5 --ts-nocheck --out-dir=./src/constants/generated/ '{./src/constants/abi/**/*.json,../../protocol/abi/Beanstalk.json}'",
+    "generate": "yarn generate:typechain && yarn generate:graphql",
+    "generate:typechain": "typechain --target=ethers-v5 --ts-nocheck --out-dir=./src/constants/generated/ './src/constants/abi/**/*.json'",
     "generate:graphql": "graphql-codegen --config codegen.ts",
-    "clean:generated": "rimraf ./src/constants/generated && rimraf ./src/constants/generated-gql",
-    "clean:build": "rimraf dist",
-    "clean": "yarn clean:generated && yarn clean:build",
     "dev": "tsc --noEmit --watch",
-    "ts": "yarn clean:build && tsc && tsc-alias -p tsconfig.json",
+    "ts": "rimraf dist && tsc && tsc-alias -p tsconfig.json",
     "build": "yarn ts && rollup -c --bundleConfigAsCjs --silent && rimraf dist/js",
-    "publish": "yarn clean && yarn generate && yarn build && yarn npm publish --access public"
+    "publish": "yarn build && yarn npm publish --access public"
   },
   "peerDependencies": {
     "ethers": "5.6.8"
@@ -90,6 +87,7 @@
     "typescript": "4.8.4"
   },
   "packageManager": "yarn@3.2.3",
+  "stableVersion": "0.1.0-beta.1",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
