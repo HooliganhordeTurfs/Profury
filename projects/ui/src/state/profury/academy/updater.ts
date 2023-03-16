@@ -27,14 +27,14 @@ import { ZERO_BN } from '~/constants';
 
 export const useFetchBeanstalkBarn = () => {
   const dispatch        = useDispatch();
-  const beanstalk       = useBeanstalkContract();
+  const profury       = useBeanstalkContract();
   const [fertContract]  = useBeanstalkFertilizerContract();
   const [usdcContract]  = useERC20Contract(USDC_ADDRESSES);
 
   // Handlers
   const fetch = useCallback(async () => {
     if (fertContract && usdcContract) {
-      console.debug('[beanstalk/fertilizer/updater] FETCH');
+      console.debug('[profury/fertilizer/updater] FETCH');
       const [
         remainingRecapitalization,
         humidity,
@@ -44,15 +44,15 @@ export const useFetchBeanstalkBarn = () => {
         fertilized,
         recapFundedPct
       ] = await Promise.all([
-        beanstalk.remainingRecapitalization().then(tokenResult(BEAN)),
-        beanstalk.getCurrentHumidity().then(bigNumberResult),
-        beanstalk.beansPerFertilizer().then(bigNumberResult),
-        beanstalk.getEndBpf().then(bigNumberResult),
-        beanstalk.totalUnfertilizedBeans().then(tokenResult(BEAN)),
-        beanstalk.totalFertilizedBeans().then(tokenResult(BEAN)),
-        beanstalk.getRecapFundedPercent(UNRIPE_BEAN[1].address).then(tokenResult(UNRIPE_BEAN)),
+        profury.remainingRecapitalization().then(tokenResult(BEAN)),
+        profury.getCurrentHumidity().then(bigNumberResult),
+        profury.beansPerFertilizer().then(bigNumberResult),
+        profury.getEndBpf().then(bigNumberResult),
+        profury.totalUnfertilizedBeans().then(tokenResult(BEAN)),
+        profury.totalFertilizedBeans().then(tokenResult(BEAN)),
+        profury.getRecapFundedPercent(UNRIPE_BEAN[1].address).then(tokenResult(UNRIPE_BEAN)),
       ] as const);
-      console.debug(`[beanstalk/fertilizer/updater] RESULT: remaining = ${remainingRecapitalization.toFixed(2)}`);
+      console.debug(`[profury/fertilizer/updater] RESULT: remaining = ${remainingRecapitalization.toFixed(2)}`);
       dispatch(updateBarn({
         remaining: remainingRecapitalization, // FIXME rename
         totalRaised: ZERO_BN,
@@ -66,7 +66,7 @@ export const useFetchBeanstalkBarn = () => {
     }
   }, [
     dispatch,
-    beanstalk,
+    profury,
     fertContract,
     usdcContract
   ]); 

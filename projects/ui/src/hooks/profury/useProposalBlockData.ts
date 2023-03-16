@@ -38,7 +38,7 @@ export default function useProposalBlockData(
   const pctStalkForQuorum = getQuorumPct(type); // undefined if there is no set quorum
 
   /// Beanstalk
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
   const [totalStalk, setTotalStalk] = useState<undefined | BigNumber>(undefined);
   const [votingPower, setVotingPower] = useState<undefined | BigNumber>(undefined);
   const [loading, setLoading] = useState(true);
@@ -56,8 +56,8 @@ export default function useProposalBlockData(
         const blockTag = parseInt(proposal.snapshot, 10);
         const stalkResult = tokenResult(STALK);
         const [_totalStalk, _votingPower] = await Promise.all([
-          beanstalk.totalStalk({ blockTag }).then(stalkResult),
-          account ? beanstalk.balanceOfStalk(account, { blockTag }).then(stalkResult) : Promise.resolve(undefined),
+          profury.totalStalk({ blockTag }).then(stalkResult),
+          account ? profury.balanceOfStalk(account, { blockTag }).then(stalkResult) : Promise.resolve(undefined),
         ]);
         setTotalStalk(_totalStalk);
         setVotingPower(_votingPower);
@@ -67,7 +67,7 @@ export default function useProposalBlockData(
         setLoading(false);
       }
     })();
-  }, [beanstalk, tag, proposal.snapshot, account]);
+  }, [profury, tag, proposal.snapshot, account]);
   
   //
   const stalkForQuorum = (pctStalkForQuorum && totalStalk)

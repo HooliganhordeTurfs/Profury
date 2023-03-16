@@ -4,7 +4,7 @@ import { tickFormatPercentage } from '~/components/Analytics/formatters';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';
 import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/SeasonPlot';
 import { SeasonalApyDocument, SeasonalApyQuery } from '~/generated/graphql';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 
 import { FC } from '~/types';
 

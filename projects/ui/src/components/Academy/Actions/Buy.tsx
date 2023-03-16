@@ -191,7 +191,7 @@ const Buy : FC<{}> = () => {
   const provider = useProvider();
   const chainId = useChainId();
   const fertContract = useFertilizerContract(signer);
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farmer
   const balances = useFarmerBalances();
@@ -290,7 +290,7 @@ const Buy : FC<{}> = () => {
     try {
       middleware.before();
 
-      if (!beanstalk) throw new Error('Unable to access contracts');
+      if (!profury) throw new Error('Unable to access contracts');
       if (!account) throw new Error('Connect a wallet first.');
 
       /// Get amounts
@@ -340,13 +340,13 @@ const Buy : FC<{}> = () => {
             ),
             // Mint Fertilizer, which also mints Beans and 
             // deposits the underlying LP in the same txn.
-            beanstalk.interface.encodeFunctionData('mintFertilizer', [
+            profury.interface.encodeFunctionData('mintFertilizer', [
               toStringBaseUnitBN(amountUsdc, 0),
               Farm.slip(minLP, 0.1 / 100),
               FarmFromMode.INTERNAL_TOLERANT,
             ])
           ];
-          call = beanstalk.farm(data);
+          call = profury.farm(data);
           break;
         }
         case Eth: {
@@ -355,7 +355,7 @@ const Buy : FC<{}> = () => {
           value = value.plus(amount);
           const data : string[] = [
             // Wrap input ETH into our internal balance
-            beanstalk.interface.encodeFunctionData('wrapEth', [
+            profury.interface.encodeFunctionData('wrapEth', [
               toStringBaseUnitBN(value, Eth.decimals),
               FarmToMode.INTERNAL,
             ]),
@@ -366,14 +366,14 @@ const Buy : FC<{}> = () => {
             ),
             // Mint Fertilizer, which also mints Beans and 
             // deposits the underlying LP in the same txn.
-            beanstalk.interface.encodeFunctionData('mintFertilizer', [
+            profury.interface.encodeFunctionData('mintFertilizer', [
               toStringBaseUnitBN(amountUsdc, 0),
               Farm.slip(minLP, 0.1 / 100),
               FarmFromMode.INTERNAL_TOLERANT,
             ])
           ];
-          // const gas = await beanstalk.estimateGas.farm(data, { value: toStringBaseUnitBN(value, Eth.decimals) });
-          call = beanstalk.farm(data, {
+          // const gas = await profury.estimateGas.farm(data, { value: toStringBaseUnitBN(value, Eth.decimals) });
+          call = profury.farm(data, {
             value: toStringBaseUnitBN(value, Eth.decimals),
           });
           break;
@@ -387,7 +387,7 @@ const Buy : FC<{}> = () => {
             minLP: minLP.toString(),
             minLPSlip: Farm.slip(minLP, 0.1 / 100).toString(),
           });
-          call = beanstalk.mintFertilizer(
+          call = profury.mintFertilizer(
             /// The input for Fertilizer has 0 decimals;
             /// it's the exact number of FERT you want to mint.
             toStringBaseUnitBN(amountUsdc, 0),
@@ -420,14 +420,14 @@ const Buy : FC<{}> = () => {
       txToast ? txToast.error(err) : toast.error(parseError(err));
       console.error(err);
     }
-  }, [beanstalk, account, Usdc, farm.contracts.curve.zap.callStatic, farm.contracts.curve.pools.beanCrv3.address, refetchFertilizer, refetchBalances, refetchAllowances, fertContract.address, Bean, Eth, middleware]);
+  }, [profury, account, Usdc, farm.contracts.curve.zap.callStatic, farm.contracts.curve.pools.beanCrv3.address, refetchFertilizer, refetchBalances, refetchAllowances, fertContract.address, Bean, Eth, middleware]);
 
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {(formikProps) => (
         <BuyForm
           handleQuote={handleQuote}
-          contract={beanstalk}
+          contract={profury}
           balances={balances}
           tokenOut={tokenOut}
           {...formikProps}

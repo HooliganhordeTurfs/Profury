@@ -6,10 +6,10 @@ import {
   useHistoricalPodOrdersLazyQuery,
   useMarketEventsLazyQuery,
 } from '~/generated/graphql';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import { toTokenUnitsBN } from '~/util';
 import { BEAN } from '~/constants/tokens';
-import useSiloTokenToFiat from '~/hooks/beanstalk/useSiloTokenToFiat';
+import useSiloTokenToFiat from '~/hooks/profury/useSiloTokenToFiat';
 
 export type MarketEvent = {
   // the entity that the event referred to

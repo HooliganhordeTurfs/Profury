@@ -4,8 +4,8 @@ import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import useChainId from '~/hooks/chain/useChainId';
 import useBlocks from '~/hooks/ledger/useBlocks';
 import useAccount from '~/hooks/ledger/useAccount';
-import useWhitelist from '~/hooks/beanstalk/useWhitelist';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useWhitelist from '~/hooks/profury/useWhitelist';
+import useSeason from '~/hooks/profury/useSeason';
 import { EventCacheName } from '../events2';
 import useEvents, { GetQueryFilters } from '../events2/updater';
 import { resetFarmerMarket } from './actions';
@@ -15,7 +15,7 @@ export const useFetchFarmerMarket = () => {
   const dispatch  = useDispatch();
 
   /// Contracts
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   /// Data
   const account   = useAccount();
@@ -29,40 +29,40 @@ export const useFetchFarmerMarket = () => {
     fromBlock,
     toBlock,
   ) => [
-    beanstalk.queryFilter(
-      beanstalk.filters.PodListingCreated(_account),
+    profury.queryFilter(
+      profury.filters.PodListingCreated(_account),
       fromBlock || blocks.BIP10_COMMITTED_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters['PodListingCancelled(address,uint256)'](_account),
+    profury.queryFilter(
+      profury.filters['PodListingCancelled(address,uint256)'](_account),
       fromBlock || blocks.BIP10_COMMITTED_BLOCK,
       toBlock   || 'latest',
     ),
     // this account had a listing filled
-    beanstalk.queryFilter(
-      beanstalk.filters.PodListingFilled(null, _account), // to
+    profury.queryFilter(
+      profury.filters.PodListingFilled(null, _account), // to
       fromBlock || blocks.BIP10_COMMITTED_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters.PodOrderCreated(_account), 
+    profury.queryFilter(
+      profury.filters.PodOrderCreated(_account), 
       fromBlock || blocks.BIP10_COMMITTED_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters.PodOrderCancelled(_account), 
+    profury.queryFilter(
+      profury.filters.PodOrderCancelled(_account), 
       fromBlock || blocks.BIP10_COMMITTED_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters.PodOrderFilled(null, _account), // to
+    profury.queryFilter(
+      profury.filters.PodOrderFilled(null, _account), // to
       fromBlock || blocks.BIP10_COMMITTED_BLOCK,
       toBlock   || 'latest',
     ),
   ], [
     blocks,
-    beanstalk,
+    profury,
   ]);
   
   const [fetchMarketEvents] = useEvents(EventCacheName.MARKET, getQueryFilters);

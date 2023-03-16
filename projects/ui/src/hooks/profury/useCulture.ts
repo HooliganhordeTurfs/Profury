@@ -63,7 +63,7 @@ export const useHumidityAtId = () => useCallback((id: BigNumber) => {
 // ----------------------------------------
 
 export default function useHumidity() {
-  const season = useSelector<AppState, AppState['_beanstalk']['sun']['season']>((state) => state._beanstalk.sun.season);
+  const season = useSelector<AppState, AppState['_profury']['sun']['season']>((state) => state._profury.sun.season);
   const humidityAt = useHumidityAtSeason();
   return humidityAt(season);
 }

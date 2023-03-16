@@ -18,7 +18,7 @@ import {
   SmartSubmitButton
 } from '~/components/Common/Form';
 import BeanstalkSDK from '~/lib/Beanstalk';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { FarmerSilo } from '~/state/farmer/silo';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import { displayFullBN, parseError, toStringBaseUnitBN } from '~/util';
@@ -29,7 +29,7 @@ import { AppState } from '~/state';
 import { ActionType } from '~/util/Actions';
 import { ZERO_BN } from '~/constants';
 import { useFetchFarmerSilo } from '~/state/farmer/silo/updater';
-import { useFetchBeanstalkSilo } from '~/state/beanstalk/silo/updater';
+import { useFetchBeanstalkSilo } from '~/state/profury/silo/updater';
 import IconWrapper from '../../Common/IconWrapper';
 import { IconSize } from '../../App/muiTheme';
 import useFarmerSilo from '~/hooks/farmer/useFarmerSilo';
@@ -242,11 +242,11 @@ const WithdrawForm : FC<
 const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
   /// Ledger
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
   
   /// Beanstalk
   const season = useSeason();
-  const withdrawSeasons = useSelector<AppState, BigNumber>((state) => state._beanstalk.silo.withdrawSeasons);
+  const withdrawSeasons = useSelector<AppState, BigNumber>((state) => state._profury.silo.withdrawSeasons);
 
   /// Farmer
   const farmerSilo          = useFarmerSilo();
@@ -300,9 +300,9 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
       } else if (seasons.length === 1) {
         if (farmerSilo.beans.earned.gt(0)) {
           console.debug('[silo/withdraw] strategy: plant + withdrawDeposit');
-          call = beanstalk.farm([
-            beanstalk.interface.encodeFunctionData('plant'),
-            beanstalk.interface.encodeFunctionData('withdrawDeposit', [
+          call = profury.farm([
+            profury.interface.encodeFunctionData('plant'),
+            profury.interface.encodeFunctionData('withdrawDeposit', [
               token.address,
               seasons[0],
               amounts[0],
@@ -310,7 +310,7 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
           ]);
         } else {
           console.debug('[silo/withdraw] strategy: withdrawDeposit');
-          call = beanstalk.withdrawDeposit(
+          call = profury.withdrawDeposit(
             token.address,
             seasons[0],
             amounts[0],
@@ -318,9 +318,9 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
         }
       } else if (farmerSilo.beans.earned.gt(0)) {
         console.debug('[silo/withdraw] strategy: plant + withdrawDeposits');
-        call = beanstalk.farm([
-          beanstalk.interface.encodeFunctionData('plant'),
-          beanstalk.interface.encodeFunctionData('withdrawDeposits', [
+        call = profury.farm([
+          profury.interface.encodeFunctionData('plant'),
+          profury.interface.encodeFunctionData('withdrawDeposits', [
             token.address,
             seasons,
             amounts,
@@ -328,7 +328,7 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
         ]);
       } else {
         console.debug('[silo/withdraw] strategy: withdrawDeposits');
-        call = beanstalk.withdrawDeposits(
+        call = profury.withdrawDeposits(
           token.address,
           seasons,
           amounts,
@@ -357,7 +357,7 @@ const Withdraw : FC<{ token: ERC20Token; }> = ({ token }) => {
   }, [
     siloBalances,
     farmerSilo.beans.earned,
-    beanstalk,
+    profury,
     token,
     season,
     refetchFarmerSilo,

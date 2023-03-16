@@ -19,7 +19,7 @@ import WalletButton from '~/components/Common/Connection/WalletButton';
 import { SNAPSHOT_LINK, ZERO_BN } from '~/constants';
 import Row from '~/components/Common/Row';
 import { FC } from '~/types';
-import useProposalBlockData from '~/hooks/beanstalk/useProposalBlockData';
+import useProposalBlockData from '~/hooks/profury/useProposalBlockData';
 import StatHorizontal from '~/components/Common/StatHorizontal';
 
 type VoteFormValues = {

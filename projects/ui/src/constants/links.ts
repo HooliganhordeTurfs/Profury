@@ -8,11 +8,11 @@ export const UNISWAP_CONTRACT_LINK =
 
 export const COINGECKO_LINK = 'https://www.coingecko.com/en/coins/bean';
 export const COINMARKETCAP_LINK =
-  'https://coinmarketcap.com/currencies/beanstalk/';
-export const COMMONWEALTH_LINK = 'https://commonwealth.im/beanstalk/';
+  'https://coinmarketcap.com/currencies/profury/';
+export const COMMONWEALTH_LINK = 'https://commonwealth.im/profury/';
 export const DISCORD_LINK = 'https://discord.gg/y4cJNv5DTM';
 export const GITHUB_LINK = 'https://github.com/BeanstalkFarms/Beanstalk';
-export const MEDIUM_LINK = 'https://medium.com/beanstalkfarms';
+export const MEDIUM_LINK = 'https://medium.com/profuryfarms';
 export const OPENSEA_LINK_GENESIS = 'https://opensea.io/collection/beanft-genesis';
 export const OPENSEA_LINK_COLLECTION = 'https://opensea.io/collection/beanft-collection';
 export const REDDIT_LINK = 'https://www.reddit.com/r/BeanstalkProtocol/';
@@ -25,7 +25,7 @@ export const CURVE_LINK = 'https://curve.fi/factory/152/';
 export const LUSD_LINK = 'https://curve.fi/factory/103/';
 export const DUNE_LINK = 'https://dune.xyz/tbiq/Beanstalk';
 export const NETLIFY_LINK = 'https://www.netlify.com/';
-export const SNAPSHOT_LINK = 'https://snapshot.org/#/beanstalkdao.eth';
+export const SNAPSHOT_LINK = 'https://snapshot.org/#/profurydao.eth';
 export const ANALYTICS_LINK = 'https://dune.xyz/tbiq/Beanstalk';
 
 /* Path Links */
@@ -33,12 +33,12 @@ export const APY_CALCULATION = '/docs/APY.html';
 export const HOW_TO_PATH = '/docs/How-To.html';
 export const HOW_TO_MOBILE_PATH = '/docs/How-To-Mobile.html';
 export const INTRO_TO_PATH = '/docs/Intro-to-Beanstalk.html';
-export const WHITEPAPER = '/docs/beanstalk.pdf';
+export const WHITEPAPER = '/docs/profury.pdf';
 
 /* Metamask Links */
 export const METAMASK_LINK = 'https://metamask.io/download';
 export const HOW_TO_MM_PATH =
-  '/docs/How-To.html#connect-your-metamask-wallet-to-beanstalk';
+  '/docs/How-To.html#connect-your-metamask-wallet-to-profury';
 
 /* Base Links */
 export const BASE_ETHERSCAN_TX_LINK = 'https://etherscan.io/tx/';
@@ -46,7 +46,7 @@ export const BASE_ETHERSCAN_ADDR_LINK = 'https://etherscan.io/address/';
 
 /* Informational Links */
 export const MEDIUM_INTEREST_LINK =
-  'https://medium.com/@BeanstalkFarms/earn-interest-from-beanstalk-just-the-basics-165a8cc5fecd';
+  'https://medium.com/@BeanstalkFarms/earn-interest-from-profury-just-the-basics-165a8cc5fecd';
 export const FUNDRAISER_LINK =
   'https://github.com/BeanstalkFarms/Beanstalk/blob/master/bips/bip-4.md';
 export const SLIPPAGE_LINK =
@@ -74,8 +74,8 @@ export const BEANSTALK_NFT_SUBGRAPH_API_LINK =
 export const WINTER_NFT_SUBGRAPH_API_LINK =
   'https://api.studio.thegraph.com/query/6727/winterbeanft/v0.0.9';
 // export const BEANSTALK_SUBGRAPH_API_LINK =
-//   'https://api.studio.thegraph.com/query/6727/beanstalk/v1.1.6';
+//   'https://api.studio.thegraph.com/query/6727/profury/v1.1.6';
 export const BEANSTALK_SUBGRAPH_API_LINK =
 'https://gateway.thegraph.com/api/fe672ef9fcdfb617c4d7755f36a31131/subgraphs/id/0x925753106fcdb6d2f30c3db295328a0a1c5fd1d1-0';
 export const SOIL_SUBGRAPH_API_LINK =
-'https://api.studio.thegraph.com/query/6727/beanstalk/1.1.10';
+'https://api.studio.thegraph.com/query/6727/profury/1.1.10';

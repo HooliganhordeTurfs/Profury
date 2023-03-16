@@ -9,16 +9,16 @@ import TokenIcon from '~/components/Common/TokenIcon';
 import { BEAN, SEEDS, STALK, UNRIPE_BEAN, UNRIPE_BEAN_CRV3 } from '~/constants/tokens';
 import { AddressMap, ONE_BN, ZERO_BN } from '~/constants';
 import { displayFullBN, displayTokenAmount } from '~/util/Tokens';
-import useBDV from '~/hooks/beanstalk/useBDV';
+import useBDV from '~/hooks/profury/useBDV';
 import { BeanstalkPalette, FontSize, IconSize } from '~/components/App/muiTheme';
 import Fiat from '~/components/Common/Fiat';
 import useGetChainToken from '~/hooks/chain/useGetChainToken';
 import useSetting from '~/hooks/app/useSetting';
 import Row from '~/components/Common/Row';
 import Stat from '~/components/Common/Stat';
-import useUnripeUnderlyingMap from '~/hooks/beanstalk/useUnripeUnderlying';
-import useAPY from '~/hooks/beanstalk/useAPY';
-import stalkIconBlue from '~/img/beanstalk/stalk-icon-blue.svg';
+import useUnripeUnderlyingMap from '~/hooks/profury/useUnripeUnderlying';
+import useAPY from '~/hooks/profury/useAPY';
+import stalkIconBlue from '~/img/profury/stalk-icon-blue.svg';
 import SiloAssetApyChip from './SiloAssetApyChip';
 
 /**
@@ -60,7 +60,7 @@ const Whitelist : FC<{
   /// State
   const apyQuery      = useAPY();
   const getBDV        = useBDV();
-  const beanstalkSilo = useSelector<AppState, AppState['_beanstalk']['silo']>((state) => state._beanstalk.silo);
+  const profurySilo = useSelector<AppState, AppState['_profury']['silo']>((state) => state._profury.silo);
   const unripeTokens  = useSelector<AppState, AppState['_bean']['unripe']>((state) => state._bean.unripe);
 
   return (
@@ -210,7 +210,7 @@ const Whitelist : FC<{
             : null;
           const pctUnderlyingDeposited = isUnripe
             ? (
-                beanstalkSilo.balances[token.address]?.deposited.amount ||
+                profurySilo.balances[token.address]?.deposited.amount ||
                 ZERO_BN
               ).div(unripeTokens[token.address]?.supply || ONE_BN)
             : ONE_BN;
@@ -369,7 +369,7 @@ const Whitelist : FC<{
                               >
                                 Total Amount Deposited:{' '}
                                 {displayFullBN(
-                                  beanstalkSilo.balances[token.address]
+                                  profurySilo.balances[token.address]
                                     ?.deposited.amount || ZERO_BN,
                                   token.displayDecimals
                                 )}{' '}
@@ -402,7 +402,7 @@ const Whitelist : FC<{
                                 gap={0.25}
                                 variant="h4"
                                 amount={displayTokenAmount(
-                                  beanstalkSilo.balances[token.address]
+                                  profurySilo.balances[token.address]
                                     ?.deposited.amount || ZERO_BN,
                                   token,
                                   { showName: false }
@@ -452,7 +452,7 @@ const Whitelist : FC<{
                           <Fiat
                             token={token}
                             amount={
-                              beanstalkSilo.balances[token.address]?.deposited
+                              profurySilo.balances[token.address]?.deposited
                                 .amount
                             }
                             truncate

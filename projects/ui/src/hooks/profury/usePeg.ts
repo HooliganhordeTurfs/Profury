@@ -12,8 +12,8 @@ import {
   STEADY_SOW_TIME,
   ZERO_BN,
 } from '~/constants';
-import usePodRate from '~/hooks/beanstalk/usePodRate';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import usePodRate from '~/hooks/profury/usePodRate';
+import useSeason from '~/hooks/profury/useSeason';
 import { AppState } from '~/state';
 import { MaxBN, MinBN } from '~/util';
 
@@ -129,8 +129,8 @@ const temperature = (
 const usePeg = () => {
   const season    = useSeason();
   const bean      = useSelector<AppState, AppState['_bean']['token']>((state) => state._bean.token);
-  const field     = useSelector<AppState, AppState['_beanstalk']['field']>((state) => state._beanstalk.field);
-  const barn      = useSelector<AppState, AppState['_beanstalk']['barn']>((state) => state._beanstalk.barn);
+  const field     = useSelector<AppState, AppState['_profury']['field']>((state) => state._profury.field);
+  const barn      = useSelector<AppState, AppState['_profury']['barn']>((state) => state._profury.barn);
   const podRate   = usePodRate();
   
   // END HOTFIX
@@ -152,7 +152,7 @@ const usePeg = () => {
     // POD RATE AS DECIMAL
     // 100% = 1
     podRate.div(100),     // current pod rate (unharvestable pods / bean supply)
-    bean.deltaB, // current deltaB via beanstalk.totalDeltaB()
+    bean.deltaB, // current deltaB via profury.totalDeltaB()
   );
 
   /// TODO:

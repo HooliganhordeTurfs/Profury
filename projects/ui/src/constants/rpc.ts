@@ -10,10 +10,10 @@ import { SupportedChainId } from './chains';
 };
 
 export const BEANSTALK_SUBGRAPH_ADDRESSES : { [chainId: number] : string } = {
-  [SupportedChainId.MAINNET]:   'https://graph.node.bean.money/subgraphs/name/beanstalk',
-  // [SupportedChainId.MAINNET]:   'https://api.thegraph.com/subgraphs/name/cujowolf/beanstalk',
-  [SupportedChainId.LOCALHOST]: 'https://api.thegraph.com/subgraphs/name/cujowolf/beanstalk-dev-replanted',
-  [SupportedChainId.CUJO]:      'http://graph.playgrounds.academy/subgraphs/name/beanstalk',
+  [SupportedChainId.MAINNET]:   'https://graph.node.bean.money/subgraphs/name/profury',
+  // [SupportedChainId.MAINNET]:   'https://api.thegraph.com/subgraphs/name/cujowolf/profury',
+  [SupportedChainId.LOCALHOST]: 'https://api.thegraph.com/subgraphs/name/cujowolf/profury-dev-replanted',
+  [SupportedChainId.CUJO]:      'http://graph.playgrounds.academy/subgraphs/name/profury',
 };
 
 /// The BEAN subgraph is slow to index because it tracks many events.

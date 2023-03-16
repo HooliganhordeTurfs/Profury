@@ -16,8 +16,8 @@ import QueryState from '../../Common/Charts/QueryState';
 import Row from '../../Common/Row';
 import TimeTabs from '../../Common/Charts/TimeTabs';
 import { tickFormatUSD } from '~/components/Analytics/formatters';
-import useGenerateChartSeries from '~/hooks/beanstalk/useGenerateChartSeries';
-import useSeasonsQuery from '~/hooks/beanstalk/useSeasonsQuery';
+import useGenerateChartSeries from '~/hooks/profury/useGenerateChartSeries';
+import useSeasonsQuery from '~/hooks/profury/useSeasonsQuery';
 import useTimeTabState from '~/hooks/app/useTimeTabState';
 
 type BarChartDatum = {

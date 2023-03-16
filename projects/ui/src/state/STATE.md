@@ -7,7 +7,7 @@
   - supply
 - price: aggregate price
 
-`beanstalk`: Beanstalk protocol
+`profury`: Beanstalk protocol
 - field
 - governance
 - market

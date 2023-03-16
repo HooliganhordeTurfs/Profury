@@ -8,11 +8,11 @@ import beanCircleLogoUrl from '~/img/tokens/bean-logo-circled.svg';
 import beanCrv3LpLogoUrl from '~/img/tokens/bean-crv3-logo.svg';
 
 // Beanstalk Token Logos
-import stalkLogo from '~/img/beanstalk/stalk-icon-winter.svg';
-import seedLogo from '~/img/beanstalk/seed-icon-winter.svg';
-import podsLogo from '~/img/beanstalk/pod-icon-winter.svg';
-import sproutLogo from '~/img/beanstalk/sprout-icon-winter.svg';
-import rinsableSproutLogo from '~/img/beanstalk/rinsable-sprout-icon.svg';
+import stalkLogo from '~/img/profury/stalk-icon-winter.svg';
+import seedLogo from '~/img/profury/seed-icon-winter.svg';
+import podsLogo from '~/img/profury/pod-icon-winter.svg';
+import sproutLogo from '~/img/profury/sprout-icon-winter.svg';
+import rinsableSproutLogo from '~/img/profury/rinsable-sprout-icon.svg';
 import beanEthLpLogoUrl from '~/img/tokens/bean-eth-lp-logo.svg';
 import beanLusdLogoUrl from '~/img/tokens/bean-lusd-logo.svg';
 

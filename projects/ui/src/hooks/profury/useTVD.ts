@@ -11,8 +11,8 @@ export default function useTVD() {
   const whitelist = useWhitelist();
   const balances = useSelector<
     AppState,
-    AppState['_beanstalk']['silo']['balances']
-  >((state) => state._beanstalk.silo.balances);
+    AppState['_profury']['silo']['balances']
+  >((state) => state._profury.silo.balances);
   const unripeTokens = useSelector<AppState, AppState['_bean']['unripe']>(
     (state) => state._bean.unripe
   );

@@ -12,7 +12,7 @@ import { UNRIPE_TOKENS } from '~/constants/tokens';
 import useTokenMap from '~/hooks/chain/useTokenMap';
 import { selectCratesForEnroot } from '~/util/Crates';
 import useAccount from '~/hooks/ledger/useAccount';
-import useBDV from '~/hooks/beanstalk/useBDV';
+import useBDV from '~/hooks/profury/useBDV';
 import { useFetchFarmerSilo } from '~/state/farmer/silo/updater';
 import { AppState } from '~/state';
 import TransactionToast from '~/components/Common/TxnToast';
@@ -65,7 +65,7 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
   const getBDV = useBDV();
 
   /// Contracts
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Form
   const initialValues: ClaimRewardsFormValues = useMemo(
@@ -83,7 +83,7 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
     if (!signer) throw new Error('No signer');
 
     const selectedCratesByToken = selectCratesForEnroot(
-      beanstalk,
+      profury,
       unripeTokens,
       siloBalances,
       getBDV
@@ -100,27 +100,27 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
 
     const _calls: ClaimCalls = {
       [ClaimRewardsAction.MOW]: {
-        estimateGas: () => beanstalk.estimateGas.update(account),
-        execute: () => beanstalk.update(account),
+        estimateGas: () => profury.estimateGas.update(account),
+        execute: () => profury.update(account),
         enabled: farmerSilo.stalk.grown.gt(0),
       },
       [ClaimRewardsAction.PLANT_AND_MOW]: {
-        estimateGas: () => beanstalk.estimateGas.plant(),
-        execute: () => beanstalk.plant(),
+        estimateGas: () => profury.estimateGas.plant(),
+        execute: () => profury.plant(),
         enabled: farmerSilo.seeds.earned.gt(0),
       },
       [ClaimRewardsAction.ENROOT_AND_MOW]: {
         estimateGas: () =>
-          beanstalk.estimateGas.farm([
+          profury.estimateGas.farm([
             // PLANT_AND_MOW
-            beanstalk.interface.encodeFunctionData('plant', undefined),
+            profury.interface.encodeFunctionData('plant', undefined),
             // ENROOT_AND_MOW
             ...enrootData,
           ]),
         execute: () =>
-          beanstalk.farm([
+          profury.farm([
             // PLANT_AND_MOW
-            beanstalk.interface.encodeFunctionData('plant', undefined),
+            profury.interface.encodeFunctionData('plant', undefined),
             // ENROOT_AND_MOW
             ...enrootData,
           ]),
@@ -133,8 +133,8 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
           enrootData.length > 1
             /// use `farm()` if multiple crates
             ? {
-              estimateGas: () => beanstalk.estimateGas.farm(enrootData),
-              execute:     () => beanstalk.farm(enrootData),
+              estimateGas: () => profury.estimateGas.farm(enrootData),
+              execute:     () => profury.farm(enrootData),
               enabled:     true,
             }
             /// send raw transaction if single crate
@@ -143,12 +143,12 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
             : {
               estimateGas: () => provider.estimateGas(
                 signer.checkTransaction({
-                  to: beanstalk.address,
+                  to: profury.address,
                   data: enrootData[0],
                 })
               ),
               execute: () => signer.sendTransaction({
-                to: beanstalk.address,
+                to: profury.address,
                 data: enrootData[0],
               }),
               enabled: enrootData.length > 0,
@@ -156,16 +156,16 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
         ), */
       [ClaimRewardsAction.CLAIM_ALL]: {
         estimateGas: () =>
-          beanstalk.estimateGas.farm([
+          profury.estimateGas.farm([
             // PLANT_AND_MOW
-            beanstalk.interface.encodeFunctionData('plant', undefined),
+            profury.interface.encodeFunctionData('plant', undefined),
             // ENROOT_AND_MOW
             ...enrootData,
           ]),
         execute: () =>
-          beanstalk.farm([
+          profury.farm([
             // PLANT_AND_MOW
-            beanstalk.interface.encodeFunctionData('plant', undefined),
+            profury.interface.encodeFunctionData('plant', undefined),
             // ENROOT_AND_MOW
             ...enrootData,
           ]),
@@ -195,7 +195,7 @@ const RewardsForm: React.FC<RewardsFormProps> = ({ open, children }) => {
     setGas(_gas);
   }, [
     account,
-    beanstalk,
+    profury,
     farmerSilo.seeds.earned,
     farmerSilo.stalk.grown,
     getBDV,

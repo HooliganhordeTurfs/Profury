@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useFarmerSiloRewardsQuery } from '~/generated/graphql';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { interpolateFarmerStalk } from '~/util/Interpolate';
 
 const useInterpolateStalk = (

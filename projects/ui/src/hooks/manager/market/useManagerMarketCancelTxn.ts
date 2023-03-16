@@ -22,7 +22,7 @@ export default function useFarmerMarketCancelTxn() {
   /// Ledger
   const account = useAccount();
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farmer
   const [refetchFarmerField] = useFetchFarmerField();
@@ -45,7 +45,7 @@ export default function useFarmerMarketCancelTxn() {
           setLoading(true);
           middleware.before();
 
-          const txn = await beanstalk.cancelPodListing(listingId);
+          const txn = await profury.cancelPodListing(listingId);
           txToast.confirming(txn);
 
           const receipt = await txn.wait();
@@ -62,7 +62,7 @@ export default function useFarmerMarketCancelTxn() {
         }
       })();
     },
-    [beanstalk, middleware, refetchFarmerField, refetchFarmerMarketItems]
+    [profury, middleware, refetchFarmerField, refetchFarmerMarketItems]
   );
 
   const cancelOrder = useCallback(
@@ -90,10 +90,10 @@ export default function useFarmerMarketCancelTxn() {
           // Check: Verify these params actually hash to an on-chain order
           // This prevents invalid orders from getting cancelled and emitting
           // a bogus PodOrderCancelled event.
-          const verify = await beanstalk.podOrder(account, ...params);
+          const verify = await profury.podOrder(account, ...params);
           if (!verify || verify.eq(0)) throw new Error('Order not found');
           
-          const txn = await beanstalk.cancelPodOrder(...params, destination);
+          const txn = await profury.cancelPodOrder(...params, destination);
           txToast.confirming(txn);
 
           const receipt = await txn.wait();
@@ -111,7 +111,7 @@ export default function useFarmerMarketCancelTxn() {
         }
       })();
     },
-    [account, middleware, Bean, beanstalk, refetchFarmerMarketItems, refetchFarmerBalances]
+    [account, middleware, Bean, profury, refetchFarmerMarketItems, refetchFarmerBalances]
   );
 
   return {

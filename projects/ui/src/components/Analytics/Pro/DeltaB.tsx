@@ -6,7 +6,7 @@ import SeasonPlot, {
 } from '~/components/Common/Charts/SeasonPlot';
 import { BEAN } from '~/constants/tokens';
 import { SeasonalDeltaBDocument, SeasonalDeltaBQuery } from '~/generated/graphql';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 import { toTokenUnitsBN } from '~/util';
 
 import { FC } from '~/types';

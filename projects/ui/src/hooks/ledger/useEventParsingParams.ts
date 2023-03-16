@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { AppState } from '~/state';
 import useAccount from './useAccount';
 
@@ -18,8 +18,8 @@ export default function useEventParsingParams() {
   const earnedBeans = useSelector<AppState, AppState['_farmer']['silo']['beans']['earned']>(
     (state) => state._farmer.silo.beans.earned
   );
-  const harvestableIndex = useSelector<AppState, AppState['_beanstalk']['field']['harvestableIndex']>(
-    (state) => state._beanstalk.field.harvestableIndex,
+  const harvestableIndex = useSelector<AppState, AppState['_profury']['field']['harvestableIndex']>(
+    (state) => state._profury.field.harvestableIndex,
   );
   return useMemo<null | EventParsingParameters>(() => {
     if (account && earnedBeans && season?.gt(0) && harvestableIndex?.gt(0)) {

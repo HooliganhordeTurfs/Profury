@@ -2,7 +2,7 @@ import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { ApolloError } from '@apollo/client';
 import { TimeTabStateParams } from '~/hooks/app/useTimeTabState';
-import { MinimumViableSnapshotQuery } from '~/hooks/beanstalk/useSeasonsQuery';
+import { MinimumViableSnapshotQuery } from '~/hooks/profury/useSeasonsQuery';
 
 import Row from '../Row';
 import Stat, { StatProps } from '../Stat';

@@ -21,7 +21,7 @@ import useGetChainToken from '~/hooks/chain/useGetChainToken';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import useFarmerListingsLedger from '~/hooks/farmer/useFarmerListingsLedger';
 import useFarmerPlots from '~/hooks/farmer/useFarmerPlots';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import { ActionType } from '~/util/Actions';
 import {
   PlotMap,
@@ -193,7 +193,7 @@ const CreateListingV2: FC<{}> = () => {
 
   /// Ledger
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Beanstalk
   const harvestableIndex = useHarvestableIndex();
@@ -245,7 +245,7 @@ const CreateListingV2: FC<{}> = () => {
       /// expiresAt is relative (ie 0 = front of pod line)
       /// add harvestableIndex to make it absolute
       const maxHarvestableIndex = expiresAt.plus(harvestableIndex);
-      const txn = await beanstalk.createPodListing(
+      const txn = await profury.createPodListing(
         toStringBaseUnitBN(index,       Bean.decimals),   // absolute plot index
         toStringBaseUnitBN(start,       Bean.decimals),   // relative start index
         toStringBaseUnitBN(amount,      Bean.decimals),   // relative amount
@@ -267,7 +267,7 @@ const CreateListingV2: FC<{}> = () => {
       txToast?.error(err) || toast.error(parseError(err));
       console.error(err);
     }
-  }, [middleware, plots, harvestableIndex, beanstalk, refetchFarmerMarketItems, getChainToken]);
+  }, [middleware, plots, harvestableIndex, profury, refetchFarmerMarketItems, getChainToken]);
 
   return (
     <Formik<CreateListingFormValues>

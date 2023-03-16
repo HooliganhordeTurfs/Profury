@@ -81,7 +81,7 @@ const Quoting = <CircularProgress variant="indeterminate" size="small" sx={{ wid
 
 const SwapForm: FC<FormikProps<SwapFormValues> & {
   balances: ReturnType<typeof useFarmerBalances>;
-  beanstalk: Beanstalk;
+  profury: Beanstalk;
   handleQuote: DirectionalQuoteHandler;
   tokenList: (ERC20Token | NativeToken)[];
   getPathway: (tokenIn: Token, tokenOut: Token) => Pathway | false;
@@ -94,7 +94,7 @@ const SwapForm: FC<FormikProps<SwapFormValues> & {
   isSubmitting,
   //
   balances,
-  beanstalk,
+  profury,
   tokenList,
   getPathway,
   defaultValues
@@ -532,7 +532,7 @@ const SwapForm: FC<FormikProps<SwapFormValues> & {
             || isSubmitting
             || isQuoting
           }
-          contract={beanstalk}
+          contract={profury}
           tokens={
             shouldApprove
               ? values.tokensIn
@@ -607,7 +607,7 @@ const isPair = (_tokenIn : Token, _tokenOut : Token, _pair : [Token, Token]) => 
 const Swap: FC<{}> = () => {
   /// Ledger
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
   const account = useAccount();
 
   /// Tokens
@@ -901,7 +901,7 @@ const Swap: FC<{}> = () => {
           estimate.steps,
           values.settings.slippage / 100,
         );
-        const txn = await beanstalk.farm(data, { value: estimate.value });
+        const txn = await profury.farm(data, { value: estimate.value });
         txToast.confirming(txn);
 
         const receipt = await txn.wait();
@@ -923,7 +923,7 @@ const Swap: FC<{}> = () => {
         formActions.setSubmitting(false);
       }
     },
-    [account, beanstalk, farmerBalances, handleEstimate, refetchFarmerBalances, middleware]
+    [account, profury, farmerBalances, handleEstimate, refetchFarmerBalances, middleware]
   );
 
   return (
@@ -939,7 +939,7 @@ const Swap: FC<{}> = () => {
           </TxnSettings>
           <SwapForm
             balances={farmerBalances}
-            beanstalk={beanstalk}
+            profury={profury}
             tokenList={tokenList}
             defaultValues={initialValues}
             handleQuote={handleQuote}

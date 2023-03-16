@@ -1,6 +1,6 @@
 import { Chip, Tooltip, Link, Typography, Box } from '@mui/material';
 import React from 'react';
-import useFertilizerYieldData from '~/hooks/beanstalk/useFertilizerYieldData';
+import useFertilizerYieldData from '~/hooks/profury/useFertilizerYieldData';
 import useSdk from '~/hooks/sdk';
 import { displayFullBN } from '~/util';
 import Row from '../Common/Row';

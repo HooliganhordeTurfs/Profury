@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { DataGridProps } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
-import useMarketData from '~/hooks/beanstalk/useMarketData';
+import useMarketData from '~/hooks/profury/useMarketData';
 import { MarketColumns } from './columns/market-columns';
 import BaseTable from './BaseTable';
 import { PodListing } from '~/state/farmer/market';

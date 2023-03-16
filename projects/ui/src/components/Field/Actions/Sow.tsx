@@ -33,11 +33,11 @@ import useTokenMap from '~/hooks/chain/useTokenMap';
 import Farm, { ChainableFunction, FarmFromMode, FarmToMode } from '~/lib/Beanstalk/Farm';
 import { displayBN, displayFullBN, MinBN, parseError, toStringBaseUnitBN, toTokenUnitsBN } from '~/util';
 import { useSigner } from '~/hooks/ledger/useSigner';
-import usePrice from '~/hooks/beanstalk/usePrice';
+import usePrice from '~/hooks/profury/usePrice';
 import { optimizeFromMode } from '~/util/Farm';
 import { useFetchFarmerField } from '~/state/farmer/field/updater';
 import { useFetchFarmerBalances } from '~/state/farmer/balances/updater';
-import { useFetchBeanstalkField } from '~/state/beanstalk/field/updater';
+import { useFetchBeanstalkField } from '~/state/profury/field/updater';
 import { useFetchPools } from '~/state/bean/pools/updater';
 import { AppState } from '~/state';
 import { BEAN, ETH, PODS, WETH } from '~/constants/tokens';
@@ -61,7 +61,7 @@ const SowForm : FC<
   & {
     handleQuote: QuoteHandler;
     balances: ReturnType<typeof useFarmerBalances>;
-    beanstalk: Beanstalk;
+    profury: Beanstalk;
     weather: BigNumber;
     soil: BigNumber;
     farm: Farm;
@@ -72,7 +72,7 @@ const SowForm : FC<
   setFieldValue,
   //
   balances,
-  beanstalk,
+  profury,
   weather,
   soil,
   farm,
@@ -89,7 +89,7 @@ const SowForm : FC<
 
   ///
   const beanPrice      = usePrice();
-  const beanstalkField = useSelector<AppState, AppState['_beanstalk']['field']>((state) => state._beanstalk.field);
+  const profuryField = useSelector<AppState, AppState['_profury']['field']>((state) => state._profury.field);
 
   /// Derived
   const tokenIn   = values.tokens[0].token;     // converting from token
@@ -106,7 +106,7 @@ const SowForm : FC<
     : amountOut || ZERO_BN;
   const isSubmittable = hasSoil && beans?.gt(0);
   const numPods       = beans.multipliedBy(weather.div(100).plus(1));
-  const podLineLength = beanstalkField.podIndex.minus(beanstalkField.harvestableIndex);
+  const podLineLength = profuryField.podIndex.minus(profuryField.harvestableIndex);
 
   const maxAmountUsed = (amountIn && maxAmountIn) 
     ? amountIn.div(maxAmountIn) 
@@ -160,7 +160,7 @@ const SowForm : FC<
         setFieldValue('maxAmountIn', ZERO_BN);
       }
     })();
-  }, [Bean, Eth, Weth, beanstalk, hasSoil, farm, setFieldValue, soil, tokenIn, tokenOut]);
+  }, [Bean, Eth, Weth, profury, hasSoil, farm, setFieldValue, soil, tokenIn, tokenOut]);
 
   return (
     <Form autoComplete="off">
@@ -268,7 +268,7 @@ const SowForm : FC<
           color="primary"
           size="large"
           disabled={!isSubmittable}
-          contract={beanstalk}
+          contract={profury}
           tokens={values.tokens}
           mode="auto"
         >
@@ -306,14 +306,14 @@ const Sow : FC<{}> = () => {
   /// Ledger
   const { data: signer } = useSigner();
   const provider  = useProvider();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farm
   const farm      = useMemo(() => new Farm(provider), [provider]);
 
   /// Beanstalk
-  const weather = useSelector<AppState, AppState['_beanstalk']['field']['weather']['yield']>((state) => state._beanstalk.field.weather.yield);
-  const soil    = useSelector<AppState, AppState['_beanstalk']['field']['soil']>((state) => state._beanstalk.field.soil);
+  const weather = useSelector<AppState, AppState['_profury']['field']['weather']['yield']>((state) => state._profury.field.weather.yield);
+  const soil    = useSelector<AppState, AppState['_profury']['field']['soil']>((state) => state._profury.field.soil);
   
   /// Farmer
   const balances                = useFarmerBalances();
@@ -421,21 +421,21 @@ const Sow : FC<{}> = () => {
       }
       
       data.push(
-        beanstalk.interface.encodeFunctionData('sow', [
+        profury.interface.encodeFunctionData('sow', [
           toStringBaseUnitBN(amountBeans, Bean.decimals),
           finalFromMode,
         ])
       );
  
       const overrides = { value: formData.value };
-      const txn = await beanstalk.farm(data, overrides);
+      const txn = await profury.farm(data, overrides);
       txToast.confirming(txn);
       
       const receipt = await txn.wait();
       await Promise.all([
         refetchFarmerField(),     // get farmer's plots
         refetchFarmerBalances(),  // get farmer's token balances
-        refetchBeanstalkField(),  // get beanstalk field data (ex. amount of Soil left)
+        refetchBeanstalkField(),  // get profury field data (ex. amount of Soil left)
         refetchPools(),           // get price data [TODO: optimize if we bought beans]
       ]);  
       txToast.success(receipt);
@@ -447,7 +447,7 @@ const Sow : FC<{}> = () => {
       formActions.setSubmitting(false);
     }
   }, [
-    beanstalk,
+    profury,
     weather,
     Bean,
     Eth,
@@ -473,7 +473,7 @@ const Sow : FC<{}> = () => {
           <SowForm
             handleQuote={handleQuote}
             balances={balances}
-            beanstalk={beanstalk}
+            profury={profury}
             weather={weather}
             soil={soil}
             farm={farm}

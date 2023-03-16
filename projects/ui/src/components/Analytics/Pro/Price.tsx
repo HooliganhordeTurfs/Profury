@@ -6,8 +6,8 @@ import SeasonPlot, {
   SeasonPlotBaseProps,
 } from '~/components/Common/Charts/SeasonPlot';
 import { Season, SeasonalPriceDocument } from '~/generated/graphql';
-import usePrice from '~/hooks/beanstalk/usePrice';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import usePrice from '~/hooks/profury/usePrice';
+import useSeason from '~/hooks/profury/useSeason';
 
 import { FC } from '~/types';
 

@@ -19,8 +19,8 @@ import useFarmerSiloHistory from '~/hooks/farmer/useFarmerSiloHistory';
 import { FC } from '~/types';
 import { BaseDataPoint } from '~/components/Common/Charts/ChartPropProvider';
 
-import stalkIconWinter from '~/img/beanstalk/stalk-icon-green.svg';
-import seedIconWinter from '~/img/beanstalk/seed-icon-green.svg';
+import stalkIconWinter from '~/img/profury/stalk-icon-green.svg';
+import seedIconWinter from '~/img/profury/seed-icon-green.svg';
 
 const depositStats = (s: BigNumber, v: BigNumber[]) => (
   <Stat
@@ -58,12 +58,12 @@ const SLUGS = ['deposits', 'stalk'];
 
 const Overview: FC<{
   farmerSilo:     AppState['_farmer']['silo'];
-  beanstalkSilo:  AppState['_beanstalk']['silo'];
+  profurySilo:  AppState['_profury']['silo'];
   breakdown:      ReturnType<typeof useFarmerBalancesBreakdown>;
   season:         BigNumber;
 }> = ({
   farmerSilo,
-  beanstalkSilo,
+  profurySilo,
   breakdown,
   season
 }) => {
@@ -75,8 +75,8 @@ const Overview: FC<{
 
   //
   const ownership = (
-    (farmerSilo.stalk.active?.gt(0) && beanstalkSilo.stalk.total?.gt(0))
-      ? farmerSilo.stalk.active.div(beanstalkSilo.stalk.total)
+    (farmerSilo.stalk.active?.gt(0) && profurySilo.stalk.total?.gt(0))
+      ? farmerSilo.stalk.active.div(profurySilo.stalk.total)
       : ZERO_BN
   );
   const stalkStats = useCallback((s: BigNumber, v: BigNumber[]) => (

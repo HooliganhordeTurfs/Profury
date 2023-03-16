@@ -13,7 +13,7 @@ import {
 } from '../../constants/addresses';
 import { useAggregatorV3Contract } from '~/hooks/ledger/useContract';
 import { AppState } from '../../state/index';
-import { updateTokenPrices } from '~/state/beanstalk/tokenPrices/actions';
+import { updateTokenPrices } from '~/state/profury/tokenPrices/actions';
 
 const getBNResult = (result: any, decimals: number) => {
   const bnResult = bigNumberResult(result);
@@ -30,7 +30,7 @@ const getBNResult = (result: any, decimals: number) => {
  * - ETH/USD
  */
 export default function useDataFeedTokenPrices() {
-  const tokenPriceMap = useSelector<AppState, AppState['_beanstalk']['tokenPrices']>((state) => state._beanstalk.tokenPrices);
+  const tokenPriceMap = useSelector<AppState, AppState['_profury']['tokenPrices']>((state) => state._profury.tokenPrices);
 
   const daiPriceFeed = useAggregatorV3Contract(DAI_CHAINLINK_ADDRESSES);
   const usdtPriceFeed = useAggregatorV3Contract(USDT_CHAINLINK_ADDRESSES);
@@ -43,7 +43,7 @@ export default function useDataFeedTokenPrices() {
     if (Object.values(tokenPriceMap).length) return;
     if (!daiPriceFeed || !usdtPriceFeed || !usdcPriceFeed || !ethPriceFeed) return;
 
-    console.debug('[beanstalk/tokenPrices/useCrvUnderlylingPrices] FETCH');
+    console.debug('[profury/tokenPrices/useCrvUnderlylingPrices] FETCH');
 
     const [
       daiPriceData, 
@@ -85,7 +85,7 @@ export default function useDataFeedTokenPrices() {
       priceDataCache[eth.address] = getBNResult(ethPriceData.answer, ethPriceDecimals);
     }
 
-    console.debug(`[beanstalk/tokenPrices/useCrvUnderlyingPrices] RESULT: ${priceDataCache}`);
+    console.debug(`[profury/tokenPrices/useCrvUnderlyingPrices] RESULT: ${priceDataCache}`);
 
     return priceDataCache;
   }, [

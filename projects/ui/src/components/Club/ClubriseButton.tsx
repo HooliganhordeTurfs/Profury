@@ -12,7 +12,7 @@ import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import TransactionToast from '~/components/Common/TxnToast';
 import { StyledDialogContent, StyledDialogTitle } from '~/components/Common/Dialog';
 import { BeanstalkPalette, IconSize } from '~/components/App/muiTheme';
-import sunIcon from '~/img/beanstalk/sun/sun-icon.svg';
+import sunIcon from '~/img/profury/sun/sun-icon.svg';
 import { ZERO_BN } from '~/constants';
 import { displayBN } from '~/util';
 import TokenIcon from '~/components/Common/TokenIcon';
@@ -29,13 +29,13 @@ function getSunriseReward(now: DateTime) {
 const SunriseButton : FC<{}> = () => {
   /// Ledger
   const { data: signer }  = useSigner();
-  const beanstalk         = useBeanstalkContract(signer);
+  const profury         = useBeanstalkContract(signer);
 
   /// State
   const [open, show, hide]  = useToggle();
   const [now, setNow]       = useState(DateTime.now());
   const [reward, setReward] = useState(ZERO_BN);
-  const awaiting = useSelector<AppState, AppState['_beanstalk']['sun']['sunrise']['awaiting']>((state) => state._beanstalk.sun.sunrise.awaiting);
+  const awaiting = useSelector<AppState, AppState['_profury']['sun']['sunrise']['awaiting']>((state) => state._profury.sun.sunrise.awaiting);
 
   useEffect(() => {
     if (awaiting) {
@@ -56,7 +56,7 @@ const SunriseButton : FC<{}> = () => {
       loading: 'Calling Sunrise...',
       success: 'The Sun has risen.',
     });
-    beanstalk.sunrise()
+    profury.sunrise()
       .then((txn) => {
         txToast.confirming(txn);
         return txn.wait();
@@ -68,7 +68,7 @@ const SunriseButton : FC<{}> = () => {
       .catch((err) => {
         console.error(txToast.error(err.error || err));
       });
-  }, [beanstalk]);
+  }, [profury]);
 
   return (
     <>

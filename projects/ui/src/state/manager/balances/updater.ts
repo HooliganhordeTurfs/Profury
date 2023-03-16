@@ -21,7 +21,7 @@ export const useFetchFarmerBalances = () => {
   const erc20TokenMap = useTokenMap(ERC20_TOKENS);
 
   /// Contracts
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   /// Handlers
   /// FIXME: make this callback accept a tokens array to prevent reloading all balances on every call
@@ -45,7 +45,7 @@ export const useFetchFarmerBalances = () => {
                 total:    result,
               },
             })),
-          beanstalk.getAllBalances(account, erc20Addresses)
+          profury.getAllBalances(account, erc20Addresses)
             .then((result) => {
               console.debug('[farmer/balances/updater]: getAllBalances = ', result);
               return result;
@@ -68,7 +68,7 @@ export const useFetchFarmerBalances = () => {
         //   // ETH cannot have an internal balance and isn't returned
         //   // from the standard getAllBalances call.
         //   multiCall.getEthBalance(account),
-        //   wrap(beanstalkReplanted).getAllBalances(account, erc20Addresses)
+        //   wrap(profuryReplanted).getAllBalances(account, erc20Addresses)
         // ];
 
         console.debug(`[farmer/updater/useFetchBalances] FETCH: balances (account = ${account})`);
@@ -84,7 +84,7 @@ export const useFetchFarmerBalances = () => {
     }
   }, [
     dispatch,
-    beanstalk,
+    profury,
     Eth,
     erc20TokenMap,
     account,

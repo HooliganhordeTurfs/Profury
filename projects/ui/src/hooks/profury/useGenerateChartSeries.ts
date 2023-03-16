@@ -196,7 +196,7 @@ export type ChartSeriesParams = {
 const useGenerateChartSeries = <T extends MinimumViableSnapshotQuery>(
   params: SeasonsQueryItem<T>[],
   timeTabState: TimeTabState,
-  // whereas the beanstalk subgraph uses 'createdAt', the bean subgraph uses 'timestamp'
+  // whereas the profury subgraph uses 'createdAt', the bean subgraph uses 'timestamp'
   // include param to choose which key to use
   dateKey: 'timestamp' | 'createdAt',
   stackedArea?: boolean,

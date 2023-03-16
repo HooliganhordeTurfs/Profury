@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import BaseTable from './BaseTable';
-import { MarketEvent } from '~/hooks/beanstalk/useMarketActivityData';
+import { MarketEvent } from '~/hooks/profury/useMarketActivityData';
 import { MarketColumns } from '~/components/Market/PodsV2/Tables/columns/market-columns';
 
 const columns = [

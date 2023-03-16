@@ -10,19 +10,19 @@ import {
 } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { useSelector } from 'react-redux';
-import drySeasonIcon from '~/img/beanstalk/sun/dry-season.svg';
-import rainySeasonIcon from '~/img/beanstalk/sun/rainy-season.svg';
+import drySeasonIcon from '~/img/profury/sun/dry-season.svg';
+import rainySeasonIcon from '~/img/profury/sun/rainy-season.svg';
 import SunriseButton from '~/components/Sun/SunriseButton';
 import { SunButtonQuery, useSunButtonQuery } from '~/generated/graphql';
-import usePrice from '~/hooks/beanstalk/usePrice';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import usePrice from '~/hooks/profury/usePrice';
+import useSeason from '~/hooks/profury/useSeason';
 import { toTokenUnitsBN } from '~/util';
 import { BEAN } from '~/constants/tokens';
 import { NEW_BN } from '~/constants';
 import { AppState } from '~/state';
 import FolderMenu from '../FolderMenu';
 import SeasonCard from '../../Sun/SeasonCard';
-import usePeg from '~/hooks/beanstalk/usePeg';
+import usePeg from '~/hooks/profury/usePeg';
 
 import { FC } from '~/types';
 
@@ -49,9 +49,9 @@ const PriceButton: FC<ButtonProps> = ({ ...props }) => {
   /// DATA
   const season    = useSeason();
   const price     = usePrice();
-  const awaiting  = useSelector<AppState, boolean>((state) => state._beanstalk.sun.sunrise.awaiting);
+  const awaiting  = useSelector<AppState, boolean>((state) => state._profury.sun.sunrise.awaiting);
   const { data }  = useSunButtonQuery({ fetchPolicy: 'cache-and-network' });
-  const beanstalkField = useSelector<AppState, AppState['_beanstalk']['field']>((state) => state._beanstalk.field);
+  const profuryField = useSelector<AppState, AppState['_profury']['field']>((state) => state._profury.field);
   const peg = usePeg();
 
   const bySeason = useMemo(() => {
@@ -161,7 +161,7 @@ const PriceButton: FC<ButtonProps> = ({ ...props }) => {
           rewardBeans={peg.rewardBeans}
           issuedSoil={peg.soilStart}
           podRate={NEW_BN}
-          temperature={beanstalkField.weather.yield.plus(peg.deltaTemperature)} // FIXME expected
+          temperature={profuryField.weather.yield.plus(peg.deltaTemperature)} // FIXME expected
           deltaDemand={peg.deltaPodDemand}
           deltaTemperature={peg.deltaTemperature}
           isNew

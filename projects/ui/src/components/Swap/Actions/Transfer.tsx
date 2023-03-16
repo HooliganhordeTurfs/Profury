@@ -52,7 +52,7 @@ type TransferFormValues = {
 
 const TransferForm: FC<FormikProps<TransferFormValues> & {
   balances: ReturnType<typeof useFarmerBalances>;
-  beanstalk: Beanstalk;
+  profury: Beanstalk;
   tokenList: (ERC20Token | NativeToken)[];
   defaultValues: TransferFormValues;
 }> = ({
@@ -60,7 +60,7 @@ const TransferForm: FC<FormikProps<TransferFormValues> & {
   setFieldValue,
   isSubmitting,
   balances,
-  beanstalk,
+  profury,
   tokenList,
   defaultValues,
   submitForm
@@ -341,7 +341,7 @@ const TransferForm: FC<FormikProps<TransferFormValues> & {
           size="large"
           loading={isSubmitting}
           disabled={!isValid || isSubmitting}
-          contract={beanstalk}
+          contract={profury}
           tokens={shouldApprove ? values.tokensIn : []}
           mode="auto"
           nowApproving={handleApprovalMode}
@@ -372,7 +372,7 @@ const Transfer: FC<{}> = () => {
   /// Ledger
   const account = useAccount();
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Tokens
   const getChainToken = useGetChainToken();
@@ -429,7 +429,7 @@ const Transfer: FC<{}> = () => {
           success: 'Transfer successful..'
         });
 
-        const txn = await beanstalk.transferToken(tokenAddress, recipient, amount, fromMode, toMode);
+        const txn = await profury.transferToken(tokenAddress, recipient, amount, fromMode, toMode);
         txToast.confirming(txn);
 
         const receipt = await txn.wait();
@@ -452,7 +452,7 @@ const Transfer: FC<{}> = () => {
         formActions.setSubmitting(false);
       }
     },
-    [account, refetchFarmerBalances, beanstalk, middleware]
+    [account, refetchFarmerBalances, profury, middleware]
   );
 
   return (
@@ -465,7 +465,7 @@ const Transfer: FC<{}> = () => {
         <>
           <TransferForm
             balances={farmerBalances}
-            beanstalk={beanstalk}
+            profury={profury}
             tokenList={tokenList}
             defaultValues={initialValues}
             {...formikProps}

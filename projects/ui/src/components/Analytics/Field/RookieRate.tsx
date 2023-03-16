@@ -1,9 +1,9 @@
 import React from 'react';
 import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/SeasonPlot';
 import { SeasonalPodRateDocument, SeasonalPodRateQuery } from '~/generated/graphql';
-import useSeason from '~/hooks/beanstalk/useSeason';
-import usePodRate from '~/hooks/beanstalk/usePodRate';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import useSeason from '~/hooks/profury/useSeason';
+import usePodRate from '~/hooks/profury/usePodRate';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';
 import { tickFormatPercentage } from '~/components/Analytics/formatters';
 

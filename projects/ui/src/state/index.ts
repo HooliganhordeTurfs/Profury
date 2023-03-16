@@ -4,14 +4,14 @@ import { saveState } from '~/util';
 
 import app from './app/reducer';
 import _bean from './bean/reducer';
-import _beanstalk from './beanstalk/reducer';
+import _profury from './profury/reducer';
 import _farmer from './farmer/reducer';
 
 const store = configureStore({
   reducer: {
     app,
     _bean,
-    _beanstalk,
+    _profury,
     _farmer,
   },
   middleware: [

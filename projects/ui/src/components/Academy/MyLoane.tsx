@@ -34,18 +34,18 @@ enum TabState {
 
 const MyFertilizer: FC<{}> = () => {
   /// Data
-  const beanstalkBarn = useSelector<AppState, AppState['_beanstalk']['barn']>((state) => state._beanstalk.barn);
+  const profuryBarn = useSelector<AppState, AppState['_profury']['barn']>((state) => state._profury.barn);
   const farmerBarn = useSelector<AppState, AppState['_farmer']['barn']>((state) => state._farmer.barn);
 
   /// Helpers
   const [tab, handleChange] = useTabs();
   const pctRepaid = useCallback((balance: FertilizerBalance) => (
     MinBN(
-      (beanstalkBarn.currentBpf.minus(balance.token.startBpf))
+      (profuryBarn.currentBpf.minus(balance.token.startBpf))
         .div(balance.token.id.minus(balance.token.startBpf)),
       ONE_BN
     )
-  ), [beanstalkBarn.currentBpf]);
+  ), [profuryBarn.currentBpf]);
 
   const filteredBalances = useMemo(() => farmerBarn.balances?.filter((balance) => {
     const pct = pctRepaid(balance);

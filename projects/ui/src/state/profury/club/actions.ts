@@ -3,25 +3,25 @@ import BigNumber from 'bignumber.js';
 import { Sun } from '.';
 
 export const updateSeason = createAction<BigNumber>(
-  'beanstalk/sun/updateSeason'
+  'profury/sun/updateSeason'
 );
 
 export const updateSeasonTime = createAction<BigNumber>(
-  'beanstalk/sun/updateSeasonTime'
+  'profury/sun/updateSeasonTime'
 );
 
 export const setNextSunrise = createAction<Sun['sunrise']['next']>(
-  'beanstalk/sun/setNextSunrise'
+  'profury/sun/setNextSunrise'
 );
 
 export const setAwaitingSunrise = createAction<Sun['sunrise']['awaiting']>(
-  'beanstalk/sun/setAwaitingSunrise'
+  'profury/sun/setAwaitingSunrise'
 );
 
 export const setRemainingUntilSunrise = createAction<Sun['sunrise']['remaining']>(
-  'beanstalk/sun/setRemainingUntilSunrise'
+  'profury/sun/setRemainingUntilSunrise'
 );
 
 export const resetSun = createAction(
-  'beanstalk/sun/reset'
+  'profury/sun/reset'
 );

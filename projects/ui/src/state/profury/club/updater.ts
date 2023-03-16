@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { AppState } from '~/state';
 import { bigNumberResult } from '~/util/Ledger';
 import { getNextExpectedSunrise } from '.';
@@ -18,32 +18,32 @@ import {
 
 export const useSun = () => {
   const dispatch = useDispatch();
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   const fetch = useCallback(async () => {
     try {
-      if (beanstalk) {
-        console.debug(`[beanstalk/sun/useSun] FETCH (contract = ${beanstalk.address})`);
+      if (profury) {
+        console.debug(`[profury/sun/useSun] FETCH (contract = ${profury.address})`);
         const [
           season, seasonTime
         ] = await Promise.all([
-          beanstalk.season().then(bigNumberResult),       /// the current season  
-          beanstalk.seasonTime().then(bigNumberResult),   /// the season that it could be if sunrise was called
+          profury.season().then(bigNumberResult),       /// the current season  
+          profury.seasonTime().then(bigNumberResult),   /// the season that it could be if sunrise was called
         ] as const);
-        console.debug(`[beanstalk/sun/useSun] RESULT: season = ${season}, seasonTime = ${seasonTime}`);
+        console.debug(`[profury/sun/useSun] RESULT: season = ${season}, seasonTime = ${seasonTime}`);
         dispatch(updateSeason(season));
         dispatch(updateSeasonTime(seasonTime));
         return [season, seasonTime] as const;
       }
       return [undefined, undefined] as const;
     } catch (e) {
-      console.debug('[beanstalk/sun/useSun] FAILED', e);
+      console.debug('[profury/sun/useSun] FAILED', e);
       console.error(e);
       return [undefined, undefined] as const;
     }
   }, [
     dispatch,
-    beanstalk,
+    profury,
   ]);
   
   const clear = useCallback(() => {
@@ -58,8 +58,8 @@ const SunUpdater = () => {
   const [fetch, clear] = useSun();
   const dispatch  = useDispatch();
   const season    = useSeason();
-  const next      = useSelector<AppState, DateTime>((state) => state._beanstalk.sun.sunrise.next);
-  const awaiting  = useSelector<AppState, boolean>((state) => state._beanstalk.sun.sunrise.awaiting);
+  const next      = useSelector<AppState, DateTime>((state) => state._profury.sun.sunrise.next);
+  const awaiting  = useSelector<AppState, boolean>((state) => state._profury.sun.sunrise.awaiting);
   
   useEffect(() => {
     if (awaiting === false) {

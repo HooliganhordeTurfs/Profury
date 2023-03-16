@@ -10,7 +10,7 @@ import { SNAPSHOT_SPACES } from '~/lib/Beanstalk/Governance';
 import { FC } from '~/types';
 
 /// Variables
-const SLUGS = ['dao', 'beanstalk-farms', 'bean-sprout'];
+const SLUGS = ['dao', 'profury-farms', 'bean-sprout'];
 
 const Proposals: FC<{}> = () => {
   const [tab, handleChange] = useTabs(SLUGS, 'type');
@@ -50,7 +50,7 @@ const Proposals: FC<{}> = () => {
   }, [filterBySpace]);
 
   const [daoProposals, hasActiveDao] = filterProposals(0);
-  const [beanstalkFarmsProposals, hasActiveBF] = filterProposals(1);
+  const [profuryFarmsProposals, hasActiveBF] = filterProposals(1);
   const [beanSproutProposals, hasActiveBS] = filterProposals(2);
 
   return (
@@ -66,7 +66,7 @@ const Proposals: FC<{}> = () => {
       </ModuleTabs>
       <ModuleContent>
         {tab === 0 && <ProposalList proposals={daoProposals} />}
-        {tab === 1 && <ProposalList proposals={beanstalkFarmsProposals} />}
+        {tab === 1 && <ProposalList proposals={profuryFarmsProposals} />}
         {tab === 2 && <ProposalList proposals={beanSproutProposals} />}
       </ModuleContent>
     </Module>

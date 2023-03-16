@@ -1,6 +1,6 @@
 ---
 name: BOP Template
-about: A template for proposing BOPs on the Beanstalk repo.
+about: A template for proposing BOPs on the Profury repo.
 title: 'BOP-X: To Do'
 labels: ''
 assignees: ''
@@ -19,7 +19,7 @@ A summary of the BOP. Use a bulleted list if necessary.
 
 ## Problem
 
-A paragraph on the each of the issues that the Beanstalk DAO is facing that the BOP attempts to address. 
+A paragraph on the each of the issues that the Profury DAO is facing that the BOP attempts to address. 
 
 ## Proposed Solution
 

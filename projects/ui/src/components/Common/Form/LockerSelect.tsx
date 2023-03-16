@@ -15,7 +15,7 @@ import { BEAN, PODS } from '~/constants/tokens';
 import useFarmerListingsLedger from '~/hooks/farmer/useFarmerListingsLedger';
 import { FontSize, IconSize } from '~/components/App/muiTheme';
 import { displayBN, displayFullBN, toStringBaseUnitBN , PlotMap } from '~/util';
-import podIcon from '~/img/beanstalk/pod-icon.svg';
+import podIcon from '~/img/profury/pod-icon.svg';
 import Row from '~/components/Common/Row';
 
 import { FC } from '~/types';
@@ -23,7 +23,7 @@ import { FC } from '~/types';
 export interface PlotSelectProps {
   /** A farmer's plots */
   plots: PlotMap<BigNumber> | null;
-  /** The beanstalk harvestable index */
+  /** The profury harvestable index */
   harvestableIndex: BigNumber;
   /** Custom function to set the selected plot index */
   handlePlotSelect: any;

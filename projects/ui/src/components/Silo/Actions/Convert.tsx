@@ -29,10 +29,10 @@ import { useSigner } from '~/hooks/ledger/useSigner';
 import { useFetchFarmerSilo } from '~/state/farmer/silo/updater';
 import { tokenResult, parseError } from '~/util';
 import { FarmerSilo } from '~/state/farmer/silo';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { convert, Encoder as ConvertEncoder } from '~/lib/Beanstalk/Silo/Convert';
 import TransactionToast from '~/components/Common/TxnToast';
-import useBDV from '~/hooks/beanstalk/useBDV';
+import useBDV from '~/hooks/profury/useBDV';
 import TokenIcon from '~/components/Common/TokenIcon';
 import { useFetchPools } from '~/state/bean/pools/updater';
 import { ActionType } from '~/util/Actions';
@@ -68,14 +68,14 @@ const ConvertForm : FC<
     tokenList: (ERC20Token | NativeToken)[];
     /** Farmer's silo balances */
     siloBalances: FarmerSilo['balances'];
-    beanstalk: Beanstalk;
+    profury: Beanstalk;
     handleQuote: QuoteHandler;
     currentSeason: BigNumber;
   }
 > = ({
   tokenList,
   siloBalances,
-  beanstalk,
+  profury,
   handleQuote,
   currentSeason,
   // Formik
@@ -201,7 +201,7 @@ const ConvertForm : FC<
     (async () => {
       if (tokenOut) {
         const _maxAmountIn = (
-          await beanstalk.getMaxAmountIn(
+          await profury.getMaxAmountIn(
             tokenIn.address,
             tokenOut.address,
           )
@@ -211,7 +211,7 @@ const ConvertForm : FC<
         setFieldValue('maxAmountIn', _maxAmountIn);
       }
     })();
-  }, [beanstalk, setFieldValue, tokenIn, tokenOut]);
+  }, [profury, setFieldValue, tokenIn, tokenOut]);
 
   const maxAmountUsed = (amountIn && maxAmountIn) ? amountIn.div(maxAmountIn) : null;
 
@@ -381,7 +381,7 @@ const Convert : FC<{
 
   /// Ledger
   const { data: signer }  = useSigner();
-  const beanstalk         = useBeanstalkContract(signer);
+  const profury         = useBeanstalkContract(signer);
   
   /// Token List
   const [tokenList, initialTokenOut] = useMemo(() => {
@@ -435,12 +435,12 @@ const Convert : FC<{
   /// Handlers
   // This handler does not run when _tokenIn = _tokenOut (direct deposit)
   const handleQuote = useCallback<QuoteHandler>(
-    async (_tokenIn, _amountIn, _tokenOut) => beanstalk.getAmountOut(
+    async (_tokenIn, _amountIn, _tokenOut) => profury.getAmountOut(
       _tokenIn.address,
       _tokenOut.address,
       toStringBaseUnitBN(_amountIn, _tokenIn.decimals),
     ).then(tokenResult(_tokenOut)),
-    [beanstalk]
+    [profury]
   );
 
   const onSubmit = useCallback(async (values: ConvertFormValues, formActions: FormikHelpers<ConvertFormValues>) => {
@@ -518,16 +518,16 @@ const Convert : FC<{
       /// silo assets causes loss of Earned Beans.
       let call;
       if (farmerSilo.beans.earned.gt(0)) {
-        call = beanstalk.farm([
-          beanstalk.interface.encodeFunctionData('plant'),
-          beanstalk.interface.encodeFunctionData('convert', [
+        call = profury.farm([
+          profury.interface.encodeFunctionData('plant'),
+          profury.interface.encodeFunctionData('convert', [
             convertData,
             crates,
             amounts
           ])
         ]);
       } else {
-        call = beanstalk.convert(
+        call = profury.convert(
           convertData,
           crates,
           amounts
@@ -569,7 +569,7 @@ const Convert : FC<{
       txToast ? txToast.error(err) : toast.error(parseError(err));
       formActions.setSubmitting(false);
     }
-  }, [farmerSiloBalances, farmerSilo.beans.earned, season, urBean, urBeanCrv3, Bean, BeanCrv3, beanstalk, refetchFarmerSilo, refetchPools, initialValues, middleware]);
+  }, [farmerSiloBalances, farmerSilo.beans.earned, season, urBean, urBeanCrv3, Bean, BeanCrv3, profury, refetchFarmerSilo, refetchPools, initialValues, middleware]);
 
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
@@ -582,7 +582,7 @@ const Convert : FC<{
             handleQuote={handleQuote}
             tokenList={tokenList as (ERC20Token | NativeToken)[]}
             siloBalances={farmerSiloBalances}
-            beanstalk={beanstalk}
+            profury={profury}
             currentSeason={season}
             {...formikProps}
           />

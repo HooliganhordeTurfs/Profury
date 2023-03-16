@@ -23,9 +23,9 @@ import { BEAN, PODS } from '~/constants/tokens';
 import { ZERO_BN } from '~/constants';
 import { BeanstalkPalette, FontSize } from '~/components/App/muiTheme';
 import { FarmerMarketOrder } from '~/hooks/farmer/market/useFarmerMarket2';
-import etherscanIcon from '~/img/beanstalk/interface/nav/etherscan.svg';
+import etherscanIcon from '~/img/profury/interface/nav/etherscan.svg';
 import EntityIcon from '~/components/Market/PodsV2/Common/EntityIcon';
-import { MarketEvent } from '~/hooks/beanstalk/useMarketActivityData';
+import { MarketEvent } from '~/hooks/profury/useMarketActivityData';
 import { FC } from '~/types';
 import StatHorizontal from '~/components/Common/StatHorizontal';
 

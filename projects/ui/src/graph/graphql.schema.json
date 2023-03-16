@@ -21701,8 +21701,8 @@
         "description": null,
         "fields": [
           {
-            "name": "beanstalk",
-            "description": "Contract address of beanstalk",
+            "name": "profury",
+            "description": "Contract address of profury",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -30235,7 +30235,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30247,7 +30247,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_",
+            "name": "profury_",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -30259,7 +30259,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_contains",
+            "name": "profury_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30271,7 +30271,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_contains_nocase",
+            "name": "profury_contains_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30283,7 +30283,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_ends_with",
+            "name": "profury_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30295,7 +30295,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_ends_with_nocase",
+            "name": "profury_ends_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30307,7 +30307,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_gt",
+            "name": "profury_gt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30319,7 +30319,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_gte",
+            "name": "profury_gte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30331,7 +30331,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_in",
+            "name": "profury_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -30351,7 +30351,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_lt",
+            "name": "profury_lt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30363,7 +30363,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_lte",
+            "name": "profury_lte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30375,7 +30375,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not",
+            "name": "profury_not",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30387,7 +30387,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_contains",
+            "name": "profury_not_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30399,7 +30399,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_contains_nocase",
+            "name": "profury_not_contains_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30411,7 +30411,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_ends_with",
+            "name": "profury_not_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30423,7 +30423,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_ends_with_nocase",
+            "name": "profury_not_ends_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30435,7 +30435,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_in",
+            "name": "profury_not_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -30455,7 +30455,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_starts_with",
+            "name": "profury_not_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30467,7 +30467,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_starts_with_nocase",
+            "name": "profury_not_starts_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30479,7 +30479,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_starts_with",
+            "name": "profury_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30491,7 +30491,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_starts_with_nocase",
+            "name": "profury_starts_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -32384,7 +32384,7 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -56609,7 +56609,7 @@
           },
           {
             "name": "id",
-            "description": " Contract address of beanstalk ",
+            "description": " Contract address of profury ",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -86155,7 +86155,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "args": [
               {
@@ -86212,7 +86212,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalks",
+            "name": "profurys",
             "description": null,
             "args": [
               {
@@ -99153,7 +99153,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": " Beanstalk Contract Address ",
             "args": [],
             "type": {
@@ -99465,7 +99465,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99477,7 +99477,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_",
+            "name": "profury_",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -99489,7 +99489,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_contains",
+            "name": "profury_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99501,7 +99501,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_contains_nocase",
+            "name": "profury_contains_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99513,7 +99513,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_ends_with",
+            "name": "profury_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99525,7 +99525,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_ends_with_nocase",
+            "name": "profury_ends_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99537,7 +99537,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_gt",
+            "name": "profury_gt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99549,7 +99549,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_gte",
+            "name": "profury_gte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99561,7 +99561,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_in",
+            "name": "profury_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -99581,7 +99581,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_lt",
+            "name": "profury_lt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99593,7 +99593,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_lte",
+            "name": "profury_lte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99605,7 +99605,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not",
+            "name": "profury_not",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99617,7 +99617,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_contains",
+            "name": "profury_not_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99629,7 +99629,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_contains_nocase",
+            "name": "profury_not_contains_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99641,7 +99641,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_ends_with",
+            "name": "profury_not_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99653,7 +99653,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_ends_with_nocase",
+            "name": "profury_not_ends_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99665,7 +99665,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_in",
+            "name": "profury_not_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -99685,7 +99685,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_starts_with",
+            "name": "profury_not_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99697,7 +99697,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_starts_with_nocase",
+            "name": "profury_not_starts_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99709,7 +99709,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_starts_with",
+            "name": "profury_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -99721,7 +99721,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_starts_with_nocase",
+            "name": "profury_starts_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -100872,7 +100872,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -102764,7 +102764,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": "Beanstalk diamond address",
             "args": [],
             "type": {
@@ -120418,7 +120418,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120430,7 +120430,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_",
+            "name": "profury_",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -120442,7 +120442,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_contains",
+            "name": "profury_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120454,7 +120454,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_contains_nocase",
+            "name": "profury_contains_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120466,7 +120466,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_ends_with",
+            "name": "profury_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120478,7 +120478,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_ends_with_nocase",
+            "name": "profury_ends_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120490,7 +120490,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_gt",
+            "name": "profury_gt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120502,7 +120502,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_gte",
+            "name": "profury_gte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120514,7 +120514,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_in",
+            "name": "profury_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -120534,7 +120534,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_lt",
+            "name": "profury_lt",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120546,7 +120546,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_lte",
+            "name": "profury_lte",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120558,7 +120558,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not",
+            "name": "profury_not",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120570,7 +120570,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_contains",
+            "name": "profury_not_contains",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120582,7 +120582,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_contains_nocase",
+            "name": "profury_not_contains_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120594,7 +120594,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_ends_with",
+            "name": "profury_not_ends_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120606,7 +120606,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_ends_with_nocase",
+            "name": "profury_not_ends_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120618,7 +120618,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_in",
+            "name": "profury_not_in",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -120638,7 +120638,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_starts_with",
+            "name": "profury_not_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120650,7 +120650,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_not_starts_with_nocase",
+            "name": "profury_not_starts_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120662,7 +120662,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_starts_with",
+            "name": "profury_starts_with",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -120674,7 +120674,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk_starts_with_nocase",
+            "name": "profury_starts_with_nocase",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -121801,7 +121801,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -125065,7 +125065,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalk",
+            "name": "profury",
             "description": null,
             "args": [
               {
@@ -125122,7 +125122,7 @@
             "deprecationReason": null
           },
           {
-            "name": "beanstalks",
+            "name": "profurys",
             "description": null,
             "args": [
               {

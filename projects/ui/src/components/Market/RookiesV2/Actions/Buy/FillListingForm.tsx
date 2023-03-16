@@ -77,8 +77,8 @@ const FillListingV2Form : FC<
   const balances       = useFarmerBalances();
 
   /// Beanstalk
-  const beanstalkField = useSelector<AppState, AppState['_beanstalk']['field']>(
-    (state) => state._beanstalk.field
+  const profuryField = useSelector<AppState, AppState['_profury']['field']>(
+    (state) => state._profury.field
   );
 
   /// Derived
@@ -93,7 +93,7 @@ const FillListingV2Form : FC<
   const isReady       = amountIn?.gt(0) && amountOut?.gt(0);
   const isSubmittable = isReady;
   const podsPurchased = amountOut?.div(podListing.pricePerPod) || ZERO_BN;
-  const placeInLine   = podListing.index.minus(beanstalkField.harvestableIndex);
+  const placeInLine   = podListing.index.minus(profuryField.harvestableIndex);
 
   /// Token select
   const handleSelectTokens = useCallback((_tokens: Set<Token>) => {
@@ -282,7 +282,7 @@ const FillListingForm : FC<{
   /// Ledger
   const { data: signer } = useSigner();
   const provider  = useProvider();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farm
   const farm      = useMemo(() => new Farm(provider), [provider]);
@@ -397,7 +397,7 @@ const FillListingForm : FC<{
       console.debug(`[FillListing] using FarmFromMode = ${finalFromMode}`, podListing);
 
       data.push(
-        beanstalk.interface.encodeFunctionData('fillPodListing', [
+        profury.interface.encodeFunctionData('fillPodListing', [
           {
             account:  podListing.account,
             index:    Bean.stringify(podListing.index),
@@ -422,11 +422,11 @@ const FillListingForm : FC<{
 
       const txn = data.length === 1
         ? await signer.sendTransaction({
-          to: beanstalk.address,
+          to: profury.address,
           data: data[0],
           ...overrides
         })
-        : await beanstalk.farm(data, overrides);
+        : await profury.farm(data, overrides);
       txToast.confirming(txn);
 
       const receipt = await txn.wait();
@@ -443,7 +443,7 @@ const FillListingForm : FC<{
     } finally {
       formActions.setSubmitting(false);
     }
-  }, [Bean, podListing, signer, Eth, Weth, beanstalk, refetchFarmerField, refetchFarmerBalances, balances, middleware]);
+  }, [Bean, podListing, signer, Eth, Weth, profury, refetchFarmerField, refetchFarmerBalances, balances, middleware]);
 
   return (
     <Formik<FillListingFormValues>
@@ -459,7 +459,7 @@ const FillListingForm : FC<{
           <FillListingV2Form
             podListing={podListing}
             handleQuote={handleQuote}
-            contract={beanstalk}
+            contract={profury}
             farm={farm}
             {...formikProps}
           />

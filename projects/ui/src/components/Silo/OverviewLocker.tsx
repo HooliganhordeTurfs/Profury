@@ -10,7 +10,7 @@ import TokenIcon from '~/components/Common/TokenIcon';
 import BlurComponent from '~/components/Common/ZeroState/BlurComponent';
 import MockPlot from '~/components/Silo/MockPlot';
 import { SEEDS, STALK } from '~/constants/tokens';
-import { SeasonAggregation, SeasonRange, SEASON_RANGE_TO_COUNT } from '~/hooks/beanstalk/useSeasonsQuery';
+import { SeasonAggregation, SeasonRange, SEASON_RANGE_TO_COUNT } from '~/hooks/profury/useSeasonsQuery';
 
 import { FC } from '~/types';
 import { BaseDataPoint } from '~/components/Common/Charts/ChartPropProvider';

@@ -9,7 +9,7 @@ import { SGEnvironments, SUBGRAPH_ENVIRONMENTS } from '~/graph/endpoints';
 import useSetting from '~/hooks/app/useSetting';
 import useFarmerSiloBalances from '~/hooks/farmer/useFarmerSiloBalances';
 import { save } from '~/state';
-import { setNextSunrise, setRemainingUntilSunrise } from '~/state/beanstalk/sun/actions';
+import { setNextSunrise, setRemainingUntilSunrise } from '~/state/profury/sun/actions';
 import { clearApolloCache } from '~/util';
 
 import { FC } from '~/types';

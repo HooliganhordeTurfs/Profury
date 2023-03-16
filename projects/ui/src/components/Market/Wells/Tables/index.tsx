@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import useTabs from '~/hooks/display/useTabs';
 import { PodListing } from '~/state/farmer/market';
 import COLUMNS from '~/components/Common/Table/cells';
-import useMarketData from '~/hooks/beanstalk/useMarketData';
+import useMarketData from '~/hooks/profury/useMarketData';
 import TabTable from '~/components/Common/Table/TabTable';
 import { Module, ModuleContent } from '~/components/Common/Module';
 import { BEAN, PODS } from '~/constants/tokens';

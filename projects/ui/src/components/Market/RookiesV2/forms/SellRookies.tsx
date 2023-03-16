@@ -10,7 +10,7 @@ import { displayBN, displayFullBN } from '~/util';
 import Row from '~/components/Common/Row';
 import TokenIcon from '~/components/Common/TokenIcon';
 import { BEAN, PODS } from '~/constants/tokens';
-import usePodOrder from '~/hooks/beanstalk/usePodOrder';
+import usePodOrder from '~/hooks/profury/usePodOrder';
 
 const SellPods: React.FC<{}> = () => {
   const orderType = useAtomValue(podsOrderTypeAtom);

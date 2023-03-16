@@ -11,10 +11,10 @@ import NavBar from '~/components/Nav/NavBar';
 import AppUpdater from '~/state/app/updater';
 import PoolsUpdater from '~/state/bean/pools/updater';
 import UnripeUpdater from '~/state/bean/unripe/updater';
-import BarnUpdater from '~/state/beanstalk/barn/updater';
-import FieldUpdater from '~/state/beanstalk/field/updater';
-import SiloUpdater from '~/state/beanstalk/silo/updater';
-import SunUpdater from '~/state/beanstalk/sun/updater';
+import BarnUpdater from '~/state/profury/barn/updater';
+import FieldUpdater from '~/state/profury/field/updater';
+import SiloUpdater from '~/state/profury/silo/updater';
+import SunUpdater from '~/state/profury/sun/updater';
 import FarmerBalancesUpdater from '~/state/farmer/balances/updater';
 import FarmerBarnUpdater from '~/state/farmer/barn/updater';
 import FarmerFieldUpdater from '~/state/farmer/field/updater';
@@ -35,13 +35,13 @@ import NFTPage from '~/pages/nft';
 import SiloPage from '~/pages/silo';
 import SiloTokenPage from '~/pages/silo/token';
 import SwapPage from '~/pages/swap';
-import GovernanceUpdater from '~/state/beanstalk/governance/updater';
+import GovernanceUpdater from '~/state/profury/governance/updater';
 
 import { sgEnvKey } from '~/graph/client';
 import useBanner from '~/hooks/app/useBanner';
 import useNavHeight from '~/hooks/app/usePageDimensions';
 
-import pageBackground from '~/img/beanstalk/interface/bg/winter.png';
+import pageBackground from '~/img/profury/interface/bg/winter.png';
 
 import EnforceNetwork from '~/components/App/EnforceNetwork';
 import useAccount from '~/hooks/ledger/useAccount';

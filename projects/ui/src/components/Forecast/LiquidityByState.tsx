@@ -7,16 +7,16 @@ import StatsCard, { StatItem } from '~/components/Common/StatsCard';
 import { SEEDS, SPROUTS, STALK, PODS } from '~/constants/tokens';
 import { AppState } from '~/state';
 import BeanstalkBalances from '~/components/Common/Balances/BeanstalkBalances';
-import useBeanstalkSiloBreakdown from '~/hooks/beanstalk/useBeanstalkBalancesBreakdown';
+import useBeanstalkSiloBreakdown from '~/hooks/profury/useBeanstalkBalancesBreakdown';
 import { NEW_BN } from '~/constants';
 
 import { FC } from '~/types';
 
 const LiquidityByState: FC<CardProps> = ({ sx }) => {
   const breakdown = useBeanstalkSiloBreakdown();
-  const beanstalkSilo = useSelector<AppState, AppState['_beanstalk']['silo']>((state) => state._beanstalk.silo);
-  const beanstalkField = useSelector<AppState, AppState['_beanstalk']['field']>((state) => state._beanstalk.field);
-  const beanstalkBarn = useSelector<AppState, AppState['_beanstalk']['barn']>((state) => state._beanstalk.barn);
+  const profurySilo = useSelector<AppState, AppState['_profury']['silo']>((state) => state._profury.silo);
+  const profuryField = useSelector<AppState, AppState['_profury']['field']>((state) => state._profury.field);
+  const profuryBarn = useSelector<AppState, AppState['_profury']['barn']>((state) => state._profury.barn);
   const totalBeanSupply = useSelector<AppState, AppState['_bean']['token']['supply']>((state) => state._bean.token.supply);
 
   /// Total Balances
@@ -25,25 +25,25 @@ const LiquidityByState: FC<CardProps> = ({ sx }) => {
       title: 'Stalk',
       tooltip: 'This is the total Stalk supply. Stalk is the governance token of the Beanstalk DAO. Stalk entitles holders to passive interest in the form of a share of future Bean mints, and the right to propose and vote on BIPs.',
       token: STALK,
-      amount: beanstalkSilo.stalk.total
+      amount: profurySilo.stalk.total
     },
     {
       title: 'Seeds',
       tooltip: 'This is the total Seed supply. Each Seed yields 1/10000 Grown Stalk each Season.',
       token: SEEDS,
-      amount: beanstalkSilo.seeds.total
+      amount: profurySilo.seeds.total
     },
     {
       title: 'Pods',
       tooltip: 'This is the total Pod supply. Pods become Harvestable on a FIFO basis.',
       token: PODS,
-      amount: beanstalkField.podLine
+      amount: profuryField.podLine
     },
     {
       title: 'Sprouts',
       tooltip: 'This is the total Sprout supply. Sprouts are the number of Beans left to be earned from Active Fertilizer. Sprouts become Rinsable on a pari passu basis.',
       token: SPROUTS,
-      amount: beanstalkBarn.unfertilized,
+      amount: profuryBarn.unfertilized,
     }
   ];
 

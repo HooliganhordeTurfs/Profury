@@ -12,7 +12,7 @@ import { SNAPSHOT_SPACES } from '~/lib/Beanstalk/Governance';
 
 export const useFetchBeanstalkGovernance = () => {
   const dispatch = useDispatch();
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
   const Bean = useChainConstant(BEAN);
   const [getProposals] = useProposalsLazyQuery({
     variables: {
@@ -25,7 +25,7 @@ export const useFetchBeanstalkGovernance = () => {
 
   /// Handlers
   const fetch = useCallback(async () => {
-    if (beanstalk) {
+    if (profury) {
       const [
         proposalsResult,
         multisigBalances
@@ -33,7 +33,7 @@ export const useFetchBeanstalkGovernance = () => {
         getProposals(),
         Promise.all(
           MULTISIGS.map((address) => (
-            beanstalk.getBalance(address, Bean.address).then(tokenResult(BEAN))
+            profury.getBalance(address, Bean.address).then(tokenResult(BEAN))
           ))
         ),
       ]);
@@ -67,10 +67,10 @@ export const useFetchBeanstalkGovernance = () => {
         ));
       }
     }
-  }, [beanstalk, getProposals, Bean.address, dispatch]);
+  }, [profury, getProposals, Bean.address, dispatch]);
   
   const clear = useCallback(() => {
-    console.debug('[beanstalk/governance/useBeanstalkGovernance] CLEAR');
+    console.debug('[profury/governance/useBeanstalkGovernance] CLEAR');
     dispatch(resetBeanstalkGovernance());
   }, [dispatch]);
 

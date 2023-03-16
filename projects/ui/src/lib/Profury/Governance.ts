@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
 export enum GovSpace {
-  BeanstalkDAO    = 'beanstalkdao.eth',
-  BeanstalkFarms  = 'beanstalkfarms.eth',
+  BeanstalkDAO    = 'profurydao.eth',
+  BeanstalkFarms  = 'profuryfarms.eth',
   BeanSprout      = 'wearebeansprout.eth',
 }
 

@@ -144,8 +144,8 @@ try {
   console.warn('Failed to read subgraph env from state, skipping.');
 }
 
-const beanstalkLink = new HttpLink({
-  uri: sgEnv.subgraphs.beanstalk,
+const profuryLink = new HttpLink({
+  uri: sgEnv.subgraphs.profury,
 });
 
 const beanLink = new HttpLink({
@@ -165,7 +165,7 @@ export const apolloClient = new ApolloClient({
     ApolloLink.split(
       (operation) => operation.getContext().subgraph === 'snapshot',
       snapshotLink, // true
-      beanstalkLink, // false
+      profuryLink, // false
     ),
   ),
   cache,

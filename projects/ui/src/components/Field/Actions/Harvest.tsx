@@ -198,7 +198,7 @@ const Harvest: FC<{ quick?: boolean }> = ({ quick }) => {
   const account = useWagmiAccount();
   const provider = useProvider();
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farm
   const farm = useMemo(() => new Farm(provider), [provider]);
@@ -234,7 +234,7 @@ const Harvest: FC<{ quick?: boolean }> = ({ quick }) => {
           success: `Harvest successful. Added ${displayFullBN(farmerField.harvestablePods, PODS.displayDecimals)} Beans to your ${copy.MODES[values.destination]}.`,
         });
 
-        const txn = await beanstalk.harvest(
+        const txn = await profury.harvest(
           Object.keys(farmerField.harvestablePlots).map((harvestIndex) =>
             toStringBaseUnitBN(harvestIndex, 6)
           ),
@@ -256,7 +256,7 @@ const Harvest: FC<{ quick?: boolean }> = ({ quick }) => {
     },
     [
       account?.address,
-      beanstalk,
+      profury,
       farmerField.harvestablePlots,
       farmerField.harvestablePods,
       refetchFarmerBalances,

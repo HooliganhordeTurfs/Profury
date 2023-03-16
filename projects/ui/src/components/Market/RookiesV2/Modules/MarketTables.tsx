@@ -18,9 +18,9 @@ import FarmerMarketActivityTable from '../Tables/FarmerOrders';
 import CondensedCard from '~/components/Common/Card/CondensedCard';
 import AllActiveListings from '../Tables/AllActiveListings';
 import AllActiveOrders from '../Tables/AllActiveOrders';
-import useMarketActivityData from '~/hooks/beanstalk/useMarketActivityData';
+import useMarketActivityData from '~/hooks/profury/useMarketActivityData';
 import useFarmerMarket from '~/hooks/farmer/market/useFarmerMarket2';
-import useMarketData from '~/hooks/beanstalk/useMarketData';
+import useMarketData from '~/hooks/profury/useMarketData';
 
 const sx = {
   tabs: {

@@ -38,7 +38,7 @@ import { parseError } from '~/util';
 import { useFetchFarmerBalances } from '~/state/farmer/balances/updater';
 import { AppState } from '~/state';
 import { useFetchPools } from '~/state/bean/pools/updater';
-import { useFetchBeanstalkSilo } from '~/state/beanstalk/silo/updater';
+import { useFetchBeanstalkSilo } from '~/state/profury/silo/updater';
 import useFarm from '~/hooks/sdk/useFarm';
 import { FC } from '~/types';
 import useFormMiddleware from '~/hooks/ledger/useFormMiddleware';
@@ -256,8 +256,8 @@ const Deposit : FC<{
   const baseToken = usePreferredToken(preferredTokens, 'use-best') as (ERC20Token | NativeToken);
 
   /// Beanstalk
-  const bdvPerToken = useSelector<AppState, AppState['_beanstalk']['silo']['balances'][string]['bdvPerToken'] | BigNumber>(
-    (state) => state._beanstalk.silo.balances[whitelistedToken.address]?.bdvPerToken || ZERO_BN
+  const bdvPerToken = useSelector<AppState, AppState['_profury']['silo']['balances'][string]['bdvPerToken'] | BigNumber>(
+    (state) => state._profury.silo.balances[whitelistedToken.address]?.bdvPerToken || ZERO_BN
   );
   const amountToBdv = useCallback((amount: BigNumber) => bdvPerToken.times(amount), [bdvPerToken]);
 
@@ -270,7 +270,7 @@ const Deposit : FC<{
 
   /// Network
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farm
   const farm = useFarm();
@@ -456,7 +456,7 @@ const Deposit : FC<{
       });
 
       // TEMP: recast as Beanstalk 
-      const b = ((beanstalk as unknown) as Beanstalk);
+      const b = ((profury as unknown) as Beanstalk);
       const data : string[] = [];
       const inputToken = formData.token;
       let value = ZERO_BN;
@@ -528,7 +528,7 @@ const Deposit : FC<{
     }
   }, [
     Eth,
-    beanstalk,
+    profury,
     whitelistedToken,
     amountToBdv,
     refetchFarmerSilo,
@@ -551,7 +551,7 @@ const Deposit : FC<{
             tokenList={tokenList as (ERC20Token | NativeToken)[]}
             whitelistedToken={whitelistedToken}
             balances={balances}
-            contract={beanstalk}
+            contract={profury}
             {...formikProps}
           />
         </>

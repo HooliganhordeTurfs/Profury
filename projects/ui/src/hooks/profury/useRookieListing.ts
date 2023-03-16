@@ -3,7 +3,7 @@ import { usePodListingQuery } from '~/generated/graphql';
 import { Source } from '~/util';
 import { castPodListing } from '~/state/farmer/market';
 import useFarmerListingsLedger from '../farmer/useFarmerListingsLedger';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 
 const usePodListing = (index: string | undefined) => {
   const farmerListings = useFarmerListingsLedger();

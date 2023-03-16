@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { BeanstalkPalette } from '~/components/App/muiTheme';
 import { ZERO_BN } from '~/constants';
-import { PriceBucket } from '~/hooks/beanstalk/useOrderbook';
+import { PriceBucket } from '~/hooks/profury/useOrderbook';
 import { displayBN } from '~/util';
 
 const OrderBookRow: React.FC<{

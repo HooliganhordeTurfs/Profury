@@ -21,11 +21,11 @@ import {
   ModuleContent,
   ModuleHeader,
 } from '~/components/Common/Module';
-import useTVD from '~/hooks/beanstalk/useTVD';
+import useTVD from '~/hooks/profury/useTVD';
 import { displayFullBN } from '~/util';
 import EmbeddedCard from '../Common/EmbeddedCard';
 import SiloAssetApyChip from './SiloAssetApyChip';
-import useWhitelist from '~/hooks/beanstalk/useWhitelist';
+import useWhitelist from '~/hooks/profury/useWhitelist';
 
 import { FC } from '~/types';
 

@@ -9,7 +9,7 @@ import Row from '~/components/Common/Row';
 import StatHorizontal from '~/components/Common/StatHorizontal';
 
 import { FC } from '~/types';
-import useProposalBlockData from '~/hooks/beanstalk/useProposalBlockData';
+import useProposalBlockData from '~/hooks/profury/useProposalBlockData';
 
 const ProposalStats: FC<{
   proposal: Proposal;

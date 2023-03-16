@@ -34,7 +34,7 @@ import { UNRIPE_BEAN, UNRIPE_BEAN_CRV3, UNRIPE_TOKENS } from '~/constants/tokens
 import { ZERO_BN } from '~/constants';
 import { useFetchFarmerBalances } from '~/state/farmer/balances/updater';
 import { AppState } from '~/state';
-import useUnripeUnderlyingMap from '~/hooks/beanstalk/useUnripeUnderlying';
+import useUnripeUnderlyingMap from '~/hooks/profury/useUnripeUnderlying';
 import Row from '~/components/Common/Row';
 import { FC } from '~/types';
 import TransactionToast from '~/components/Common/TxnToast';
@@ -47,13 +47,13 @@ type ChopFormValues = FormState & {
 const ChopForm: FC<
   FormikProps<ChopFormValues> & {
     balances: ReturnType<typeof useFarmerBalances>;
-    beanstalk: Beanstalk;
+    profury: Beanstalk;
   }
 > = ({
   values,
   setFieldValue,
   balances,
-  beanstalk,
+  profury,
 }) => {
   const erc20TokenMap = useTokenMap<ERC20Token | NativeToken>(UNRIPE_TOKENS);
   const [isTokenSelectVisible, showTokenSelect, hideTokenSelect] = useToggle();
@@ -170,7 +170,7 @@ const ChopForm: FC<
           color="primary"
           size="large"
           disabled={!isSubmittable}
-          contract={beanstalk}
+          contract={profury}
           tokens={values.tokens}
           mode="auto"
         >
@@ -198,7 +198,7 @@ const Chop: FC<{}> = () => {
   /// Ledger
   const account           = useAccount();
   const { data: signer }  = useSigner();
-  const beanstalk         = useBeanstalkContract(signer);
+  const profury         = useBeanstalkContract(signer);
 
   /// Farmer
   const farmerBalances    = useFarmerBalances();
@@ -237,7 +237,7 @@ const Chop: FC<{}> = () => {
           success: 'Chop successful.',
         });
 
-        const txn = await beanstalk.chop(
+        const txn = await profury.chop(
           state.token.address,
           toStringBaseUnitBN(state.amount, state.token.decimals),
           optimizeFromMode(state.amount, farmerBalances[state.token.address]),
@@ -256,7 +256,7 @@ const Chop: FC<{}> = () => {
     },
     [
       account,
-      beanstalk,
+      profury,
       refetchFarmerBalances,
       farmerBalances,
       middleware,
@@ -272,7 +272,7 @@ const Chop: FC<{}> = () => {
       {(formikProps: FormikProps<ChopFormValues>) => (
         <ChopForm
           balances={farmerBalances}
-          beanstalk={beanstalk}
+          profury={profury}
           {...formikProps}
         />
       )}

@@ -16,8 +16,8 @@ import {
   ModuleContent,
 } from '~/components/Common/Module';
 import beanIcon from '~/img/tokens/bean-logo-circled.svg';
-import stalkIcon from '~/img/beanstalk/stalk-icon-winter.svg';
-import seedIcon from '~/img/beanstalk/seed-icon-winter.svg';
+import stalkIcon from '~/img/profury/stalk-icon-winter.svg';
+import seedIcon from '~/img/profury/seed-icon-winter.svg';
 
 import useRevitalized from '~/hooks/farmer/useRevitalized';
 import { AppState } from '~/state';

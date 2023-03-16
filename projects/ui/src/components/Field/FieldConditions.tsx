@@ -8,13 +8,13 @@ import { FontSize } from '../App/muiTheme';
 import { FC } from '~/types';
 
 export interface FieldConditionsProps {
-  beanstalkField: AppState['_beanstalk']['field'];
+  profuryField: AppState['_profury']['field'];
   // farmerField: AppState['_farmer']['field'];
   // podLine: BigNumber;
 }
 
 const FieldConditions: FC<FieldConditionsProps> = ({
- beanstalkField,
+ profuryField,
  // farmerField,
  // podLine,
 }) => (
@@ -36,7 +36,7 @@ const FieldConditions: FC<FieldConditionsProps> = ({
               </Typography>
             </Tooltip>
             <Typography variant="bodyLarge" fontWeight="400">
-              {displayBN(beanstalkField.soil)}
+              {displayBN(profuryField.soil)}
             </Typography>
           </Stack>
         </Grid>
@@ -51,7 +51,7 @@ const FieldConditions: FC<FieldConditionsProps> = ({
               </Typography>
             </Tooltip>
             <Typography variant="bodyLarge" fontWeight="400">
-              {displayBN(beanstalkField.weather.yield)}%
+              {displayBN(profuryField.weather.yield)}%
             </Typography>
           </Stack>
         </Grid>
@@ -66,7 +66,7 @@ const FieldConditions: FC<FieldConditionsProps> = ({
               </Typography>
             </Tooltip>
             <Typography variant="bodyLarge" fontWeight="400">
-              {displayBN(beanstalkField.podLine)}
+              {displayBN(profuryField.podLine)}
             </Typography>
           </Stack>
         </Grid>
@@ -81,7 +81,7 @@ const FieldConditions: FC<FieldConditionsProps> = ({
               </Typography>
             </Tooltip>
             <Typography variant="bodyLarge">
-              {displayBN(beanstalkField.harvestableIndex)}
+              {displayBN(profuryField.harvestableIndex)}
             </Typography>
           </Stack>
         </Grid>

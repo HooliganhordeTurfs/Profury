@@ -299,14 +299,14 @@ const CreateOrder: FC<{}> = () => {
   /// Ledger
   const { data: signer } = useSigner();
   const provider = useProvider();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farm
   const farm = useMemo(() => new Farm(provider), [provider]);
 
   /// Beanstalk
-  const beanstalkField = useSelector<AppState, AppState['_beanstalk']['field']>(
-    (state) => state._beanstalk.field
+  const profuryField = useSelector<AppState, AppState['_profury']['field']>(
+    (state) => state._profury.field
   );
 
   /// Farmer
@@ -408,7 +408,7 @@ const CreateOrder: FC<{}> = () => {
         /// We only need one call to do this, so we skip
         /// the farm() call below to optimize gas.
         if (inputToken === Bean) {
-          call = beanstalk.createPodOrder(
+          call = profury.createPodOrder(
             Bean.stringify(tokenData.amount),
             Bean.stringify(pricePerPod),
             Bean.stringify(placeInLine),
@@ -429,7 +429,7 @@ const CreateOrder: FC<{}> = () => {
           if (inputToken === Eth) {
             value = value.plus(tokenData.amount);
             data.push(
-              beanstalk.interface.encodeFunctionData('wrapEth', [
+              profury.interface.encodeFunctionData('wrapEth', [
                 toStringBaseUnitBN(value, Eth.decimals),
                 FarmToMode.INTERNAL, // to
               ])
@@ -444,7 +444,7 @@ const CreateOrder: FC<{}> = () => {
           );
           data.push(...encoded);
           data.push(
-            beanstalk.interface.encodeFunctionData('createPodOrder', [
+            profury.interface.encodeFunctionData('createPodOrder', [
               Bean.stringify(tokenData.amountOut),
               Bean.stringify(pricePerPod),
               Bean.stringify(placeInLine),
@@ -458,7 +458,7 @@ const CreateOrder: FC<{}> = () => {
           console.log('placeInLine: ', Bean.stringify(placeInLine));
           console.log('minfillaount: ', toStringBaseUnitBN(new BigNumber(1), PODS.decimals));
 
-          call = beanstalk.farm(data, { value: Eth.stringify(value) });
+          call = profury.farm(data, { value: Eth.stringify(value) });
         }
 
         const txn = await call;
@@ -479,7 +479,7 @@ const CreateOrder: FC<{}> = () => {
       refetchFarmerBalances, 
       refetchFarmerMarket, 
       fetchFarmerMarketItems, 
-      beanstalk, 
+      profury, 
       balances, 
       Eth
   ]
@@ -501,10 +501,10 @@ const CreateOrder: FC<{}> = () => {
             />
           </TxnSettings>
           <CreateOrderV2Form
-            podLine={beanstalkField.podLine}
+            podLine={profuryField.podLine}
             handleQuote={handleQuote}
             tokenList={Object.values(tokenMap) as (ERC20Token | NativeToken)[]}
-            contract={beanstalk}
+            contract={profury}
             {...formikProps}
           />
         </>

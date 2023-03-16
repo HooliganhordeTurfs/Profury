@@ -32,7 +32,7 @@ export const initialBeanstalkSilo : BeanstalkSilo = {
 export default createReducer(initialBeanstalkSilo, (builder) =>
   builder
     .addCase(resetBeanstalkSilo, () => {
-      console.debug('[beanstalk/silo/reducer] reset');
+      console.debug('[profury/silo/reducer] reset');
       return initialBeanstalkSilo;
     })
     .addCase(updateBeanstalkSilo, (state, { payload }) => {

@@ -20,11 +20,11 @@ import { FarmerSilo } from '~/state/farmer/silo';
 import { ERC20Token } from '~/classes/Token';
 import useFarmerSiloBalances from '~/hooks/farmer/useFarmerSiloBalances';
 import { useFetchFarmerSilo } from '~/state/farmer/silo/updater';
-import { useFetchBeanstalkSilo } from '~/state/beanstalk/silo/updater';
+import { useFetchBeanstalkSilo } from '~/state/profury/silo/updater';
 import { useSigner } from '~/hooks/ledger/useSigner';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import BeanstalkSDK from '~/lib/Beanstalk';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import TxnSeparator from '~/components/Common/Form/TxnSeparator';
 import { SEEDS, STALK } from '~/constants/tokens';
 import { displayFullBN, displayTokenAmount, parseError, toStringBaseUnitBN, trimAddress } from '~/util';
@@ -197,7 +197,7 @@ const TransferForm: FC<FormikProps<TransferFormValues> & {
 const Transfer: FC<{ token: ERC20Token; }> = ({ token }) => {
   /// Ledger
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Beanstalk
   const season = useSeason();
@@ -255,7 +255,7 @@ const Transfer: FC<{ token: ERC20Token; }> = ({ token }) => {
       if (seasons.length === 0) {
         throw new Error('Malformatted crates.');
       } else if (seasons.length === 1) {
-        call = beanstalk.transferDeposit(
+        call = profury.transferDeposit(
           sender,
           values.to,
           token.address,
@@ -263,7 +263,7 @@ const Transfer: FC<{ token: ERC20Token; }> = ({ token }) => {
           amounts[0],
         );
       } else {
-        call = beanstalk.transferDeposits(
+        call = profury.transferDeposits(
           sender,
           values.to,
           token.address,
@@ -293,7 +293,7 @@ const Transfer: FC<{ token: ERC20Token; }> = ({ token }) => {
     }
   }, [
     siloBalances,
-    beanstalk,
+    profury,
     token,
     season,
     refetchFarmerSilo,

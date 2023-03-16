@@ -35,7 +35,7 @@ const AboutButton: FC<ButtonProps> = ({ sx }) => {
 
   /// Constants
   const chainInfo = useChainConstant(CHAIN_INFO);
-  const beanstalkAddress = useChainConstant(BEANSTALK_ADDRESSES);
+  const profuryAddress = useChainConstant(BEANSTALK_ADDRESSES);
 
   /// Menu
   const [anchorEl, toggleAnchor] = useAnchor();
@@ -65,7 +65,7 @@ const AboutButton: FC<ButtonProps> = ({ sx }) => {
       <Box sx={{ px: 1, pt: 0.75 }}>
         <Button
           fullWidth
-          href={`${chainInfo.explorer}/address/${beanstalkAddress}`}
+          href={`${chainInfo.explorer}/address/${profuryAddress}`}
           target="_blank"
           rel="noreferrer"
           variant="contained"
@@ -75,7 +75,7 @@ const AboutButton: FC<ButtonProps> = ({ sx }) => {
           <Row spacing={1}>
             <ListItemText>
               <Typography variant="h4">
-                Contract: {beanstalkAddress.slice(0, 6)}...
+                Contract: {profuryAddress.slice(0, 6)}...
               </Typography>
             </ListItemText>
             <Typography variant="body2" color="white">

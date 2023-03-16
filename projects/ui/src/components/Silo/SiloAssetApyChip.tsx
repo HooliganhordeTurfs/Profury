@@ -2,10 +2,10 @@ import { Box, Chip, Link, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import Token from '~/classes/Token';
 import { BEAN } from '~/constants/tokens';
-import useAPY from '~/hooks/beanstalk/useAPY';
+import useAPY from '~/hooks/profury/useAPY';
 import Row from '../Common/Row';
 import TokenIcon from '../Common/TokenIcon';
-import stalkIconBlue from '~/img/beanstalk/stalk-icon-blue.svg';
+import stalkIconBlue from '~/img/profury/stalk-icon-blue.svg';
 import { displayFullBN } from '~/util';
 
 import Stat from '../Common/Stat';

@@ -8,12 +8,12 @@ import { ZERO_BN } from '~/constants';
 
 export const useFetchBeanstalkField = () => {
   const dispatch = useDispatch();
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   // Handlers
   const fetch = useCallback(async () => {
-    if (beanstalk) {
-      console.debug('[beanstalk/field/useBeanstalkField] FETCH');
+    if (profury) {
+      console.debug('[profury/field/useBeanstalkField] FETCH');
       
       const [
         harvestableIndex,
@@ -21,10 +21,10 @@ export const useFetchBeanstalkField = () => {
         soil,
         weather,
       ] = await Promise.all([
-        beanstalk.harvestableIndex().then(tokenResult(BEAN)), // FIXME
-        beanstalk.podIndex().then(tokenResult(BEAN)),
-        beanstalk.totalSoil().then(tokenResult(BEAN)),
-        beanstalk.weather().then((_weather) => ({
+        profury.harvestableIndex().then(tokenResult(BEAN)), // FIXME
+        profury.podIndex().then(tokenResult(BEAN)),
+        profury.totalSoil().then(tokenResult(BEAN)),
+        profury.weather().then((_weather) => ({
           didSowBelowMin: _weather.didSowBelowMin,
           didSowFaster: _weather.didSowFaster,
           lastDSoil: tokenResult(BEAN)(_weather.lastDSoil),
@@ -34,10 +34,10 @@ export const useFetchBeanstalkField = () => {
           startSoil: tokenResult(BEAN)(_weather.startSoil),
           yield: bigNumberResult(_weather.yield),
         })),
-        // beanstalk.totalHarvested().then(tokenResult(BEAN))
+        // profury.totalHarvested().then(tokenResult(BEAN))
       ] as const);
 
-      console.debug('[beanstalk/field/useBeanstalkField] RESULT');
+      console.debug('[profury/field/useBeanstalkField] RESULT');
 
       dispatch(updateBeanstalkField({
         harvestableIndex,
@@ -54,11 +54,11 @@ export const useFetchBeanstalkField = () => {
     }
   }, [
     dispatch,
-    beanstalk,
+    profury,
   ]);
   
   const clear = useCallback(() => {
-    console.debug('[beanstalk/field/useBeanstalkField] CLEAR');
+    console.debug('[profury/field/useBeanstalkField] CLEAR');
     dispatch(resetBeanstalkField());
   }, [dispatch]);
 

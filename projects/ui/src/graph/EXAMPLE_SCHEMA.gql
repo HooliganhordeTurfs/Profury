@@ -1,11 +1,11 @@
 ## elements marked with ** are used in time-series charts in the UI
 query {
   ## ---------------------------------------------------------------------------
-  ## Internally, the UI splits up `beanstalk` + `farmer` data for ease of access.
+  ## Internally, the UI splits up `profury` + `farmer` data for ease of access.
   ## It would be great if the subgraph matched this structure, however it's not
   ## crucial as long as naming conventions are clear and consistent.
   ## ---------------------------------------------------------------------------
-  beanstalk {
+  profury {
     seasons(
       # limit (most recent 5)
       # filter by a property
@@ -249,7 +249,7 @@ query {
       }
     }
     ## NOTE: This is redundant and unnecessary IF we can
-    ## filter beanstalk.marketplace by a particular `account`. 
+    ## filter profury.marketplace by a particular `account`. 
     marketplace {
       listings {}
       orders {}

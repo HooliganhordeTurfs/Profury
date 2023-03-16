@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import { initialFarmerSilo } from '~/state/farmer/silo/reducer';
-import { initialBeanstalkSilo } from '~/state/beanstalk/silo/reducer';
+import { initialBeanstalkSilo } from '~/state/profury/silo/reducer';
 
 import Overview from './Overview';
 
@@ -19,7 +19,7 @@ const s = {
 const Template: ComponentStory<typeof Overview> = (args: any) => (
   <Overview
     farmerSilo={initialFarmerSilo}
-    beanstalkSilo={initialBeanstalkSilo}
+    profurySilo={initialBeanstalkSilo}
     breakdown={{
       totalValue: n,
       states: {

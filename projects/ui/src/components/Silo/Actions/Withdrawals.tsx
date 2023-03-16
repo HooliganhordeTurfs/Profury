@@ -6,9 +6,9 @@ import { GridColumns } from '@mui/x-data-grid';
 import { Token } from '~/classes';
 import { FarmerSiloBalance, WithdrawalCrate } from '~/state/farmer/silo';
 import { displayFullBN, displayUSD } from '~/util';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { ZERO_BN } from '~/constants';
-import useSiloTokenToFiat from '~/hooks/beanstalk/useSiloTokenToFiat';
+import useSiloTokenToFiat from '~/hooks/profury/useSiloTokenToFiat';
 import TableCard from '../../Common/TableCard';
 
 import { FC } from '~/types';

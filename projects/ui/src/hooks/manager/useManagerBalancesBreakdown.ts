@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import { useSelector } from 'react-redux';
 import { AddressMap, ZERO_BN } from '~/constants';
 import { AppState } from '~/state';
-import useSiloTokenToFiat from '../beanstalk/useSiloTokenToFiat';
-import useWhitelist from '../beanstalk/useWhitelist';
+import useSiloTokenToFiat from '../profury/useSiloTokenToFiat';
+import useWhitelist from '../profury/useWhitelist';
 import { BeanstalkPalette } from '~/components/App/muiTheme';
 
 // -----------------

@@ -17,7 +17,7 @@ import unripeBeanIcon from '~/img/tokens/unripe-bean-logo-circled.svg';
 import brownLPIcon from '~/img/tokens/unripe-lp-logo-circled.svg';
 import { BeanstalkPalette } from '~/components/App/muiTheme';
 import { StyledDialogActions, StyledDialogContent, StyledDialogTitle } from '~/components/Common/Dialog';
-import pickImage from '~/img/beanstalk/unripe/pick.png';
+import pickImage from '~/img/profury/unripe/pick.png';
 import DescriptionButton from '~/components/Common/DescriptionButton';
 import type { PickMerkleResponse } from '~/functions/pick/pick';
 import TransactionToast from '~/components/Common/TxnToast';
@@ -126,7 +126,7 @@ const PickBeansDialog: FC<{
   /// Ledger
   const account          = useAccount();
   const { data: signer } = useSigner();
-  const beanstalk        = useBeanstalkContract(signer);
+  const profury        = useBeanstalkContract(signer);
   
   /// Local data
   const [unripe, setUnripe]         = useState<GetUnripeResponse | null>(null);
@@ -150,8 +150,8 @@ const PickBeansDialog: FC<{
             fetch(`/.netlify/functions/unripe?account=${account}`).then((response) => response.json()),
             fetch(`/.netlify/functions/pick?account=${account}`).then((response) => response.json()),
             Promise.all([
-              beanstalk.picked(account, urBean.address),
-              beanstalk.picked(account, urBeanCRV3.address),
+              profury.picked(account, urBean.address),
+              profury.picked(account, urBeanCRV3.address),
             ]),
           ]);
           console.debug('[PickDialog] loaded states', { _unripe, _merkles, _picked });
@@ -164,7 +164,7 @@ const PickBeansDialog: FC<{
         toast.error(parseError(err));
       }
     })();
-  }, [account, beanstalk, open, urBean.address, urBeanCRV3.address]);
+  }, [account, profury, open, urBean.address, urBeanCRV3.address]);
 
   /// Tab handlers
   const handleDialogClose = () => {
@@ -188,14 +188,14 @@ const PickBeansDialog: FC<{
     const data = [];
 
     if (merkles.bean && picked[0] === false) {
-      data.push(beanstalk.interface.encodeFunctionData('pick', [
+      data.push(profury.interface.encodeFunctionData('pick', [
         urBean.address,
         merkles.bean.amount,
         merkles.bean.proof,
         isDeposit ? FarmToMode.INTERNAL : FarmToMode.EXTERNAL,
       ]));
       if (isDeposit) {
-        data.push(beanstalk.interface.encodeFunctionData('deposit', [
+        data.push(profury.interface.encodeFunctionData('deposit', [
           urBean.address,
           merkles.bean.amount,
           FarmFromMode.INTERNAL, // always use internal for deposits
@@ -203,14 +203,14 @@ const PickBeansDialog: FC<{
       }
     }
     if (merkles.bean3crv && picked[1] === false) {
-      data.push(beanstalk.interface.encodeFunctionData('pick', [
+      data.push(profury.interface.encodeFunctionData('pick', [
         urBeanCRV3.address,
         merkles.bean3crv.amount,
         merkles.bean3crv.proof,
         isDeposit ? FarmToMode.INTERNAL : FarmToMode.EXTERNAL,
       ]));
       if (isDeposit) {
-        data.push(beanstalk.interface.encodeFunctionData('deposit', [
+        data.push(profury.interface.encodeFunctionData('deposit', [
           urBeanCRV3.address,
           merkles.bean3crv.amount,
           FarmFromMode.INTERNAL, // always use internal for deposits
@@ -223,7 +223,7 @@ const PickBeansDialog: FC<{
       success: `Pick${isDeposit ? ' and deposit' : ''} successful. You can find your Unripe Assets ${isDeposit ? 'in the Silo' : 'in your wallet'}.`,
     });
 
-    beanstalk.farm(data)
+    profury.farm(data)
       .then((txn) => {
         txToast.confirming(txn);
         return txn.wait();
@@ -241,7 +241,7 @@ const PickBeansDialog: FC<{
         );
         setPickStatus('error');
       });
-  }, [merkles, picked, beanstalk, urBean.address, urBeanCRV3.address, refetchFarmerSilo, middleware]);
+  }, [merkles, picked, profury, urBean.address, urBeanCRV3.address, refetchFarmerSilo, middleware]);
 
   /// Tab: Pick Overview
   const alreadyPicked = picked[0] === true || picked[1] === true;

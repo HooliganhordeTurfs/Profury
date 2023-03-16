@@ -4,8 +4,8 @@ import { tickFormatPercentage } from '~/components/Analytics/formatters';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';
 import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/SeasonPlot';
 import { SeasonalTemperatureDocument, SeasonalTemperatureQuery } from '~/generated/graphql';
-import useSeason from '~/hooks/beanstalk/useSeason';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import useSeason from '~/hooks/profury/useSeason';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 import { AppState } from '~/state';
 
 import { FC } from '~/types';
@@ -22,7 +22,7 @@ const lineChartProps : Partial<LineChartProps> = {
 };
 
 const Temperature: FC<{height?: SeasonPlotBaseProps['height']}> = ({ height }) => {
-  const temperature = useSelector<AppState, AppState['_beanstalk']['field']['weather']['yield']>((state) => state._beanstalk.field.weather.yield);
+  const temperature = useSelector<AppState, AppState['_profury']['field']['weather']['yield']>((state) => state._profury.field.weather.yield);
   const season  = useSeason();
   return (
     <SeasonPlot<SeasonalTemperatureQuery>

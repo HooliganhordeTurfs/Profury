@@ -13,7 +13,7 @@ import {
   selectedPlotAtom, selectedPlotEndAtom,
   selectedPlotStartAtom
 } from '~/components/Market/PodsV2/info/atom-context';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import { ZERO_BN } from '~/constants';
 import { TokenAdornment } from '~/components/Common/Form';
 import { PODS } from '~/constants/tokens';

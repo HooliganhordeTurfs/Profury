@@ -105,7 +105,7 @@ const getContracts = (provider: ethers.providers.BaseProvider) => {
   });
 
   return {
-    beanstalk: Beanstalk__factory.connect(BEANSTALK, provider),
+    profury: Beanstalk__factory.connect(BEANSTALK, provider),
     curve: {
       // Pools
       pools: {
@@ -322,12 +322,12 @@ export default class Farm {
       amountOut: _amountInStep, // amountInStep should be an amount of ETH.
       value:     _amountInStep, // need to use this amount in the txn.
       encode: (_: ethers.BigNumber) => (
-        this.contracts.beanstalk.interface.encodeFunctionData('wrapEth', [
+        this.contracts.profury.interface.encodeFunctionData('wrapEth', [
           _amountInStep,        // ignore minAmountOut since there is no slippage
           _toMode,              //
         ])
       ),
-      decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('wrapEth', data),
+      decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('wrapEth', data),
     };
   };
 
@@ -343,12 +343,12 @@ export default class Farm {
       name: 'unwrapEth',
       amountOut: _amountInStep, // amountInStep should be an amount of ETH.
       encode: (_: ethers.BigNumber) => (
-        this.contracts.beanstalk.interface.encodeFunctionData('unwrapEth', [
+        this.contracts.profury.interface.encodeFunctionData('unwrapEth', [
           _amountInStep,        // ignore minAmountOut since there is no slippage
           _fromMode,            //
         ])
       ),
-      decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('unwrapEth', data),
+      decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('unwrapEth', data),
     };
   };
 
@@ -367,7 +367,7 @@ export default class Farm {
       name: 'transferToken',
       amountOut: _amountInStep, // transfer exact amount
       encode: (_: ethers.BigNumber) => (
-        this.contracts.beanstalk.interface.encodeFunctionData('transferToken', [
+        this.contracts.profury.interface.encodeFunctionData('transferToken', [
           _tokenIn,      //
           _recipient,    //
           _amountInStep, // ignore minAmountOut since there is no slippage
@@ -375,7 +375,7 @@ export default class Farm {
           _toMode,       //
         ])
       ),
-      decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('transferToken', data),
+      decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('transferToken', data),
     };
   };
 
@@ -467,7 +467,7 @@ export default class Farm {
       name: 'exchange',
       amountOut,
       encode: (minAmountOut: ethers.BigNumber) => (
-        this.contracts.beanstalk.interface.encodeFunctionData('exchange', [
+        this.contracts.profury.interface.encodeFunctionData('exchange', [
           _pool,
           _registry,
           tokenIn,
@@ -478,7 +478,7 @@ export default class Farm {
           _toMode,
         ])
       ),
-      decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('exchange', data),
+      decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('exchange', data),
       data: {
         pool: _pool,
         registry: _registry,
@@ -548,7 +548,7 @@ export default class Farm {
       name: 'exchangeUnderlying',
       amountOut,
       encode: (minAmountOut: ethers.BigNumber) => (
-        this.contracts.beanstalk.interface.encodeFunctionData('exchangeUnderlying', [
+        this.contracts.profury.interface.encodeFunctionData('exchangeUnderlying', [
           _pool,
           tokenIn,
           tokenOut,
@@ -558,7 +558,7 @@ export default class Farm {
           _toMode,
         ])
       ),
-      decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('exchangeUnderlying', data),
+      decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('exchangeUnderlying', data),
       data: {
         pool: _pool,
         tokenIn,
@@ -646,7 +646,7 @@ export default class Farm {
         name: 'addLiquidity',
         amountOut,
         encode: (minAmountOut: ethers.BigNumber) => (
-          this.contracts.beanstalk.interface.encodeFunctionData('addLiquidity', [
+          this.contracts.profury.interface.encodeFunctionData('addLiquidity', [
             _pool,
             _registry,
             amountInStep as any[], // could be 2 or 3 elems
@@ -655,7 +655,7 @@ export default class Farm {
             _toMode,
           ])
         ),
-        decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('addLiquidity', data),
+        decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('addLiquidity', data),
         data: {
           pool: _pool,
           registry: _registry,
@@ -727,7 +727,7 @@ export default class Farm {
         name: 'removeLiquidityOneToken',
         amountOut,
         encode: (minAmountOut: ethers.BigNumber) => (
-          this.contracts.beanstalk.interface.encodeFunctionData('removeLiquidityOneToken', [
+          this.contracts.profury.interface.encodeFunctionData('removeLiquidityOneToken', [
             _pool,
             _registry,
             _tokenOut,
@@ -737,7 +737,7 @@ export default class Farm {
             _toMode,
           ])
         ),
-        decode: (data: string) => this.contracts.beanstalk.interface.decodeFunctionData('removeLiquidityOneToken', data),
+        decode: (data: string) => this.contracts.profury.interface.decodeFunctionData('removeLiquidityOneToken', data),
         data: {}
       };
     };

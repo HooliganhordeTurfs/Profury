@@ -11,7 +11,7 @@ import StyledAccordionSummary from '~/components/Common/Accordion/AccordionSumma
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import { FarmerSiloBalance } from '~/state/farmer/silo';
 import { ActionType } from '~/util/Actions';
-import usePools from '~/hooks/beanstalk/usePools';
+import usePools from '~/hooks/profury/usePools';
 import { ERC20Token } from '~/classes/Token';
 import {
   FormTokenState,
@@ -279,7 +279,7 @@ const Claim : FC<{
   const middleware = useFormMiddleware();
 
   /// Contracts
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Data
   const [refetchFarmerSilo]     = useFetchFarmerSilo();
@@ -332,7 +332,7 @@ const Claim : FC<{
       if (crates.length > 1) {
         console.debug(`[Claim] claiming ${crates.length} withdrawals`);
         data.push(
-          beanstalk.interface.encodeFunctionData('claimWithdrawals', [
+          profury.interface.encodeFunctionData('claimWithdrawals', [
             token.address,
             crates.map((crate) => crate.season.toString()),
             claimDestination,
@@ -344,7 +344,7 @@ const Claim : FC<{
       else {
         console.debug('[Claim] claiming a single withdrawal');
         data.push(
-          beanstalk.interface.encodeFunctionData('claimWithdrawal', [
+          profury.interface.encodeFunctionData('claimWithdrawal', [
             token.address,
             crates[0].season.toString(),
             claimDestination,
@@ -362,7 +362,7 @@ const Claim : FC<{
         data.push(...encoded);
       }
 
-      const txn = await beanstalk.farm(data, {});
+      const txn = await profury.farm(data, {});
       txToast.confirming(txn);
 
       const receipt = await txn.wait();
@@ -374,7 +374,7 @@ const Claim : FC<{
       formActions.setSubmitting(false);
     }
   }, [
-    beanstalk,
+    profury,
     siloBalance?.claimable,
     claimableBalance,
     token,

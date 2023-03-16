@@ -173,7 +173,7 @@ const Rinse : FC<{ quick?: boolean }> = ({ quick }) => {
   /// Wallet connection
   const account = useAccount();
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
   
   /// Farmer
   const farmerBarn          = useFarmerFertilizer();
@@ -202,7 +202,7 @@ const Rinse : FC<{ quick?: boolean }> = ({ quick }) => {
         success: `Rinse successful. Added ${displayFullBN(farmerBarn.fertilizedSprouts, SPROUTS.displayDecimals)} Beans to your ${copy.MODES[values.destination]}.`,
       });
 
-      const txn = await beanstalk.claimFertilized(
+      const txn = await profury.claimFertilized(
         farmerBarn.balances.map((bal) => bal.token.id.toString()),
         values.destination
       );
@@ -224,7 +224,7 @@ const Rinse : FC<{ quick?: boolean }> = ({ quick }) => {
       txToast ? txToast.error(err) : toast.error(parseError(err));
     }
   }, [
-    beanstalk,
+    profury,
     account,
     farmerBarn?.balances,
     farmerBarn?.fertilizedSprouts,

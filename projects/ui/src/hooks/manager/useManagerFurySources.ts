@@ -1,5 +1,5 @@
 import { ZERO_BN } from '~/constants';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import useFarmerSiloBalances from '~/hooks/farmer/useFarmerSiloBalances';
 
 /**

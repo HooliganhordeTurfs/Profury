@@ -73,7 +73,7 @@ describe('utilities', () => {
 // ----------------------------------------------------------------------
 
 describe('estimation', () => {
-  /// NOTE: requires replanted beanstalk
+  /// NOTE: requires replanted profury
   const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545', {
     chainId: 1337,
     name: 'Localhost'

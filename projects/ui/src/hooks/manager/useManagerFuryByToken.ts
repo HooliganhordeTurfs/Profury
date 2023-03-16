@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { TokenMap, ZERO_BN } from '~/constants';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import useFarmerSiloBalances from '~/hooks/farmer/useFarmerSiloBalances';
 import { STALK_PER_SEED_PER_SEASON } from '~/util';
 

@@ -3,7 +3,7 @@ import { tickFormatUSD } from '~/components/Analytics/formatters';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';
 import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/SeasonPlot';
 import { SeasonalLiquidityDocument, SeasonalLiquidityQuery } from '~/generated/graphql';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 
 import { FC } from '~/types';
 

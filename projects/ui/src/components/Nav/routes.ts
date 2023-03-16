@@ -1,14 +1,14 @@
-import aboutIcon from '~/img/beanstalk/interface/nav/about.svg';
-import beanNFTIcon from '~/img/beanstalk/interface/nav/bean-nft.svg';
-import discordIcon from '~/img/beanstalk/interface/nav/discord.svg';
-import githubIcon from '~/img/beanstalk/interface/nav/github.svg';
-import governanceIcon from '~/img/beanstalk/interface/nav/governance.svg';
-import swapIcon from '~/img/beanstalk/interface/nav/trade.svg';
-import twitterIcon from '~/img/beanstalk/interface/nav/twitter.svg';
-import immunefiIcon from '~/img/beanstalk/interface/nav/immunefi.svg';
-import docsIcon from '~/img/beanstalk/interface/nav/docs.svg';
-import disclosuresIcon from '~/img/beanstalk/interface/nav/disclosures.svg';
-import analyticsIcon from '~/img/beanstalk/interface/nav/analytics.svg';
+import aboutIcon from '~/img/profury/interface/nav/about.svg';
+import beanNFTIcon from '~/img/profury/interface/nav/bean-nft.svg';
+import discordIcon from '~/img/profury/interface/nav/discord.svg';
+import githubIcon from '~/img/profury/interface/nav/github.svg';
+import governanceIcon from '~/img/profury/interface/nav/governance.svg';
+import swapIcon from '~/img/profury/interface/nav/trade.svg';
+import twitterIcon from '~/img/profury/interface/nav/twitter.svg';
+import immunefiIcon from '~/img/profury/interface/nav/immunefi.svg';
+import docsIcon from '~/img/profury/interface/nav/docs.svg';
+import disclosuresIcon from '~/img/profury/interface/nav/disclosures.svg';
+import analyticsIcon from '~/img/profury/interface/nav/analytics.svg';
 
 export type RouteData = {
   /** Nav item title */
@@ -106,24 +106,24 @@ const ROUTES : { [key in RouteKeys] : RouteData[] } = {
     {
       path: 'bugbounty',
       title: 'Bug Bounty',
-      href: 'https://immunefi.com/bounty/beanstalk',
+      href: 'https://immunefi.com/bounty/profury',
       icon: immunefiIcon
     },
     {
       path: 'discord',
-      href: 'https://discord.gg/beanstalk',
+      href: 'https://discord.gg/profury',
       title: 'Discord',
       icon: discordIcon
     },
     {
       path: 'twitter',
-      href: 'https://twitter.com/beanstalkfarms',
+      href: 'https://twitter.com/profuryfarms',
       title: 'Twitter',
       icon: twitterIcon
     },
     {
       path: 'github',
-      href: 'https://github.com/beanstalkfarms',
+      href: 'https://github.com/profuryfarms',
       title: 'GitHub',
       icon: githubIcon
     },

@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useMemo } from 'react';
 import { MarketStatus, useAllPodOrdersQuery } from '~/generated/graphql';
 import useCastApolloQuery from '~/hooks/app/useCastApolloQuery';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
-import usePodListings from '~/hooks/beanstalk/usePodListings';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
+import usePodListings from '~/hooks/profury/usePodListings';
 import { castPodListing, castPodOrder, PodListing, PodOrder } from '~/state/farmer/market';
 
 const useMarketData = () => {

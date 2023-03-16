@@ -1,10 +1,10 @@
-name: Continuous Integration - Subgraph Beanstalk
+name: Continuous Integration - Subgraph Profury
 
 on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - 'projects/subgraph-beanstalk/**'
+      - 'projects/subgraph-profury/**'
 
 jobs:
   compile:
@@ -33,7 +33,7 @@ jobs:
     # https://github.com/marketplace/actions/check-uncommitted-changes
     - name: Generate Subgraph Code
       run: yarn codegen
-      working-directory: projects/subgraph-beanstalk
+      working-directory: projects/subgraph-profury
     - name: Check for uncommitted changes
       id: check-changes
       uses: mskri/check-uncommitted-changes-action@v1.0.1
@@ -43,7 +43,7 @@ jobs:
 
     - name: Build Subgraph
       run: yarn build
-      working-directory: projects/subgraph-beanstalk
+      working-directory: projects/subgraph-profury
     # TODO: add matchstick test suite
     #- name: Run Tests
     #  run: yarn test

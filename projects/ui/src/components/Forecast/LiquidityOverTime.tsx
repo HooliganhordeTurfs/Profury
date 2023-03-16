@@ -5,7 +5,7 @@ import { AppState } from '~/state';
 import { ZERO_BN } from '../../constants';
 import { SeasonalLiquidityDocument, SeasonalLiquidityQuery } from '~/generated/graphql';
 import SeasonPlot from '~/components/Common/Charts/SeasonPlot';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 
 import { FC } from '~/types';
 

@@ -5,7 +5,7 @@ import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/Seas
 import { SeasonalSupplyQuery, SeasonalSupplyDocument } from '~/generated/graphql';
 import { BEAN } from '~/constants/tokens';
 import { toTokenUnitsBN } from '~/util';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';
 import { tickFormatTruncated } from '~/components/Analytics/formatters'; 
 

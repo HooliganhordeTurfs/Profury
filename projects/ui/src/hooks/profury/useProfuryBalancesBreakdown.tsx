@@ -5,11 +5,11 @@ import { AddressMap, TokenMap, ZERO_BN } from '~/constants';
 import { AppState } from '~/state';
 import useSiloTokenToFiat from './useSiloTokenToFiat';
 import useWhitelist from './useWhitelist';
-import { BeanstalkSiloBalance } from '~/state/beanstalk/silo';
+import { BeanstalkSiloBalance } from '~/state/profury/silo';
 import { BeanstalkPalette } from '~/components/App/muiTheme';
 import useGetChainToken from '~/hooks/chain/useGetChainToken';
 import { BEAN, BEAN_CRV3_LP } from '~/constants/tokens';
-import useUnripeUnderlyingMap from '~/hooks/beanstalk/useUnripeUnderlying';
+import useUnripeUnderlyingMap from '~/hooks/profury/useUnripeUnderlying';
 import { UnripeToken } from '~/state/bean/unripe';
 
 // -----------------
@@ -119,13 +119,13 @@ export default function useBeanstalkSiloBreakdown() {
   const WHITELIST_ADDRS = useMemo(() => Object.keys(WHITELIST), [WHITELIST]);
 
   // 
-  const siloBalances = useSelector<AppState, AppState['_beanstalk']['silo']['balances']>((state) => state._beanstalk.silo.balances);
+  const siloBalances = useSelector<AppState, AppState['_profury']['silo']['balances']>((state) => state._profury.silo.balances);
   const getUSD = useSiloTokenToFiat();
 
   const poolState = useSelector<AppState, AppState['_bean']['pools']>((state) => state._bean.pools);
   const beanSupply = useSelector<AppState, AppState['_bean']['token']['supply']>((state) => state._bean.token.supply);
   const unripeTokenState = useSelector<AppState, AppState['_bean']['unripe']>((state) => state._bean.unripe);
-  const multisigBalances = useSelector<AppState, AppState['_beanstalk']['governance']['multisigBalances']>((state) => state._beanstalk.governance.multisigBalances);
+  const multisigBalances = useSelector<AppState, AppState['_profury']['governance']['multisigBalances']>((state) => state._profury.governance.multisigBalances);
 
   const getChainToken = useGetChainToken();
   const Bean = getChainToken(BEAN);

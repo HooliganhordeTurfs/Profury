@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Card, Stack, Typography, Tooltip } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import useHumidity from '~/hooks/beanstalk/useHumidity';
+import useHumidity from '~/hooks/profury/useHumidity';
 import SunriseCountdown from '~/components/Sun/SunriseCountdown';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useSeason from '~/hooks/profury/useSeason';
 import { AppState } from '~/state';
 import { displayFullBN } from '~/util';
 import FertilizerImage from './FertilizerImage';
@@ -16,7 +16,7 @@ import { FC } from '~/types';
 const RemainingFertilizer: FC<{}> = () => {
   // eslint-disable-next-line unused-imports/no-unused-vars
   const [humidity, nextDecreaseAmount] = useHumidity();
-  const { recapFundedPct, remaining } = useSelector<AppState, AppState['_beanstalk']['barn']>((state) => state._beanstalk.barn);
+  const { recapFundedPct, remaining } = useSelector<AppState, AppState['_profury']['barn']>((state) => state._profury.barn);
   const season = useSeason();
   
   // eslint-disable-next-line unused-imports/no-unused-vars

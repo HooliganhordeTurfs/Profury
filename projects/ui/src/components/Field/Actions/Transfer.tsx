@@ -12,7 +12,7 @@ import { useSigner } from '~/hooks/ledger/useSigner';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
 import useAccount from '~/hooks/ledger/useAccount';
 import useFarmerPlots from '~/hooks/farmer/useFarmerPlots';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import { ZERO_BN } from '~/constants';
 import { PODS } from '~/constants/tokens';
 import { displayFullBN, parseError, toStringBaseUnitBN, trimAddress } from '~/util';
@@ -117,7 +117,7 @@ const Transfer: FC<{}> = () => {
   /// Ledger
   const account = useAccount();
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Farmer
   const [refetchFarmerField] = useFetchFarmerField();
@@ -148,7 +148,7 @@ const Transfer: FC<{}> = () => {
       const { to, plot: { index, start, end, amount } } = values;
       if (!to || !index || !start || !end || !amount) throw new Error('Missing data.');
 
-      const call = beanstalk.transferPlot(
+      const call = profury.transferPlot(
         account,
         to.toString(),
         toStringBaseUnitBN(index, PODS.decimals),
@@ -176,7 +176,7 @@ const Transfer: FC<{}> = () => {
     }
   }, [
     account,
-    beanstalk,
+    profury,
     refetchFarmerField,
     middleware,
   ]);

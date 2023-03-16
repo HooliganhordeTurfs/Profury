@@ -5,7 +5,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import { PodOrderType, podsOrderTypeAtom } from '../info/atom-context';
 import Soon from '~/components/Common/ZeroState/Soon';
 import CreateOrder from '~/components/Market/PodsV2/Actions/Buy/CreateOrder';
-import usePodListing from '~/hooks/beanstalk/usePodListing';
+import usePodListing from '~/hooks/profury/usePodListing';
 import StatHorizontal from '~/components/Common/StatHorizontal';
 import { displayBN, displayFullBN } from '~/util';
 import { BEAN, PODS } from '~/constants/tokens';

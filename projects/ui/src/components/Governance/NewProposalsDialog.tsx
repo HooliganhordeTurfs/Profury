@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledDialog, StyledDialogActions, StyledDialogContent, StyledDialogTitle } from '../Common/Dialog';
 import { AppState } from '~/state';
-import { ActiveProposal } from '~/state/beanstalk/governance';
+import { ActiveProposal } from '~/state/profury/governance';
 import { displayBN } from '~/util';
 import { IconSize } from '~/components/App/muiTheme';
 import TokenIcon from '~/components/Common/TokenIcon';
@@ -24,7 +24,7 @@ const NewProposalsDialog: FC<{}> = () => {
   const [getLastSeen, setLastSeen] = useAppFlag<number>('last_gov_prompt', 'int', 0);
 
   /// State
-  const activeProposals = useSelector<AppState, ActiveProposal[]>((state) => state._beanstalk.governance.activeProposals);
+  const activeProposals = useSelector<AppState, ActiveProposal[]>((state) => state._profury.governance.activeProposals);
   const farmerSilo = useSelector<AppState, AppState['_farmer']['silo']>((state) => state._farmer.silo);
 
   const dismiss = useCallback(() => {

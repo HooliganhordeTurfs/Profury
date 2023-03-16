@@ -1,6 +1,6 @@
 import { BEAN } from '~/constants/tokens';
 import { useAllPodListingsQuery } from '~/generated/graphql';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import useChainConstant from '~/hooks/chain/useChainConstant';
 
 type BaseOptions = Parameters<typeof useAllPodListingsQuery>[0]

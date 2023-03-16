@@ -16,7 +16,7 @@ import {
 } from '../../../generated/graphql';
 
 import useAccount from '~/hooks/ledger/useAccount';
-import useHarvestableIndex from '../../beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '../../profury/useHarvestableIndex';
 import { ZERO_BN } from '~/constants';
 
 /**

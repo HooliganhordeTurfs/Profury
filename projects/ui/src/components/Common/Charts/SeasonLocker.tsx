@@ -4,8 +4,8 @@ import { QueryOptions } from '@apollo/client';
 import { StatProps } from '~/components/Common/Stat';
 import useSeasonsQuery, {
   MinimumViableSnapshotQuery,
-} from '~/hooks/beanstalk/useSeasonsQuery';
-import useGenerateChartSeries from '~/hooks/beanstalk/useGenerateChartSeries';
+} from '~/hooks/profury/useSeasonsQuery';
+import useGenerateChartSeries from '~/hooks/profury/useGenerateChartSeries';
 import { BaseChartProps, BaseDataPoint } from '~/components/Common/Charts/ChartPropProvider';
 import useTimeTabState from '~/hooks/app/useTimeTabState';
 import BaseSeasonPlot, { QueryData } from '~/components/Common/Charts/BaseSeasonPlot';

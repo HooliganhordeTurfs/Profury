@@ -70,14 +70,14 @@ export function parseWithdrawals(
 
 /**
  * 
- * @param beanstalk 
+ * @param profury 
  * @param unripeTokens 
  * @param siloBalances 
  * @param getBDV 
  * @returns 
  */
 export const selectCratesForEnroot = (
-  beanstalk:    Beanstalk,
+  profury:    Beanstalk,
   unripeTokens: TokenMap<Token>,
   siloBalances: TokenMap<FarmerSiloBalance>,
   getBDV:       (_token: Token) => BigNumber,
@@ -96,7 +96,7 @@ export const selectCratesForEnroot = (
       if (crates.length === 1) {
         prev[addr] = {
           crates,
-          encoded: beanstalk.interface.encodeFunctionData('enrootDeposit', [
+          encoded: profury.interface.encodeFunctionData('enrootDeposit', [
             addr,
             crates[0].season.toString(), // season
             unripeTokens[addr].stringify(crates[0].amount), // amount
@@ -105,7 +105,7 @@ export const selectCratesForEnroot = (
       } else {
         prev[addr] = {
           crates,
-          encoded: beanstalk.interface.encodeFunctionData('enrootDeposits', [
+          encoded: profury.interface.encodeFunctionData('enrootDeposits', [
             addr,
             // fixme: not sure why TS doesn't pick up the type of `crates` here
             crates.map((crate: Crate) => crate.season.toString()), // seasons

@@ -8,16 +8,16 @@ import { AddressMap, ONE_BN } from '~/constants';
 import { UNRIPE_TOKENS } from '~/constants/tokens';
 import { resetUnripe, updateUnripe } from './actions';
 import { UnripeToken } from '~/state/bean/unripe';
-import useUnripeUnderlyingMap from '~/hooks/beanstalk/useUnripeUnderlying';
+import useUnripeUnderlyingMap from '~/hooks/profury/useUnripeUnderlying';
 
 export const useUnripe = () => {
   const dispatch = useDispatch();
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
   const unripeTokens = useTokenMap(UNRIPE_TOKENS);
   const unripeUnderlyingTokens = useUnripeUnderlyingMap(); // [unripe token address] => Ripe Token
 
   const fetch = useCallback(async () => {
-    if (beanstalk) {
+    if (profury) {
       try {
         const tokenAddresses = Object.keys(unripeTokens); // ['0x1BEA0', '0x1BEA1']
         const results = await Promise.all(
@@ -28,8 +28,8 @@ export const useUnripe = () => {
               /// In the UI, we describe the "penalty" as the % of assets forfeited
               /// when Chopping. To keep this consistency in variable names, we rename this value
               /// to the `Chop Rate` and then say `Chop Penalty = (1 - Chop Rate) x 100%`.
-              beanstalk.getPercentPenalty(addr).then(tokenResult(unripeTokens[addr])),
-              beanstalk.getTotalUnderlying(addr).then(tokenResult(unripeUnderlyingTokens[addr])),
+              profury.getPercentPenalty(addr).then(tokenResult(unripeTokens[addr])),
+              profury.getTotalUnderlying(addr).then(tokenResult(unripeUnderlyingTokens[addr])),
               unripeTokens[addr].getTotalSupply().then(tokenResult(unripeTokens[addr])),
             ])
           ))
@@ -51,7 +51,7 @@ export const useUnripe = () => {
         console.error(err);
       }
     }
-  }, [beanstalk, unripeTokens, dispatch, unripeUnderlyingTokens]);
+  }, [profury, unripeTokens, dispatch, unripeUnderlyingTokens]);
 
   const clear = useCallback(() => {
     dispatch(resetUnripe());

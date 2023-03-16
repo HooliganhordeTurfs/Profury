@@ -63,11 +63,11 @@ const PlaceInLineSlider: React.FC<{
 }> = ({ disabled, canSlide = true, isRange = true }) => {
   // state
   const [index, setIndex] = useAtom(placeInLineAtom);
-  const beanstalkField = useSelector<AppState, AppState['_beanstalk']['field']>(
-    (state) => state._beanstalk.field
+  const profuryField = useSelector<AppState, AppState['_profury']['field']>(
+    (state) => state._profury.field
   );
 
-  const fieldMaxIndex = beanstalkField?.podLine || ZERO_BN;
+  const fieldMaxIndex = profuryField?.podLine || ZERO_BN;
 
   return (
     <Stack>

@@ -16,16 +16,16 @@ export default function useRevitalized() {
 
   /// Balances
   const balances      = useFarmerSiloBalances();
-  const beanstalkSilo = useSelector<AppState, AppState['_beanstalk']['silo']>((state) => state._beanstalk.silo);
-  const currentSeason = useSelector<AppState, AppState['_beanstalk']['sun']['season']>((state) => state._beanstalk.sun.season);
+  const profurySilo = useSelector<AppState, AppState['_profury']['silo']>((state) => state._profury.silo);
+  const currentSeason = useSelector<AppState, AppState['_profury']['sun']['season']>((state) => state._profury.sun.season);
 
   return useMemo(() => {
     const urBean      = getChainToken(UNRIPE_BEAN);
     const urBeanCrv3  = getChainToken(UNRIPE_BEAN_CRV3);
-    const expectedBDV = (addr: string) => (balances[addr]?.deposited.amount || ZERO_BN).times(beanstalkSilo.balances[addr]?.bdvPerToken || ZERO_BN);
+    const expectedBDV = (addr: string) => (balances[addr]?.deposited.amount || ZERO_BN).times(profurySilo.balances[addr]?.bdvPerToken || ZERO_BN);
     const actualBDV   = (addr: string) => (balances[addr]?.deposited.bdv || ZERO_BN);
     const expectedGrownBDV = (addr: string) => (balances[addr]?.deposited.crates.reduce((ss, c) =>
-      ss.plus(currentSeason.minus(c.season).times(c.amount.times(beanstalkSilo.balances[addr]?.bdvPerToken))), ZERO_BN) || ZERO_BN
+      ss.plus(currentSeason.minus(c.season).times(c.amount.times(profurySilo.balances[addr]?.bdvPerToken))), ZERO_BN) || ZERO_BN
     );
     const actualGrownBDV = (addr: string) => (balances[addr]?.deposited.crates.reduce((ss, c) => ss.plus(currentSeason.minus(c.season).times(c.bdv)), ZERO_BN) || ZERO_BN);
 
@@ -62,7 +62,7 @@ export default function useRevitalized() {
     };
   }, [
     balances,
-    beanstalkSilo,
+    profurySilo,
     currentSeason,
     getChainToken,
   ]);

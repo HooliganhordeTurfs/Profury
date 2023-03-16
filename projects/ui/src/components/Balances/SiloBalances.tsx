@@ -17,7 +17,7 @@ import {
   UNRIPE_BEAN,
   UNRIPE_BEAN_CRV3,
 } from '~/constants/tokens';
-import useWhitelist from '~/hooks/beanstalk/useWhitelist';
+import useWhitelist from '~/hooks/profury/useWhitelist';
 import { BeanstalkPalette, IconSize } from '../App/muiTheme';
 import Fiat from '~/components/Common/Fiat';
 
@@ -28,7 +28,7 @@ import { AppState } from '~/state';
 import { ONE_BN, ZERO_BN } from '~/constants';
 import useFarmerStalkByToken from '~/hooks/farmer/useFarmerStalkByToken';
 import useGetChainToken from '~/hooks/chain/useGetChainToken';
-import useUnripeUnderlyingMap from '~/hooks/beanstalk/useUnripeUnderlying';
+import useUnripeUnderlyingMap from '~/hooks/profury/useUnripeUnderlying';
 import Stat from '../Common/Stat';
 
 const ARROW_CONTAINER_WIDTH = 20;

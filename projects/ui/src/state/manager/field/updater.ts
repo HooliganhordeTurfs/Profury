@@ -5,9 +5,9 @@ import useChainId from '~/hooks/chain/useChainId';
 import useBlocks from '~/hooks/ledger/useBlocks';
 import useAccount from '~/hooks/ledger/useAccount';
 import EventProcessor from '~/lib/Beanstalk/EventProcessor';
-import useWhitelist from '~/hooks/beanstalk/useWhitelist';
-import useSeason from '~/hooks/beanstalk/useSeason';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useWhitelist from '~/hooks/profury/useWhitelist';
+import useSeason from '~/hooks/profury/useSeason';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import { EventCacheName } from '../events2';
 import useEvents, { GetQueryFilters } from '../events2/updater';
 import { updateFarmerField, resetFarmerField } from './actions';
@@ -17,7 +17,7 @@ export const useFetchFarmerField = () => {
   const dispatch  = useDispatch();
 
   /// Contracts
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   /// Data
   const account   = useAccount();
@@ -32,29 +32,29 @@ export const useFetchFarmerField = () => {
     fromBlock,
     toBlock,
   ) => [
-    beanstalk.queryFilter(
-      beanstalk.filters['Sow(address,uint256,uint256,uint256)'](_account),
+    profury.queryFilter(
+      profury.filters['Sow(address,uint256,uint256,uint256)'](_account),
       fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters.Harvest(_account),
+    profury.queryFilter(
+      profury.filters.Harvest(_account),
       fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters.PlotTransfer(_account, null), // from
+    profury.queryFilter(
+      profury.filters.PlotTransfer(_account, null), // from
       fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
       toBlock   || 'latest',
     ),
-    beanstalk.queryFilter(
-      beanstalk.filters.PlotTransfer(null, _account), // to
+    profury.queryFilter(
+      profury.filters.PlotTransfer(null, _account), // to
       fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
       toBlock   || 'latest',
     ),
   ], [
     blocks,
-    beanstalk,
+    profury,
   ]);
   
   const [fetchFieldEvents] = useEvents(EventCacheName.FIELD, getQueryFilters);

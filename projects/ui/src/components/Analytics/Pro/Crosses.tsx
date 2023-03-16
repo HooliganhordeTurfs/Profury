@@ -3,8 +3,8 @@ import { tickFormatLocale } from '~/components/Analytics/formatters';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';
 import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/SeasonPlot';
 import { SeasonalCrossesDocument, SeasonalCrossesQuery } from '~/generated/graphql';
-import useSeason from '~/hooks/beanstalk/useSeason';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import useSeason from '~/hooks/profury/useSeason';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 
 import { FC } from '~/types';
 

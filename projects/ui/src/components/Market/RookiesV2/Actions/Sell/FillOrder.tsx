@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { bigNumberResult, displayBN, displayFullBN } from '~/util';
 import { useBeanstalkContract } from '~/hooks/ledger/useContract';
-import usePodOrder from '~/hooks/beanstalk/usePodOrder';
+import usePodOrder from '~/hooks/profury/usePodOrder';
 import FillOrderForm from '~/components/Market/PodsV2/Actions/Sell/FillOrderForm';
 import StatHorizontal from '~/components/Common/StatHorizontal';
 import Row from '~/components/Common/Row';
@@ -14,7 +14,7 @@ import { BEAN, PODS } from '~/constants/tokens';
 const FillOrder: React.FC<{}> = () => {
   const { orderID } = useParams<{ orderID?: string }>();
   const { data: podOrder, source, loading, error } = usePodOrder(orderID);
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   /// Verify that this order is still live via the contract.
   const [orderValid, setOrderValid] = useState<null | boolean>(null);
@@ -22,7 +22,7 @@ const FillOrder: React.FC<{}> = () => {
     if (orderID) {
       (async () => {
         try {
-          const _order = await beanstalk.podOrderById(orderID.toString()).then(bigNumberResult);
+          const _order = await profury.podOrderById(orderID.toString()).then(bigNumberResult);
           console.debug('[pages/order] order = ', _order);
           setOrderValid(_order?.gt(0));
         } catch (e) {
@@ -31,7 +31,7 @@ const FillOrder: React.FC<{}> = () => {
         }
       })();
     }
-  }, [beanstalk, orderID]);
+  }, [profury, orderID]);
 
   /// Loading isn't complete until orderValid is set
   if (loading || orderValid === null) {

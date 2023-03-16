@@ -1,5 +1,5 @@
 import { SeasonalPriceDocument, useFarmerSiloAssetSnapshotsQuery, useFarmerSiloRewardsQuery } from '~/generated/graphql';
-import useSeasonsQuery, { SeasonRange } from '~/hooks/beanstalk/useSeasonsQuery';
+import useSeasonsQuery, { SeasonRange } from '~/hooks/profury/useSeasonsQuery';
 import useInterpolateDeposits from '~/hooks/farmer/useInterpolateDeposits';
 import useInterpolateStalk from '~/hooks/farmer/useInterpolateStalk';
 

@@ -19,7 +19,7 @@ import PlotInputField from '~/components/Common/Form/PlotInputField';
 import TxnAccordion from '~/components/Common/TxnAccordion';
 import { ONE_BN, POD_MARKET_TOOLTIPS, ZERO_BN } from '~/constants';
 import { BEAN, PODS } from '~/constants/tokens';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import useGetChainToken from '~/hooks/chain/useGetChainToken';
 import useFarmerListingsLedger from '~/hooks/farmer/useFarmerListingsLedger';
 import useFarmerPlots from '~/hooks/farmer/useFarmerPlots';
@@ -234,7 +234,7 @@ const CreateSellListing: React.FC<{}> = () => {
 
   /// Ledger
   const { data: signer } = useSigner();
-  const beanstalk = useBeanstalkContract(signer);
+  const profury = useBeanstalkContract(signer);
 
   /// Beanstalk
   const harvestableIndex = useHarvestableIndex();

@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, Tooltip, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import TokenIcon from '~/components/Common/TokenIcon';
-import humidityIcon from '~/img/beanstalk/humidity-icon.svg';
+import humidityIcon from '~/img/profury/humidity-icon.svg';
 import { displayBN, displayFullBN } from '~/util';
 import { SPROUTS } from '~/constants/tokens';
 import FertilizerImage, { FertilizerState } from './FertilizerImage';

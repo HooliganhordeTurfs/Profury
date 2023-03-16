@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import useChainConstant from '~/hooks/chain/useChainConstant';
 import { useBeanstalkContract, useFertilizerContract } from '~/hooks/ledger/useContract';
-import { REPLANT_INITIAL_ID } from '~/hooks/beanstalk/useHumidity';
+import { REPLANT_INITIAL_ID } from '~/hooks/profury/useHumidity';
 import useChainId from '~/hooks/chain/useChainId';
 import { tokenResult } from '~/util';
 import useBlocks from '~/hooks/ledger/useBlocks';
@@ -22,7 +22,7 @@ export const useFetchFarmerBarn = () => {
   /// Contracts
   const [fetchFertBalances] = useFertilizerBalancesLazyQuery();
   const fertContract = useFertilizerContract();
-  const beanstalk    = useBeanstalkContract();
+  const profury    = useBeanstalkContract();
   const blocks       = useBlocks();
   const account      = useAccount();
 
@@ -102,9 +102,9 @@ export const useFetchFarmerBarn = () => {
         fertilized,
       ] = await Promise.all([
         /// How much of each ID is Unfertilized (aka a Sprout)
-        beanstalk.balanceOfUnfertilized(account, idStrings).then(tokenResult(SPROUTS)),
+        profury.balanceOfUnfertilized(account, idStrings).then(tokenResult(SPROUTS)),
         /// How much of each ID is Fertilized   (aka a Fertilized Sprout)
-        beanstalk.balanceOfFertilized(account, idStrings).then(tokenResult(SPROUTS)),
+        profury.balanceOfFertilized(account, idStrings).then(tokenResult(SPROUTS)),
       ] as const);
 
       console.debug('[farmer/fertilizer/updater] RESULT: balances =', balances, unfertilized.toString(), fertilized.toString());
@@ -133,7 +133,7 @@ export const useFetchFarmerBarn = () => {
     }
   }, [
     dispatch,
-    beanstalk,
+    profury,
     replantId,
     initialized,
     account,

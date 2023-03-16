@@ -12,7 +12,7 @@
  */
 export enum SupportedChainId {
   MAINNET = 1,
-  CUJO = 31337,     // pre-exploit, beanstalk replanted
+  CUJO = 31337,     // pre-exploit, profury replanted
   LOCALHOST = 1337,
 }
 

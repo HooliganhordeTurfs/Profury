@@ -13,16 +13,16 @@ import { resetPools, updateBeanPools, UpdatePoolPayload } from './actions';
 
 export const useFetchPools = () => {
   const dispatch = useDispatch();
-  const beanstalk = useBeanstalkContract();
-  const [beanstalkPriceContract, chainId] = useBeanstalkPriceContract();
+  const profury = useBeanstalkContract();
+  const [profuryPriceContract, chainId] = useBeanstalkPriceContract();
   const provider = useProvider();
 
   // Handlers
   const _fetch = useCallback(
     async () => {
       try {
-        if (beanstalk && beanstalkPriceContract) {
-          console.debug('[bean/pools/useGetPools] FETCH', beanstalkPriceContract.address, chainId);
+        if (profury && profuryPriceContract) {
+          console.debug('[bean/pools/useGetPools] FETCH', profuryPriceContract.address, chainId);
           const Pools = getChainConstant(ALL_POOLS, chainId);
           const Bean  = getChainConstant(BEAN, chainId);
 
@@ -33,12 +33,12 @@ export const useFetchPools = () => {
             totalSupply,
             totalDeltaB,
           ] = await Promise.all([
-            beanstalkPriceContract.price(),
+            profuryPriceContract.price(),
             // FIXME: these should probably reside in bean/token/updater,
-            // but the above beanstalkPriceContract call also grabs the 
+            // but the above profuryPriceContract call also grabs the 
             // aggregate price, so for now we bundle them here.
             beanErc20.totalSupply().then(tokenResult(Bean)),
-            beanstalk.totalDeltaB().then(tokenResult(Bean)), // TWAdeltaB
+            profury.totalDeltaB().then(tokenResult(Bean)), // TWAdeltaB
           ]);
 
           if (!priceResult) return;
@@ -80,7 +80,7 @@ export const useFetchPools = () => {
                       },
                     }))
                     .catch((err) => {
-                      console.debug('[beanstalk/pools/updater] Failed to get LP token supply', POOL.lpToken);
+                      console.debug('[profury/pools/updater] Failed to get LP token supply', POOL.lpToken);
                       console.error(err);
                       throw err;
                     })
@@ -111,8 +111,8 @@ export const useFetchPools = () => {
     },
     [
       dispatch,
-      beanstalkPriceContract,
-      beanstalk,
+      profuryPriceContract,
+      profury,
       chainId,
       provider
     ]

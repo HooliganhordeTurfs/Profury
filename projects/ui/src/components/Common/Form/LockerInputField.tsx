@@ -5,7 +5,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import useToggle from '~/hooks/display/useToggle';
 import { displayBN, MaxBN, MinBN , PlotMap } from '~/util';
 import PlotSelectDialog from '~/components/Field/PlotSelectDialog';
-import useHarvestableIndex from '~/hooks/beanstalk/useHarvestableIndex';
+import useHarvestableIndex from '~/hooks/profury/useHarvestableIndex';
 import { PODS } from '~/constants/tokens';
 
 import { ZERO_BN } from '~/constants';

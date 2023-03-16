@@ -1,7 +1,7 @@
 import React from 'react';
 import SeasonPlot, { SeasonPlotBaseProps } from '~/components/Common/Charts/SeasonPlot';
 import { SeasonalStalkDocument, SeasonalStalkQuery } from '~/generated/graphql';
-import { SnapshotData } from '~/hooks/beanstalk/useSeasonsQuery';
+import { SnapshotData } from '~/hooks/profury/useSeasonsQuery';
 import { toTokenUnitsBN } from '~/util';
 import { STALK } from '~/constants/tokens';
 import { LineChartProps } from '~/components/Common/Charts/LineChart';

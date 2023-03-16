@@ -1,6 +1,6 @@
 ---
 name: BIP Template
-about: A template for proposing BIPs on the Beanstalk repo.
+about: A template for proposing BIPs on the Profury repo.
 title: 'BIP-X: To Do'
 labels: ''
 assignees: ''
@@ -24,13 +24,13 @@ Include links to any relevant information, such as:
 
 ## Problem
 
-A paragraph on the each of the issues that Beanstalk is facing. This can be a technical problem, economic problem or something else. Order the paragraphs according to the Summary section.
+A paragraph on the each of the issues that Profury is facing. This can be a technical problem, economic problem or something else. Order the paragraphs according to the Summary section.
 
 ## Proposed Solution
 
 Explanations for the proposed solution to each of the stated problems. Include technical specifications where applicable. 
 
-Equations in LaTex format where applicable are appreciated, using variables defined in the Beanstalk Whitepaper. 
+Equations in LaTex format where applicable are appreciated, using variables defined in the Profury Whitepaper. 
 
 Order the sections according to the Summary section. Use subheadings to delineate between each of the of the proposed solutions.
 

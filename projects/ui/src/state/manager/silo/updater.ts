@@ -9,8 +9,8 @@ import { bigNumberResult, tokenResult } from '~/util';
 import useBlocks from '~/hooks/ledger/useBlocks';
 import useAccount from '~/hooks/ledger/useAccount';
 import EventProcessor from '~/lib/Beanstalk/EventProcessor';
-import useWhitelist from '~/hooks/beanstalk/useWhitelist';
-import useSeason from '~/hooks/beanstalk/useSeason';
+import useWhitelist from '~/hooks/profury/useWhitelist';
+import useSeason from '~/hooks/profury/useSeason';
 import { DepositCrate } from '.';
 import { EventCacheName } from '../events2';
 import useEvents, { GetQueryFilters } from '../events2/updater';
@@ -21,7 +21,7 @@ export const useFetchFarmerSilo = () => {
   const dispatch  = useDispatch();
 
   /// Contracts
-  const beanstalk = useBeanstalkContract();
+  const profury = useBeanstalkContract();
 
   /// Data
   const account   = useAccount();
@@ -33,45 +33,45 @@ export const useFetchFarmerSilo = () => {
   const getQueryFilters = useCallback<GetQueryFilters>(
     (_account, fromBlock, toBlock,) => ([
       // Silo (Generalized v2)
-      beanstalk.queryFilter(
-        beanstalk.filters.AddDeposit(_account),
+      profury.queryFilter(
+        profury.filters.AddDeposit(_account),
         fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
         toBlock   || 'latest',
       ),
-      beanstalk.queryFilter(
-        beanstalk.filters.AddWithdrawal(_account),
+      profury.queryFilter(
+        profury.filters.AddWithdrawal(_account),
         fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
         toBlock   || 'latest',
       ),
-      beanstalk.queryFilter(
-        beanstalk.filters.RemoveWithdrawal(_account),
+      profury.queryFilter(
+        profury.filters.RemoveWithdrawal(_account),
         fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
         toBlock   || 'latest',
       ),
-      beanstalk.queryFilter(
-        beanstalk.filters.RemoveWithdrawals(_account),
+      profury.queryFilter(
+        profury.filters.RemoveWithdrawals(_account),
         fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
         toBlock   || 'latest',
       ),
-      beanstalk.queryFilter(
-        beanstalk.filters.RemoveDeposit(_account),
+      profury.queryFilter(
+        profury.filters.RemoveDeposit(_account),
         fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
         toBlock   || 'latest',
       ),
-      beanstalk.queryFilter(
-        beanstalk.filters.RemoveDeposits(_account),
+      profury.queryFilter(
+        profury.filters.RemoveDeposits(_account),
         fromBlock || blocks.BEANSTALK_GENESIS_BLOCK,
         toBlock   || 'latest',
       ),
     ]),
-    [beanstalk, blocks.BEANSTALK_GENESIS_BLOCK]
+    [profury, blocks.BEANSTALK_GENESIS_BLOCK]
   );
   
   const [fetchSiloEvents] = useEvents(EventCacheName.SILO, getQueryFilters);
   
   ///
   const initialized = !!(
-    beanstalk
+    profury
     && account
     && fetchSiloEvents
     && season?.gt(0)
@@ -92,11 +92,11 @@ export const useFetchFarmerSilo = () => {
       ] = await Promise.all([
         // FIXME: multicall this section
         /// balanceOfStalk() returns `stalk + earnedStalk`
-        beanstalk.balanceOfStalk(account).then(tokenResult(STALK)),
-        beanstalk.balanceOfGrownStalk(account).then(tokenResult(STALK)),
-        beanstalk.balanceOfSeeds(account).then(tokenResult(SEEDS)),
-        beanstalk.balanceOfRoots(account).then(bigNumberResult),
-        beanstalk.balanceOfEarnedBeans(account).then(tokenResult(BEAN)),
+        profury.balanceOfStalk(account).then(tokenResult(STALK)),
+        profury.balanceOfGrownStalk(account).then(tokenResult(STALK)),
+        profury.balanceOfSeeds(account).then(tokenResult(SEEDS)),
+        profury.balanceOfRoots(account).then(bigNumberResult),
+        profury.balanceOfEarnedBeans(account).then(tokenResult(BEAN)),
         fetchSiloEvents(),
       ] as const);
 
@@ -175,7 +175,7 @@ export const useFetchFarmerSilo = () => {
   }, [
     dispatch,
     fetchSiloEvents,
-    beanstalk,
+    profury,
     season,
     whitelist,
     account,
